@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PR 2132: phone slash commands</title>
+<style>body{font-family:-apple-system,system-ui,sans-serif;max-width:720px;margin:24px auto;padding:0 16px;line-height:1.5;background:#fff;color:#111}video{width:100%;max-width:400px;border-radius:12px}@media (prefers-color-scheme:dark){body{background:#111;color:#eee}a{color:#8ab4f8}}</style></head>
+<body>
+<h1>PR 2132: slash commands on the phone</h1>
+<p>iOS Simulator (iPhone 17 Pro, iOS 26.5), with no Endpoint configured, so every answer is local. Not a physical iPhone.</p>
+<h2>Advertised commands</h2>
+<p>The Commands button offers <code>/look</code>, <code>/people</code>, <code>/exits</code>, and <code>/help</code>. Shown: choosing <code>/exits</code>, then <code>/help</code>, then going to the cottage for <code>/people</code> and <code>/look</code>.</p>
+<video src="advertised.mp4" controls playsinline muted></video>
+<h2>Unadvertised and refused commands</h2>
+<p><code>/wait 60</code> and <code>/debug clock</code> work. <code>/save</code> is refused with "That command isn't available here. Try /help." and the draft is kept.</p>
+<video src="unadvertised.mp4" controls playsinline muted></video>
+<p><a href="https://github.com/dmooney/Rundale/pull/2132">Pull request</a></p>
+</body></html>
