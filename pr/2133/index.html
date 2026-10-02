@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PR 2133: themed failure lines</title>
+<style>body{font-family:-apple-system,system-ui,sans-serif;max-width:720px;margin:24px auto;padding:0 16px;line-height:1.5;background:#fff;color:#111}video{width:100%;max-width:400px;border-radius:12px}@media (prefers-color-scheme:dark){body{background:#111;color:#eee}a{color:#8ab4f8}}</style></head>
+<body>
+<h1>PR 2133: a line for each failure</h1>
+<p>iOS Simulator (iPhone 17 Pro, iOS 26.5) with the deterministic mock Endpoint. Not a physical iPhone.</p>
+<h2>The storyteller is unavailable</h2>
+<p>At Connolly Cottage, the mock Endpoint fails the reply as an unavailable provider: "The storyteller has gone out to the bog and isn't back yet. Try again in a while."</p>
+<video src="unavailable.mp4" controls playsinline muted></video>
+<h2>The connection drops, then Retry</h2>
+<p>The mock drops the connection once: "The road out of the parish is washed away …". Retry then gets Mícheál's reply.</p>
+<video src="offline.mp4" controls playsinline muted></video>
+<p><a href="https://github.com/dmooney/Rundale/pull/2133">Pull request</a></p>
+</body></html>
