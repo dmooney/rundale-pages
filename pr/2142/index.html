@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PR 2142: mobile line exit</title>
+<style>body{font-family:-apple-system,system-ui,sans-serif;max-width:720px;margin:24px auto;padding:0 16px;line-height:1.5;background:#fff;color:#111}video,img{width:100%;max-width:400px;border-radius:12px}@media (prefers-color-scheme:dark){body{background:#111;color:#eee}a{color:#8ab4f8}}</style></head>
+<body>
+<h1>Mobile line exit (issue 2046)</h1>
+<p>iOS Simulator (Rundale Phase 1 Large iPhone, iPhone 17 Pro, iOS 26.5) against the live <code>limerick-prod</code> Endpoints. Not a physical iPhone.</p>
+<h2>Live Endpoint suite</h2>
+<p>All four tests pass, paced for viewing: a dialogue turn with Mícheál at Connolly Cottage, Stop during a streamed reply, "Let us be off, walking on toward the Letter Office" classified by the intent model and run as one move, and "ask Connolly about the household" asking which Connolly before anyone answers.</p>
+<video src="live-suite.mp4" controls playsinline muted></video>
+<h2>Gates</h2>
+<p><code>just mobile-verify --phase all</code>: PASS on the iPhone 17 Pro simulator (24 passed, 13.7 min) and the iPhone SE (3rd generation) simulator (24 passed, 11.4 min).</p>
+<p><a href="https://github.com/dmooney/Rundale/pull/2142">Pull request</a></p>
+</body></html>
