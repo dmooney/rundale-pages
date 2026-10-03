@@ -1,0 +1,13 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PR 2139: follow-newest scroll</title>
+<style>body{font-family:-apple-system,system-ui,sans-serif;max-width:720px;margin:24px auto;padding:0 16px;line-height:1.5;background:#fff;color:#111}video,img{width:100%;max-width:400px;border-radius:12px}@media (prefers-color-scheme:dark){body{background:#111;color:#eee}a{color:#8ab4f8}}</style></head>
+<body>
+<h1>Follow-newest keeps a non-drag scroll (#2081)</h1>
+<p>iOS Simulator (Rundale Phase 1 Small iPhone, iOS 26.5) with the fixture transcript. Not a physical iPhone.</p>
+<p>The fix is in the transcript controller: while following the newest row, a scroll that is not a drag is no longer undone on the next layout pass. Players do not normally make such a scroll in this app, so there is nothing new to see; the recording shows the existing reading and follow behaviour unchanged with the fix in place.</p>
+<h2>Reading history, New text, and following new replies</h2>
+<p><code>testAcceptedMessagesFollowLatestAcrossRepeatedTurnsAndHistoryReading</code> then <code>testReadingHistoryExposesNewTextAndReturnsToNewest</code>, both passing.</p>
+<video src="follow-newest.mp4" controls playsinline muted></video>
+<p><a href="https://github.com/dmooney/Rundale/issues/2081">Issue 2081</a></p>
+</body></html>
