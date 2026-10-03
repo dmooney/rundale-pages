@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PR 2141: faster mobile-verify</title>
+<style>body{font-family:-apple-system,system-ui,sans-serif;max-width:720px;margin:24px auto;padding:0 16px;line-height:1.5;background:#fff;color:#111}video,img{width:100%;max-width:400px;border-radius:12px}table{border-collapse:collapse}td,th{border:1px solid #8888;padding:4px 8px;text-align:right}@media (prefers-color-scheme:dark){body{background:#111;color:#eee}a{color:#8ab4f8}}</style></head>
+<body>
+<h1>Faster mobile-verify</h1>
+<p>iOS Simulator only; not a physical iPhone.</p>
+<h2>Gate timings (Rundale Phase 1 Large iPhone, <code>--phase all --no-cache</code>, 4 workers)</h2>
+<table><tr><th>Suite</th><th>Before</th><th>Run 2</th><th>Run 3</th></tr>
+<tr><td>Phase 1</td><td>643 s</td><td>314 s</td><td>303 s</td></tr>
+<tr><td>Phase 2</td><td>278 s</td><td>211 s</td><td>209 s</td></tr>
+<tr><td>Phase 3</td><td>146 s</td><td>167 s</td><td>170 s</td></tr>
+<tr><td>Phase 4</td><td>278 s</td><td>284 s</td><td>286 s</td></tr>
+<tr><td>Whole run</td><td>~25 min</td><td>18 m 45 s</td><td>18 m 30 s</td></tr></table>
+<p>Phases 2 to 4 are each one UI test class, and Xcode parallelises by class, so they do not speed up yet.</p>
+<h2>Shared recording pacing</h2>
+<p><code>RundaleSceneUITests</code> on Rundale Phase 1 Small iPhone with <code>TEST_RUNNER_RUNDALE_DEMO_HOLD=1</code>, using the shared <code>hold()</code> in <code>DemoPacing.swift</code>. Both tests pass. Without the variable the same run takes 42 s of test time; with it, 65 s.</p>
+<video src="paced-scene-tests.mp4" controls playsinline muted></video>
+<p><a href="https://github.com/dmooney/Rundale/pull/2141">Pull request</a></p>
+</body></html>
