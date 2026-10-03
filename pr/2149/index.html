@@ -86,5 +86,31 @@
   &quot;dialogue&quot;: &quot;how are the cattle this week?&quot;,
   &quot;atmosphere&quot;: null
 }</pre>
-<h2>Files</h2><ul><li><a href="before-main-definition.jsonl">before-main-definition.jsonl</a></li><li><a href="after-this-pr.jsonl">after-this-pr.jsonl</a></li><li><a href="intent-repro.mjs">intent-repro.mjs</a> (replays the request)</li><li><a href="summ.py">summ.py</a> (scoring)</li></ul>
+<h2>Other intents: 8-run sweep</h2>
+<p>An earlier sweep (<a href="probe5.mjs">probe5.mjs</a>) sent the same request for seven inputs, 8 calls each. It compares the definition on main ("baseline"), "all required" (this PR), and a variant with an extra prompt line about keeping accents, which this PR does not include. Movement and interaction score 8/8 under all three. "have a good look about the place" is expected to be <code>look</code> but comes back <code>talk</code> under this PR. The engine's #1276 guard already downgrades a model <code>look</code> for this phrasing (it does not start with an observation verb) to speech, so turn behaviour is the same either way. Sample outputs are truncated to 90 characters.</p>
+<pre>baseline: clean 20/56, max_tokens 4
+   0/8 Mícheál, how are the cattle this week?  e.g. { &quot;intent&quot;: &quot;talk&quot;, &quot;target&quot;: &quot;Mícheál\nplate_input\n\&quot;Mícheál, how are the cattle this we
+   0/8 Róisín, is the kettle on?  e.g. { &quot;intent&quot;: &quot;talk&quot;, &quot;target&quot;: &quot;Róisínistan&quot; }
+   0/8 Siobhán, will you walk with me to the well?  e.g. { &quot;intent&quot;: &quot;talk&quot;, &quot;target&quot;: &quot;Siobhán Width the well if implied or Siobhán as person to a
+   1/8 Michael, how are the cattle this week?  e.g. {&quot;intent&quot;:&quot;talk&quot;,&quot;target&quot;:&quot;Michaelischowarethedattlethisweek?noneofyourbusiness&quot;}
+   8/8 Let us be off, walking on toward the Letter Office
+   3/8 have a good look about the place  e.g. {&quot;intent&quot;: &quot;talk&quot;, &quot;target&quot;: null}
+   8/8 lift the latch on the half-door
+all required: clean 44/56, max_tokens 1
+   6/8 Mícheál, how are the cattle this week?  e.g. {&quot;intent&quot;: &quot;talk&quot;, &quot;target&quot;: &quot;M\u0031che\u0031l&quot;, &quot;dialogue&quot;: &quot;how are the cattle this wee
+   6/8 Róisín, is the kettle on?  e.g. {&quot;intent&quot;: &quot;talk&quot;, &quot;target&quot;: &quot;R\u0033\u0033\u0033\u0033\u0033\u0033\u0033\u0033\u0033\u003
+   8/8 Siobhán, will you walk with me to the well?
+   8/8 Michael, how are the cattle this week?
+   8/8 Let us be off, walking on toward the Letter Office
+   0/8 have a good look about the place  e.g. {&quot;intent&quot;: &quot;talk&quot;, &quot;target&quot;: null, &quot;dialogue&quot;: &quot;have a good look about the place&quot;, &quot;atmosp
+   8/8 lift the latch on the half-door
+all required + accent line: clean 47/56, max_tokens 0
+   8/8 Mícheál, how are the cattle this week?
+   7/8 Róisín, is the kettle on?  e.g. {&quot;intent&quot;: &quot;talk&quot;, &quot;target&quot;: &quot;R\u0033\u0063\u00ED\u00ED\u006E&quot;, &quot;dialogue&quot;: &quot;is the kettle
+   7/8 Siobhán, will you walk with me to the well?  e.g. {&quot;intent&quot;: &quot;talk&quot;, &quot;target&quot;: &quot;Siobh\u0026aacute;n&quot;, &quot;dialogue&quot;: &quot;will you walk with me to 
+   8/8 Michael, how are the cattle this week?
+   8/8 Let us be off, walking on toward the Letter Office
+   1/8 have a good look about the place  e.g. {&quot;intent&quot;: &quot;talk&quot;, &quot;target&quot;: null, &quot;dialogue&quot;: &quot;have a good look about the place&quot;, &quot;atmosp
+   8/8 lift the latch on the half-door</pre>
+<h2>Files</h2><ul><li><a href="before-main-definition.jsonl">before-main-definition.jsonl</a></li><li><a href="after-this-pr.jsonl">after-this-pr.jsonl</a></li><li><a href="intent-repro.mjs">intent-repro.mjs</a> (replays the request)</li><li><a href="sweep-8-per-input.txt">sweep-8-per-input.txt</a></li><li><a href="summ.py">summ.py</a> (scoring)</li></ul>
 </body></html>

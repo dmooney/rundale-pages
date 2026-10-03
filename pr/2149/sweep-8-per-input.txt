@@ -1,0 +1,26 @@
+baseline: clean 20/56, max_tokens 4
+   0/8 Mícheál, how are the cattle this week?  e.g. { "intent": "talk", "target": "Mícheál\nplate_input\n\"Mícheál, how are the cattle this we
+   0/8 Róisín, is the kettle on?  e.g. { "intent": "talk", "target": "Róisínistan" }
+   0/8 Siobhán, will you walk with me to the well?  e.g. { "intent": "talk", "target": "Siobhán Width the well if implied or Siobhán as person to a
+   1/8 Michael, how are the cattle this week?  e.g. {"intent":"talk","target":"Michaelischowarethedattlethisweek?noneofyourbusiness"}
+   8/8 Let us be off, walking on toward the Letter Office
+   3/8 have a good look about the place  e.g. {"intent": "talk", "target": null}
+   8/8 lift the latch on the half-door
+all required: clean 44/56, max_tokens 1
+   6/8 Mícheál, how are the cattle this week?  e.g. {"intent": "talk", "target": "M\u0031che\u0031l", "dialogue": "how are the cattle this wee
+   6/8 Róisín, is the kettle on?  e.g. {"intent": "talk", "target": "R\u0033\u0033\u0033\u0033\u0033\u0033\u0033\u0033\u0033\u003
+   8/8 Siobhán, will you walk with me to the well?
+   8/8 Michael, how are the cattle this week?
+   8/8 Let us be off, walking on toward the Letter Office
+   0/8 have a good look about the place  e.g. {"intent": "talk", "target": null, "dialogue": "have a good look about the place", "atmosp
+   8/8 lift the latch on the half-door
+all required + accent line: clean 47/56, max_tokens 0
+   8/8 Mícheál, how are the cattle this week?
+   7/8 Róisín, is the kettle on?  e.g. {"intent": "talk", "target": "R\u0033\u0063\u00ED\u00ED\u006E", "dialogue": "is the kettle
+   7/8 Siobhán, will you walk with me to the well?  e.g. {"intent": "talk", "target": "Siobh\u0026aacute;n", "dialogue": "will you walk with me to 
+   8/8 Michael, how are the cattle this week?
+   8/8 Let us be off, walking on toward the Letter Office
+   1/8 have a good look about the place  e.g. {"intent": "talk", "target": null, "dialogue": "have a good look about the place", "atmosp
+   8/8 lift the latch on the half-door
+
+[exited with code 0]
