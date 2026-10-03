@@ -7,8 +7,8 @@
 <p>iOS Simulator (iPhone 17 Pro, iOS 26.5), fixture transcript. Not a physical iPhone.</p>
 <p><code>testComposerGrowsWithALongDraft</code>, paced for viewing: a long draft grows the field to its five-line limit, above the keyboard, with the transcript still visible. Before the fix it stopped at about two lines and scrolled inside the field.</p>
 <video src="composer.mp4" controls playsinline muted></video>
-<h2>iPhone SE, largest standard text size, People strip open</h2>
-<p><code>testLargestStandardSizeFitsGrownComposerAndPeopleStripAboveKeyboard</code> on the iPhone SE (3rd generation) simulator: the five-line composer, the People strip, Send, and the People/Commands shortcuts all stay above the keyboard, with a line of transcript visible.</p>
-<img src="se-xxxlarge-people-strip.png" alt="Grown composer and People strip at xxxLarge on iPhone SE">
+<h2>iPhone SE: default size and xxxLarge</h2>
+<p>The line limit is sized to the space above the keyboard (at most five lines, within about 30% of the height). Left: default text size, four lines. Right: xxxLarge with the command strip open, three lines; the strip, field, Send, and People/Commands row are clear of the keyboard. An earlier revision of this PR let the field reach five lines here, which pushed the People/Commands row under the keyboard's suggestion bar.</p>
+<img src="se-normal-and-xxxlarge.png" alt="Composer on iPhone SE at default size and xxxLarge">
 <p><a href="https://github.com/dmooney/Rundale/pull/2145">Pull request</a></p>
 </body></html>
