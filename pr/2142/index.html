@@ -6,9 +6,40 @@
 <h1>Mobile line exit (issue 2046)</h1>
 <p>iOS Simulator (Rundale Phase 1 Large iPhone, iPhone 17 Pro, iOS 26.5) against the live <code>limerick-prod</code> Endpoints. Not a physical iPhone.</p>
 <h2>Live Endpoint suite</h2>
-<p>All four tests pass, paced for viewing: a dialogue turn with Mícheál at Connolly Cottage, Stop during a streamed reply, "Let us be off, walking on toward the Letter Office" classified by the intent model and run as one move, and "ask Connolly about the household" asking which Connolly before anyone answers.</p>
+<p>All four tests pass, paced for viewing (recorded on the previous head; the live suite file is unchanged since): a dialogue turn with Mícheál at Connolly Cottage, Stop during a streamed reply, "Let us be off, walking on toward the Letter Office" classified by the intent model and run as one move, and "ask Connolly about the household" asking which Connolly before anyone answers.</p>
 <video src="live-suite.mp4" controls playsinline muted></video>
-<h2>Gates</h2>
-<p><code>just mobile-verify --phase all</code>: PASS on the iPhone 17 Pro simulator (24 passed, 13.7 min) and the iPhone SE (3rd generation) simulator (24 passed, 11.4 min).</p>
+<h2>Gates: <code>just mobile-verify --phase all</code></h2>
+<p>Both runs are on this PR's head. iPhone 17 Pro simulator: PASS (22 passed, 1 skipped, 13.5 min). iPhone SE (3rd generation) simulator: PASS (24 passed, 11.5 min). Full reports: <a href="verify-iphone-17-pro.json">iPhone 17 Pro verify.json</a>, <a href="verify-iphone-se.json">iPhone SE verify.json</a>.</p>
+<p>Cache: every simulator suite ran fresh on both devices. The SE run reused 8 cached passes, all host-only checks that do not use the simulator (Swift package tests, unsigned device build, Rust mobile crates, world sheet); they ran fresh on the same code in the iPhone 17 Pro run just before. The one skip is the simulator boot step, because that simulator was already booted. The three "unavailable" items are the opt-in live suite (run separately above) and Phases 5 and 6, not yet implemented.</p>
+<style>table{border-collapse:collapse;font-size:14px}td,th{border:1px solid #8886;padding:3px 6px;text-align:left}</style>
+<table><tr><th>Phase</th><th>Check</th><th>iPhone 17 Pro</th><th>iPhone SE (3rd gen)</th></tr>
+<tr><td>2</td><td>Rust mobile device and simulator packaging</td><td>passed (2 s)</td><td>passed (2 s)</td></tr>
+<tr><td>1</td><td>RundaleKit Swift package tests</td><td>passed (10 s)</td><td>passed (0 s) — cached pass reused</td></tr>
+<tr><td>1</td><td>XcodeGen project generation</td><td>passed (0 s)</td><td>passed (0 s)</td></tr>
+<tr><td>1</td><td>Unsigned iOS device build</td><td>passed (31 s)</td><td>passed (0 s) — cached pass reused</td></tr>
+<tr><td>1</td><td>Available iPhone simulator selection</td><td>passed (0 s)</td><td>passed (0 s)</td></tr>
+<tr><td>1</td><td>iPhone simulator boot</td><td>skipped (0 s)</td><td>passed (0 s)</td></tr>
+<tr><td>1</td><td>iOS simulator XCTest/XCUITest suite</td><td>passed (291 s)</td><td>passed (298 s)</td></tr>
+<tr><td>1</td><td>iOS simulator test-result validation</td><td>passed (0 s)</td><td>passed (0 s)</td></tr>
+<tr><td>2</td><td>Limerick core portable (mobile feature) tests</td><td>passed (27 s)</td><td>passed (0 s) — cached pass reused</td></tr>
+<tr><td>2</td><td>Limerick save format, journal, and kernel save-lock tests</td><td>passed (9 s)</td><td>passed (0 s) — cached pass reused</td></tr>
+<tr><td>2</td><td>Limerick mobile FFI tests</td><td>passed (6 s)</td><td>passed (0 s) — cached pass reused</td></tr>
+<tr><td>2</td><td>Portable mobile dependency graph</td><td>passed (0 s)</td><td>passed (0 s)</td></tr>
+<tr><td>2</td><td>RundaleBridge Swift bridge tests</td><td>passed (4 s)</td><td>passed (0 s) — cached pass reused</td></tr>
+<tr><td>2</td><td>LimerickEndpointKit Swift Endpoint tests</td><td>passed (1 s)</td><td>passed (0 s) — cached pass reused</td></tr>
+<tr><td>2</td><td>Phase 2 iOS simulator XCTest/XCUITest suite</td><td>passed (132 s)</td><td>passed (126 s)</td></tr>
+<tr><td>2</td><td>iOS simulator test-result validation</td><td>passed (0 s)</td><td>passed (0 s)</td></tr>
+<tr><td>2</td><td>Opt-in live Limerick Endpoint integration</td><td>unavailable (0 s)</td><td>unavailable (0 s)</td></tr>
+<tr><td>2</td><td>Canonical tiny-world sheet tests</td><td>passed (12 s)</td><td>passed (0 s) — cached pass reused</td></tr>
+<tr><td>3</td><td>Phase 3 canonical-world iOS simulator suite</td><td>passed (107 s)</td><td>passed (97 s)</td></tr>
+<tr><td>3</td><td>iOS simulator test-result validation</td><td>passed (0 s)</td><td>passed (0 s)</td></tr>
+<tr><td>4</td><td>Phase 4 native reliability suite</td><td>passed (143 s)</td><td>passed (132 s)</td></tr>
+<tr><td>4</td><td>iOS simulator test-result validation</td><td>passed (0 s)</td><td>passed (0 s)</td></tr>
+<tr><td>4</td><td>Native controller and launch contracts</td><td>passed (34 s)</td><td>passed (29 s)</td></tr>
+<tr><td>4</td><td>iOS simulator test-result validation</td><td>passed (0 s)</td><td>passed (0 s)</td></tr>
+<tr><td>5</td><td>Phase 5 verification</td><td>unavailable (0 s)</td><td>unavailable (0 s)</td></tr>
+<tr><td>6</td><td>Phase 6 verification</td><td>unavailable (0 s)</td><td>unavailable (0 s)</td></tr>
+<tr><td>1</td><td>iPhone simulator boot readiness</td><td>-</td><td>passed (3 s)</td></tr>
+</table>
 <p><a href="https://github.com/dmooney/Rundale/pull/2142">Pull request</a></p>
 </body></html>
