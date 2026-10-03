@@ -1,0 +1,90 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PR 2149: rundale-intent output fields</title>
+<style>body{font:16px/1.5 system-ui,sans-serif;max-width:60rem;margin:2rem auto;padding:0 1rem;color:#222;background:#fff}table{border-collapse:collapse;margin:1rem 0}td,th{border:1px solid #ccc;padding:.3rem .6rem;text-align:left}pre{background:#f4f4f4;padding:.5rem;white-space:pre-wrap;word-break:break-all;font-size:13px}</style></head><body>
+<h1>PR 2149: require every <code>rundale-intent</code> output field (issue 2105)</h1>
+<p>Each call replays the exact <code>rundale-intent</code> v1 request that the Endpoints Google adapter sends on its Vertex <code>generateContent</code> path: the same system instruction, input envelope, <code>responseJsonSchema</code>, and <code>maxOutputTokens: 256</code>. Model: <code>gemini-3.5-flash-lite</code>, project <code>limerick-prod</code>, location <code>global</code>, 2026-10-03. Each run is 10 calls per input. <em>Well-formed</em> means finish reason <code>STOP</code>, <code>intent</code> is <code>talk</code>, <code>target</code> is exactly the name, and <code>dialogue</code> is present.</p>
+<p>These are direct model calls with the definition file, not calls through the deployed Endpoint. Publishing the definition to <code>limerick-prod</code> (<code>definitions replace</code>) and running the live suite are still to do.</p>
+<h2>Before: definition on main (only <code>intent</code> required)</h2><table><tr><th>Player input</th><th>Well-formed</th><th>Hit 256-token cap</th></tr><tr><td>Mícheál, how are the cattle this week?</td><td>0/10</td><td>0</td></tr><tr><td>Róisín, is the kettle on?</td><td>1/10</td><td>1</td></tr><tr><td>Siobhán, will you walk with me to the well?</td><td>0/10</td><td>0</td></tr><tr><th>Total</th><th>1/30</th><th>1</th></tr></table>
+<h2>After: this PR (all four fields required, still nullable)</h2><table><tr><th>Player input</th><th>Well-formed</th><th>Hit 256-token cap</th></tr><tr><td>Mícheál, how are the cattle this week?</td><td>10/10</td><td>0</td></tr><tr><td>Róisín, is the kettle on?</td><td>9/10</td><td>0</td></tr><tr><td>Siobhán, will you walk with me to the well?</td><td>9/10</td><td>0</td></tr><tr><th>Total</th><th>28/30</th><th>0</th></tr></table>
+<h2>Before: raw outputs</h2><pre>[STOP, 35 output tokens] Mícheál, how are the cattle this week?
+{&quot;intent&quot;: &quot;talk&quot;, &quot;target&quot;: &quot;Mícheál\u002C how are the cattle this week\u003F&quot;
+}</pre><pre>[STOP, 29 output tokens] Mícheál, how are the cattle this week?
+{
+  &quot;intent&quot;: &quot;talk&quot;,
+  &quot;target&quot;: &quot;Mícheál, how are the cattle this week?&quot;
+}</pre><pre>[STOP, 58 output tokens] Mícheál, how are the cattle this week?
+{&quot;intent&quot;: &quot;talk&quot;, &quot;target&quot;: &quot;Mícheál\u002C how are the cattle this week\u003F_REDACTED_FIX_PARSER_ERROR_BECAUSE_PROMPT_IS_FUZZY&quot;
+}</pre><pre>[STOP, 30 output tokens] Mícheál, how are the cattle this week?
+{
+  &quot;intent&quot;: &quot;talk&quot;,
+  &quot;target&quot;: &quot;Mícheál, how are the cattle this week?&quot;
+  }</pre><pre>[STOP, 29 output tokens] Mícheál, how are the cattle this week?
+{
+  &quot;intent&quot;: &quot;talk&quot;,
+  &quot;target&quot;: &quot;Mícheál, how are the cattle this week?&quot;
+}</pre><pre>[STOP, 29 output tokens] Mícheál, how are the cattle this week?
+{
+  &quot;intent&quot;: &quot;talk&quot;,
+  &quot;target&quot;: &quot;Mícheál, how are the cattle this week?&quot;
+}</pre><pre>[STOP, 90 output tokens] Mícheál, how are the cattle this week?
+{&quot;intent&quot;:&quot;talk&quot;,&quot;target&quot;:&quot;Mícheál\u002C how are the cattle this week?_target_placeholder_or_just_M\u00EDche\u00E1l_based_on_rules_wait_target_is_Mich\u00E9al_and_dialogue_is_how_are_the_cattle_this_week&quot;
+}</pre><pre>[STOP, 32 output tokens] Mícheál, how are the cattle this week?
+{&quot;intent&quot;:&quot;talk&quot;,&quot;target&quot;:&quot;Mícheál, how are the cattle this week?_Mícheál_target_placeholder&quot;
+  }</pre><pre>[STOP, 29 output tokens] Mícheál, how are the cattle this week?
+{
+  &quot;intent&quot;: &quot;talk&quot;,
+  &quot;target&quot;: &quot;Mícheál, how are the cattle this week?&quot;
+}</pre><pre>[STOP, 52 output tokens] Mícheál, how are the cattle this week?
+{&quot;intent&quot;: &quot;talk&quot;, &quot;target&quot;: &quot;M\u0031che\u0031l, how are the cattle this week?\u0022, \&quot;dialogue\&quot;: \&quot;how are the cattle this week?&quot;}</pre><pre>[STOP, 45 output tokens] Róisín, is the kettle on?
+{&quot;intent&quot;: &quot;talk&quot;, &quot;target&quot;: &quot;Róisín basin and kettle on stream or chimney? Róisín, is the kettle on? wait target is Róisín dialogue is is the kettle on&quot;
+}</pre><pre>[STOP, 66 output tokens] Róisín, is the kettle on?
+{&quot;intent&quot;: &quot;talk&quot;, &quot;target&quot;: &quot;Róisín schist_or_something_else_no_just_Róisín_is_the_kettle_on_or_wait_target_Róisín_dialogue_is_the_kettle_on_atmosphere_null&quot;
+}</pre><pre>[STOP, 22 output tokens] Róisín, is the kettle on?
+{
+  &quot;intent&quot;: &quot;talk&quot;,
+  &quot;target&quot;: &quot;Róisínīn&quot;
+}</pre><pre>[STOP, 28 output tokens] Róisín, is the kettle on?
+{&quot;intent&quot;: &quot;talk&quot;, &quot;target&quot;: &quot;Róisín Róis\u00EDn, is the kettle on?&quot;}</pre><pre>[STOP, 79 output tokens] Róisín, is the kettle on?
+{
+  &quot;intent&quot;: &quot;talk&quot;,
+  &quot;target&quot;: &quot;RóisínidenubvnbaseneededhereasitisthepersonaddressedorsubjectofconversationasdefinedinthecontextofconversationtargetornullifnoneorappropriatevaluefromexamplesasforconverseoraskelsewhereandtargetcanbeRóisínorpeigsimilarlythoughletcheckexamples&quot;
+}</pre><pre>[MAX_TOKENS, 239 output tokens] Róisín, is the kettle on?
+{&quot;intent&quot;:&quot;talk&quot;,&quot;target&quot;:&quot;Róisínns, is the kettle on?\&quot;}```&lt;/html&gt;&lt;/finish&gt;}}}&lt;!----&gt;&lt;!----&gt;&lt;!----&gt;&lt;!----&gt;&lt;!----&gt;&lt;!----&gt;&lt;!----&gt;&lt;!----&gt;&lt;!----&gt;&lt;!----&gt;&lt;!----&gt;&lt;!----&gt;&lt;!----&gt;&lt;!----&gt;&lt;!----&gt;&lt;!----&gt;&lt;!----&gt;&lt;!----&gt;&lt;!----&gt;&lt;!----&gt;&lt;!----&gt;&lt;!----&gt;&lt;!----&gt;&lt;!----&gt;&lt;!----&gt;&lt;!----&gt;&lt;!----&gt;&lt;!----&gt;&lt;!----&gt;&lt;!----&gt;&lt;!----&gt;&lt;!--</pre><pre>[STOP, 97 output tokens] Róisín, is the kettle on?
+{
+  &quot;intent&quot;: &quot;talk&quot;,
+  &quot;target&quot;: &quot;Róisín basin and kettle check or Róisín generally or Róisín specifically as a person to talk to? Róisín is the target here since it is directed at Róisín, let&#x27;s use Róisín. Wait, target must be string or null, dialogue contains what is said. Target: Róisín. Dialogu</pre><pre>[STOP, 25 output tokens] Róisín, is the kettle on?
+{
+  &quot;intent&quot;: &quot;talk&quot;,
+  &quot;target&quot;: &quot;Róisínοsín&quot;
+  }</pre><pre>[STOP, 32 output tokens] Róisín, is the kettle on?
+{&quot;intent&quot;: &quot;talk&quot;, &quot;target&quot;: &quot;Róisín\u002C is the kettle on\u003F&quot;
+}</pre><pre>[STOP, 25 output tokens] Siobhán, will you walk with me to the well?
+{&quot;intent&quot;: &quot;talk&quot;, &quot;target&quot;: &quot;Siobhán, will you walk with me to the well?&quot;}</pre><pre>[STOP, 25 output tokens] Siobhán, will you walk with me to the well?
+{&quot;intent&quot;: &quot;talk&quot;, &quot;target&quot;: &quot;Siobhán, will you walk with me to the well?&quot;}</pre><pre>[STOP, 25 output tokens] Siobhán, will you walk with me to the well?
+{&quot;intent&quot;: &quot;talk&quot;, &quot;target&quot;: &quot;Siobhán, will you walk with me to the well?&quot;}</pre><pre>[STOP, 33 output tokens] Siobhán, will you walk with me to the well?
+{&quot;intent&quot;: &quot;talk&quot;, &quot;target&quot;: &quot;Siobh\u0026aacute;n;will you walk with me to the well?&quot;}</pre><pre>[STOP, 33 output tokens] Siobhán, will you walk with me to the well?
+{&quot;intent&quot;: &quot;talk&quot;, &quot;target&quot;: &quot;Siobh\u0026aacute;n, will you walk with me to the well?&quot;}</pre><pre>[STOP, 25 output tokens] Siobhán, will you walk with me to the well?
+{&quot;intent&quot;: &quot;talk&quot;, &quot;target&quot;: &quot;Siobhán, will you walk with me to the well?&quot;}</pre><pre>[STOP, 43 output tokens] Siobhán, will you walk with me to the well?
+{&quot;intent&quot;: &quot;talk&quot;, &quot;target&quot;: &quot;Siobhán, will you walk with me to the well?0\u0000a63k6siobhán10&quot;}</pre><pre>[STOP, 36 output tokens] Siobhán, will you walk with me to the well?
+{&quot;intent&quot;:&quot;talk&quot;,&quot;target&quot;:&quot;Siobhán dæluthelsuggesstionssiobhánn...waitSiobhánvaliddialogue&quot;}</pre><pre>[STOP, 25 output tokens] Siobhán, will you walk with me to the well?
+{&quot;intent&quot;: &quot;talk&quot;, &quot;target&quot;: &quot;Siobhán, will you walk with me to the well?&quot;}</pre><pre>[STOP, 33 output tokens] Siobhán, will you walk with me to the well?
+{&quot;intent&quot;: &quot;talk&quot;, &quot;target&quot;: &quot;Siobh\u0026aacute;n, will you walk with me to the well?&quot;}</pre>
+<h2>After: the two remaining failures</h2><p>Both are the model mis-escaping an accented letter (<code>\u0033</code> is "3").</p><pre>[STOP, 60 output tokens] Róisín, is the kettle on?
+{&quot;intent&quot;:&quot;talk&quot;,&quot;target&quot;:&quot;R\u0033\u0033\u0033s\u0033\u0033\u0033n&quot;,&quot;dialogue&quot;:&quot;is the kettle on?&quot;,&quot;atmosphere&quot;:null}</pre><pre>[STOP, 42 output tokens] Siobhán, will you walk with me to the well?
+{&quot;intent&quot;: &quot;talk&quot;, &quot;target&quot;: &quot;Siobh\u0026aacute;n&quot;, &quot;dialogue&quot;: &quot;will you walk with me to the well?&quot;, &quot;atmosphere&quot;: null}</pre>
+<h2>After: sample well-formed outputs</h2><pre>[STOP, 42 output tokens] Mícheál, how are the cattle this week?
+{
+  &quot;intent&quot;: &quot;talk&quot;,
+  &quot;target&quot;: &quot;Mícheál&quot;,
+  &quot;dialogue&quot;: &quot;how are the cattle this week?&quot;,
+  &quot;atmosphere&quot;: null
+}</pre><pre>[STOP, 27 output tokens] Mícheál, how are the cattle this week?
+{&quot;intent&quot;:&quot;talk&quot;,&quot;target&quot;:&quot;Mícheál&quot;,&quot;dialogue&quot;:&quot;how are the cattle this week?&quot;,&quot;atmosphere&quot;:null}</pre><pre>[STOP, 42 output tokens] Mícheál, how are the cattle this week?
+{
+  &quot;intent&quot;: &quot;talk&quot;,
+  &quot;target&quot;: &quot;Mícheál&quot;,
+  &quot;dialogue&quot;: &quot;how are the cattle this week?&quot;,
+  &quot;atmosphere&quot;: null
+}</pre>
+<h2>Files</h2><ul><li><a href="before-main-definition.jsonl">before-main-definition.jsonl</a></li><li><a href="after-this-pr.jsonl">after-this-pr.jsonl</a></li><li><a href="intent-repro.mjs">intent-repro.mjs</a> (replays the request)</li><li><a href="summ.py">summ.py</a> (scoring)</li></ul>
+</body></html>
