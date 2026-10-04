@@ -1,0 +1,6 @@
+Rundale mobile verification (phase all)
+PASS automated gate: 30 passed, 0 failed, 0 skipped, 3 unavailable, 11 not automatable
+16 passed suite(s) reused from earlier runs with identical inputs (details.cache in the JSON report; --no-cache reruns them)
+
+JSON: mobile/.verification/verify.json
+JUnit: mobile/.verification/verify.junit.xml

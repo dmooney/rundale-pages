@@ -1,0 +1,165 @@
+{
+  "phase": "fast",
+  "status": "passed",
+  "exit_code": 0,
+  "summary": {
+    "passed": 9,
+    "failed": 0,
+    "skipped": 0,
+    "unavailable": 0,
+    "not_automatable": 0,
+    "reused": 0,
+    "blocking": 0
+  },
+  "build_identity": {
+    "git_head": "9d0262f24fc8119785c93ce89b7778a3289036ef",
+    "git_dirty": false,
+    "source_fingerprint": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "scheme": "Rundale",
+    "configuration": "Debug",
+    "device": null
+  },
+  "suites": [
+    {
+      "id": "swift-tools",
+      "status": "passed",
+      "required": true,
+      "blocking": false,
+      "reason": null,
+      "command_text": "bash mobile/scripts/install-swift-tools.sh",
+      "details": null
+    },
+    {
+      "id": "swiftlint",
+      "status": "passed",
+      "required": true,
+      "blocking": false,
+      "reason": null,
+      "command_text": "mobile/.build/swift-tools/bin/swiftlint lint --strict --quiet --config mobile/.swiftlint.yml mobile",
+      "details": null
+    },
+    {
+      "id": "swiftformat",
+      "status": "passed",
+      "required": true,
+      "blocking": false,
+      "reason": null,
+      "command_text": "mobile/.build/swift-tools/bin/swiftformat --lint --config mobile/.swiftformat mobile",
+      "details": null
+    },
+    {
+      "id": "swift-package-tests",
+      "status": "passed",
+      "required": true,
+      "blocking": false,
+      "reason": null,
+      "command_text": "swift test --package-path mobile/RundaleKit --cache-path 1-green/tool-cache/swiftpm --scratch-path 1-green/swift-scratch/20261004T170856799884Z/RundaleKit --manifest-cache local --disable-dependency-cache --skip-update --no-parallel --enable-code-coverage -Xswiftc -warnings-as-errors",
+      "details": {
+        "package_path": "mobile/RundaleKit",
+        "cache_key": "2c08aae3d397268f9d64448fc1231ac8a76f0f2f4e03d633be4cd79c47d2ec0f",
+        "executed_tests": 28,
+        "failed_tests": 0,
+        "line_coverage": {
+          "covered": 1398,
+          "count": 1612,
+          "percent": 86.72,
+          "report": "1-green/swift-scratch/20261004T170856799884Z/RundaleKit/arm64-apple-macosx/debug/codecov/RundaleKit.json"
+        }
+      }
+    },
+    {
+      "id": "swift-package-tests-coverage",
+      "status": "passed",
+      "required": true,
+      "blocking": false,
+      "reason": null,
+      "command_text": null,
+      "details": {
+        "measured": {
+          "covered": 1398,
+          "count": 1612,
+          "percent": 86.72,
+          "report": "1-green/swift-scratch/20261004T170856799884Z/RundaleKit/arm64-apple-macosx/debug/codecov/RundaleKit.json"
+        },
+        "baseline": 86.72,
+        "tolerance": 1.0
+      }
+    },
+    {
+      "id": "swift-bridge-tests",
+      "status": "passed",
+      "required": true,
+      "blocking": false,
+      "reason": null,
+      "command_text": "swift test --package-path mobile/RundaleBridge --cache-path 1-green/tool-cache/swiftpm --scratch-path 1-green/swift-scratch/20261004T170856799884Z/RundaleBridge --manifest-cache local --disable-dependency-cache --skip-update --no-parallel --enable-code-coverage -Xswiftc -warnings-as-errors",
+      "details": {
+        "package_path": "mobile/RundaleBridge",
+        "cache_key": "b341766af328158be4801d55b4d60b67915a989d20e8551bb77caa63cc07d72c",
+        "executed_tests": 5,
+        "failed_tests": 0,
+        "line_coverage": {
+          "covered": 165,
+          "count": 435,
+          "percent": 37.93,
+          "report": "1-green/swift-scratch/20261004T170856799884Z/RundaleBridge/arm64-apple-macosx/debug/codecov/RundaleBridge.json"
+        }
+      }
+    },
+    {
+      "id": "swift-bridge-tests-coverage",
+      "status": "passed",
+      "required": true,
+      "blocking": false,
+      "reason": null,
+      "command_text": null,
+      "details": {
+        "measured": {
+          "covered": 165,
+          "count": 435,
+          "percent": 37.93,
+          "report": "1-green/swift-scratch/20261004T170856799884Z/RundaleBridge/arm64-apple-macosx/debug/codecov/RundaleBridge.json"
+        },
+        "baseline": 37.93,
+        "tolerance": 1.0
+      }
+    },
+    {
+      "id": "swift-endpoint-kit-tests",
+      "status": "passed",
+      "required": true,
+      "blocking": false,
+      "reason": null,
+      "command_text": "swift test --package-path mobile/LimerickEndpointKit --cache-path 1-green/tool-cache/swiftpm --scratch-path 1-green/swift-scratch/20261004T170856799884Z/LimerickEndpointKit --manifest-cache local --disable-dependency-cache --skip-update --no-parallel --enable-code-coverage -Xswiftc -warnings-as-errors",
+      "details": {
+        "package_path": "mobile/LimerickEndpointKit",
+        "cache_key": "d1a737966d20be0cb3f1e0ec78720e49b1ce527fa7b8355ab14133eb608d011f",
+        "executed_tests": 17,
+        "failed_tests": 0,
+        "line_coverage": {
+          "covered": 705,
+          "count": 932,
+          "percent": 75.64,
+          "report": "1-green/swift-scratch/20261004T170856799884Z/LimerickEndpointKit/arm64-apple-macosx/debug/codecov/LimerickEndpointKit.json"
+        }
+      }
+    },
+    {
+      "id": "swift-endpoint-kit-tests-coverage",
+      "status": "passed",
+      "required": true,
+      "blocking": false,
+      "reason": null,
+      "command_text": null,
+      "details": {
+        "measured": {
+          "covered": 705,
+          "count": 932,
+          "percent": 75.64,
+          "report": "1-green/swift-scratch/20261004T170856799884Z/LimerickEndpointKit/arm64-apple-macosx/debug/codecov/LimerickEndpointKit.json"
+        },
+        "baseline": 75.64,
+        "tolerance": 1.0
+      }
+    }
+  ]
+}

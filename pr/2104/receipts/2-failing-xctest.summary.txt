@@ -1,0 +1,6 @@
+Rundale mobile verification (phase fast)
+FAIL automated gate: 7 passed, 1 failed, 0 skipped, 0 unavailable, 0 not automatable
+- FAILED: RundaleKit Swift package tests — mobile/RundaleKit/Tests/RundaleKitTests/RundaleKitTests.swift:41: error: -[RundaleKitTests.RundaleKitTests testDeliberateFailureForGateReceipt] : XCTAssertEqual failed: ("1") is not equal to ("2") - deliberate failure: the package gate must go red
+
+JSON: 2-failing-xctest/verify.json
+JUnit: 2-failing-xctest/verify.junit.xml

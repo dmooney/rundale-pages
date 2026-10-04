@@ -1,0 +1,139 @@
+{
+  "phase": "fast",
+  "status": "failed",
+  "exit_code": 1,
+  "summary": {
+    "passed": 7,
+    "failed": 1,
+    "skipped": 0,
+    "unavailable": 0,
+    "not_automatable": 0,
+    "reused": 0,
+    "blocking": 1
+  },
+  "build_identity": {
+    "git_head": "9d0262f24fc8119785c93ce89b7778a3289036ef",
+    "git_dirty": true,
+    "source_fingerprint": "332f112bf68fbacc488480a93a563828cb0d74b44b1107d9b0db856dab04a73f",
+    "scheme": "Rundale",
+    "configuration": "Debug",
+    "device": null
+  },
+  "suites": [
+    {
+      "id": "swift-tools",
+      "status": "passed",
+      "required": true,
+      "blocking": false,
+      "reason": null,
+      "command_text": "bash mobile/scripts/install-swift-tools.sh",
+      "details": null
+    },
+    {
+      "id": "swiftlint",
+      "status": "passed",
+      "required": true,
+      "blocking": false,
+      "reason": null,
+      "command_text": "mobile/.build/swift-tools/bin/swiftlint lint --strict --quiet --config mobile/.swiftlint.yml mobile",
+      "details": null
+    },
+    {
+      "id": "swiftformat",
+      "status": "passed",
+      "required": true,
+      "blocking": false,
+      "reason": null,
+      "command_text": "mobile/.build/swift-tools/bin/swiftformat --lint --config mobile/.swiftformat mobile",
+      "details": null
+    },
+    {
+      "id": "swift-package-tests",
+      "status": "failed",
+      "required": true,
+      "blocking": true,
+      "reason": "mobile/RundaleKit/Tests/RundaleKitTests/RundaleKitTests.swift:41: error: -[RundaleKitTests.RundaleKitTests testDeliberateFailureForGateReceipt] : XCTAssertEqual failed: (\"1\") is not equal to (\"2\") - deliberate failure: the package gate must go red",
+      "command_text": "swift test --package-path mobile/RundaleKit --cache-path 2-failing-xctest/tool-cache/swiftpm --scratch-path 2-failing-xctest/swift-scratch/20261004T171827811596Z/RundaleKit --manifest-cache local --disable-dependency-cache --skip-update --no-parallel --enable-code-coverage -Xswiftc -warnings-as-errors",
+      "details": {
+        "package_path": "mobile/RundaleKit",
+        "cache_key": "b79cca5c83815392090e1b57692baeeea2c8a8ec4ea0a90256dd8be8c36a8de9"
+      }
+    },
+    {
+      "id": "swift-bridge-tests",
+      "status": "passed",
+      "required": true,
+      "blocking": false,
+      "reason": null,
+      "command_text": "swift test --package-path mobile/RundaleBridge --cache-path 2-failing-xctest/tool-cache/swiftpm --scratch-path 2-failing-xctest/swift-scratch/20261004T171827811596Z/RundaleBridge --manifest-cache local --disable-dependency-cache --skip-update --no-parallel --enable-code-coverage -Xswiftc -warnings-as-errors",
+      "details": {
+        "package_path": "mobile/RundaleBridge",
+        "cache_key": "196ff256001d920715707c21f0f1316d02e78f7b7f570e477d574ce907d306a8",
+        "executed_tests": 5,
+        "failed_tests": 0,
+        "line_coverage": {
+          "covered": 165,
+          "count": 435,
+          "percent": 37.93,
+          "report": "2-failing-xctest/swift-scratch/20261004T171827811596Z/RundaleBridge/arm64-apple-macosx/debug/codecov/RundaleBridge.json"
+        }
+      }
+    },
+    {
+      "id": "swift-bridge-tests-coverage",
+      "status": "passed",
+      "required": true,
+      "blocking": false,
+      "reason": null,
+      "command_text": null,
+      "details": {
+        "measured": {
+          "covered": 165,
+          "count": 435,
+          "percent": 37.93,
+          "report": "2-failing-xctest/swift-scratch/20261004T171827811596Z/RundaleBridge/arm64-apple-macosx/debug/codecov/RundaleBridge.json"
+        },
+        "baseline": 37.93,
+        "tolerance": 1.0
+      }
+    },
+    {
+      "id": "swift-endpoint-kit-tests",
+      "status": "passed",
+      "required": true,
+      "blocking": false,
+      "reason": null,
+      "command_text": "swift test --package-path mobile/LimerickEndpointKit --cache-path 2-failing-xctest/tool-cache/swiftpm --scratch-path 2-failing-xctest/swift-scratch/20261004T171827811596Z/LimerickEndpointKit --manifest-cache local --disable-dependency-cache --skip-update --no-parallel --enable-code-coverage -Xswiftc -warnings-as-errors",
+      "details": {
+        "package_path": "mobile/LimerickEndpointKit",
+        "cache_key": "204107aba4a252fbc6ae8470c34b0a067d6596dce438fb887a64fbed85d813fe",
+        "executed_tests": 17,
+        "failed_tests": 0,
+        "line_coverage": {
+          "covered": 705,
+          "count": 932,
+          "percent": 75.64,
+          "report": "2-failing-xctest/swift-scratch/20261004T171827811596Z/LimerickEndpointKit/arm64-apple-macosx/debug/codecov/LimerickEndpointKit.json"
+        }
+      }
+    },
+    {
+      "id": "swift-endpoint-kit-tests-coverage",
+      "status": "passed",
+      "required": true,
+      "blocking": false,
+      "reason": null,
+      "command_text": null,
+      "details": {
+        "measured": {
+          "covered": 705,
+          "count": 932,
+          "percent": 75.64,
+          "report": "2-failing-xctest/swift-scratch/20261004T171827811596Z/LimerickEndpointKit/arm64-apple-macosx/debug/codecov/LimerickEndpointKit.json"
+        },
+        "baseline": 75.64,
+        "tolerance": 1.0
+      }
+    }
+  ]
+}

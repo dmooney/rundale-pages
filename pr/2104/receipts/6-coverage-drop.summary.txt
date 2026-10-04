@@ -1,0 +1,6 @@
+Rundale mobile verification (phase fast)
+FAIL automated gate: 8 passed, 1 failed, 0 skipped, 0 unavailable, 0 not automatable
+- FAILED: RundaleKit line coverage — RundaleKit line coverage 86.72% is more than 1 percentage points below the 95.00% baseline
+
+JSON: 6-coverage-drop/verify.json
+JUnit: 6-coverage-drop/verify.junit.xml

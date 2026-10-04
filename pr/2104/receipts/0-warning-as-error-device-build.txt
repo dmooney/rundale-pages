@@ -1,0 +1,4 @@
+$ xcodebuild -project mobile/Rundale.xcodeproj -scheme Rundale -configuration Debug -sdk iphoneos -derivedDataPath mobile/.verification/DerivedData/iphoneos-20261004T163348291490Z -resultBundlePath mobile/.verification/xcresults/device-20261004T163348291490Z.xcresult CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO build
+
+mobile/Rundale/ContentView.swift:480:13: error: initialization of immutable value 'contentChanged' was never used; consider replacing with assignment to '_' or removing it
+** BUILD FAILED **

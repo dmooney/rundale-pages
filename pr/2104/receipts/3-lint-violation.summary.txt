@@ -1,0 +1,6 @@
+Rundale mobile verification (phase fast)
+FAIL automated gate: 8 passed, 1 failed, 0 skipped, 0 unavailable, 0 not automatable
+- FAILED: SwiftLint (strict) — mobile/RundaleKit/Sources/RundaleKit/Identity.swift:188:5: error: Force Try Violation: Force tries should be avoided (force_try)
+
+JSON: 3-lint-violation/verify.json
+JUnit: 3-lint-violation/verify.junit.xml

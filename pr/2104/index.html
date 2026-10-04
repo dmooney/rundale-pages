@@ -1,0 +1,61 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PR 2104 Swift gates</title>
+<style>
+:root{--bg:#fbfaf7;--fg:#1d1d1b;--muted:#5d5b55;--card:#f0eee8;--accent:#2f6b4f}
+@media (prefers-color-scheme:dark){:root{--bg:#161614;--fg:#e9e7e1;--muted:#a19e95;--card:#22221f;--accent:#7cc4a0}}
+body{background:var(--bg);color:var(--fg);font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;margin:0;padding:24px 16px}
+main{max-width:880px;margin:0 auto} h1{font-size:1.6rem;margin:0 0 .3rem} h2{font-size:1.1rem;margin:1.8rem 0 .3rem}
+p{color:var(--muted);margin:.3rem 0} pre{background:var(--card);padding:12px;border-radius:8px;overflow-x:auto;font-size:13px;white-space:pre-wrap;word-break:break-word}
+a{color:var(--accent)} .links{font-size:14px} table{border-collapse:collapse;width:100%;font-size:14px} td,th{text-align:left;padding:4px 8px;border-bottom:1px solid var(--card)}
+</style></head><body><main>
+<h1>PR 2104: Swift quality gates</h1>
+<p>Evidence for <a href="https://github.com/dmooney/Rundale/pull/2104">PR 2104</a> (issue 2103). Every receipt below comes from a real run of <code>mobile/scripts/verify.py</code> on macOS 26.6.2 with Xcode 26.6, SwiftLint 0.65.1, and SwiftFormat 0.63.1. All runs were on simulators or the host. No physical iPhone was used, and physical-device acceptance stays open.</p>
+<h2>Measured coverage baseline</h2>
+<table><tr><th>Package</th><th>Line coverage (Sources only)</th></tr>
+<tr><td>RundaleKit</td><td>86.72% (1398 / 1612) when the baseline was recorded; 87.30% on the rebased head</td></tr><tr><td>RundaleBridge</td><td>37.93% (165 / 435)</td></tr><tr><td>LimerickEndpointKit</td><td>75.64% (705 / 932)</td></tr></table>
+<p>App target (recorded, not gated): 63.6% to 72.8% depending on the phase suite.</p>
+<section><h2>0. Swift warning turns the build red</h2><p>First full run after enabling SWIFT_TREAT_WARNINGS_AS_ERRORS, before the fix: the unsigned device build failed on an unused binding left by PR 2139.</p><pre>$ xcodebuild -project mobile/Rundale.xcodeproj -scheme Rundale -configuration Debug -sdk iphoneos -derivedDataPath mobile/.verification/DerivedData/iphoneos-20261004T163348291490Z -resultBundlePath mobile/.verification/xcresults/device-20261004T163348291490Z.xcresult CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO build
+
+mobile/Rundale/ContentView.swift:480:13: error: initialization of immutable value &#x27;contentChanged&#x27; was never used; consider replacing with assignment to &#x27;_&#x27; or removing it
+** BUILD FAILED **
+</pre><p class="links"><a href="receipts/0-warning-as-error-device-build.txt">0-warning-as-error-device-build.txt</a></p></section><section><h2>1. Fast lane green (baseline)</h2><p>just mobile-verify --fast on the branch, no edits.</p><pre>Rundale mobile verification (phase fast)
+PASS automated gate: 9 passed, 0 failed, 0 skipped, 0 unavailable, 0 not automatable
+
+JSON: 1-green/verify.json
+JUnit: 1-green/verify.junit.xml
+</pre><p class="links"><a href="receipts/1-green.summary.txt">1-green.summary.txt</a> · <a href="receipts/1-green.verify.json">1-green.verify.json</a></p></section><section><h2>2. Failing XCTest turns the gate red</h2><p>Added a RundaleKit test asserting 1 == 2.</p><pre>Rundale mobile verification (phase fast)
+FAIL automated gate: 7 passed, 1 failed, 0 skipped, 0 unavailable, 0 not automatable
+- FAILED: RundaleKit Swift package tests — mobile/RundaleKit/Tests/RundaleKitTests/RundaleKitTests.swift:41: error: -[RundaleKitTests.RundaleKitTests testDeliberateFailureForGateReceipt] : XCTAssertEqual failed: (&quot;1&quot;) is not equal to (&quot;2&quot;) - deliberate failure: the package gate must go red
+
+JSON: 2-failing-xctest/verify.json
+JUnit: 2-failing-xctest/verify.junit.xml
+</pre><p class="links"><a href="receipts/2-failing-xctest.summary.txt">2-failing-xctest.summary.txt</a> · <a href="receipts/2-failing-xctest.verify.json">2-failing-xctest.verify.json</a></p></section><section><h2>3. SwiftLint violation turns the gate red</h2><p>Added a try! to RundaleKit/Identity.swift.</p><pre>Rundale mobile verification (phase fast)
+FAIL automated gate: 8 passed, 1 failed, 0 skipped, 0 unavailable, 0 not automatable
+- FAILED: SwiftLint (strict) — mobile/RundaleKit/Sources/RundaleKit/Identity.swift:188:5: error: Force Try Violation: Force tries should be avoided (force_try)
+
+JSON: 3-lint-violation/verify.json
+JUnit: 3-lint-violation/verify.junit.xml
+</pre><p class="links"><a href="receipts/3-lint-violation.summary.txt">3-lint-violation.summary.txt</a> · <a href="receipts/3-lint-violation.verify.json">3-lint-violation.verify.json</a></p></section><section><h2>4. SwiftFormat violation turns the gate red</h2><p>Added a line with consecutive spaces to the same file.</p><pre>Rundale mobile verification (phase fast)
+FAIL automated gate: 8 passed, 1 failed, 0 skipped, 0 unavailable, 0 not automatable
+- FAILED: SwiftFormat check — Running SwiftFormat... | (lint mode - no files will be changed.) | mobile/RundaleKit/Sources/RundaleKit/Identity.swift:187:1: error: (consecutiveSpaces) Replace consecutive spaces with a single space. | SwiftFormat completed in 0.07s. | Source input did not pass lint check. | 1/47 files require formatting, 8 files skipped.
+
+JSON: 4-format-violation/verify.json
+JUnit: 4-format-violation/verify.junit.xml
+</pre><p class="links"><a href="receipts/4-format-violation.summary.txt">4-format-violation.summary.txt</a> · <a href="receipts/4-format-violation.verify.json">4-format-violation.verify.json</a></p></section><section><h2>5. Green again after reverting</h2><p>All three edits reverted.</p><pre>Rundale mobile verification (phase fast)
+PASS automated gate: 9 passed, 0 failed, 0 skipped, 0 unavailable, 0 not automatable
+
+JSON: 5-green-after-revert/verify.json
+JUnit: 5-green-after-revert/verify.junit.xml
+</pre><p class="links"><a href="receipts/5-green-after-revert.summary.txt">5-green-after-revert.summary.txt</a> · <a href="receipts/5-green-after-revert.verify.json">5-green-after-revert.verify.json</a></p></section><section><h2>6. Coverage drop turns the gate red</h2><p>Raised RundaleKit&#x27;s baseline to 95% against a measured 86.72%.</p><pre>Rundale mobile verification (phase fast)
+FAIL automated gate: 8 passed, 1 failed, 0 skipped, 0 unavailable, 0 not automatable
+- FAILED: RundaleKit line coverage — RundaleKit line coverage 86.72% is more than 1 percentage points below the 95.00% baseline
+
+JSON: 6-coverage-drop/verify.json
+JUnit: 6-coverage-drop/verify.junit.xml
+</pre><p class="links"><a href="receipts/6-coverage-drop.summary.txt">6-coverage-drop.summary.txt</a> · <a href="receipts/6-coverage-drop.verify.json">6-coverage-drop.verify.json</a></p></section><section><h2>7. Final full gate on the PR head</h2><p>just mobile-verify --phase all on commit da2767355 (rebased on main), clean tree, iPhone 17 simulator (iOS 26.5). Phase 2 ran fresh (21/21); the other 16 suites were reused from an earlier full run of this same commit.</p><pre>Rundale mobile verification (phase all)
+PASS automated gate: 28 passed, 0 failed, 1 skipped, 3 unavailable, 11 not automatable
+
+JSON: mobile/.verification/verify.json
+JUnit: mobile/.verification/verify.junit.xml
+</pre><p class="links"><a href="receipts/7-final-phase-all.summary.txt">7-final-phase-all.summary.txt</a> · <a href="receipts/7-final-phase-all.verify.json">7-final-phase-all.verify.json</a></p></section>
+</main></body></html>

@@ -1,0 +1,466 @@
+{
+  "phase": "all",
+  "status": "passed",
+  "exit_code": 0,
+  "started_at": "2026-10-04T19:05:20.267434+00:00",
+  "finished_at": "2026-10-04T19:08:25.335237+00:00",
+  "summary": {
+    "passed": 30,
+    "failed": 0,
+    "skipped": 0,
+    "unavailable": 3,
+    "not_automatable": 11,
+    "reused": 16,
+    "blocking": 0
+  },
+  "git_head": "da2767355ab1c107c2f377a52331ce714f211f7b",
+  "git_dirty": false,
+  "suites": [
+    {
+      "id": "swift-tools",
+      "status": "passed",
+      "required": true,
+      "blocking": false,
+      "reason": null,
+      "duration_seconds": 0.078
+    },
+    {
+      "id": "swiftlint",
+      "status": "passed",
+      "required": true,
+      "blocking": false,
+      "reason": null,
+      "duration_seconds": 0.211
+    },
+    {
+      "id": "swiftformat",
+      "status": "passed",
+      "required": true,
+      "blocking": false,
+      "reason": null,
+      "duration_seconds": 0.028
+    },
+    {
+      "id": "mobile-rust-packaging",
+      "status": "passed",
+      "required": true,
+      "blocking": false,
+      "reason": null,
+      "duration_seconds": 1.405
+    },
+    {
+      "id": "swift-package-tests",
+      "status": "passed",
+      "required": true,
+      "blocking": false,
+      "reason": null,
+      "duration_seconds": null,
+      "reused_from_identical_inputs": true
+    },
+    {
+      "id": "swift-package-tests-coverage",
+      "status": "passed",
+      "required": true,
+      "blocking": false,
+      "reason": null,
+      "duration_seconds": null,
+      "coverage": {
+        "count": 1693,
+        "covered": 1478,
+        "percent": 87.3,
+        "report": "mobile/.verification/swift-scratch/20261004T173842781051Z/RundaleKit/arm64-apple-macosx/debug/codecov/RundaleKit.json"
+      }
+    },
+    {
+      "id": "xcodegen",
+      "status": "passed",
+      "required": true,
+      "blocking": false,
+      "reason": null,
+      "duration_seconds": 0.039
+    },
+    {
+      "id": "ios-device-build",
+      "status": "passed",
+      "required": true,
+      "blocking": false,
+      "reason": null,
+      "duration_seconds": null,
+      "reused_from_identical_inputs": true
+    },
+    {
+      "id": "simulator-selection",
+      "status": "passed",
+      "required": true,
+      "blocking": false,
+      "reason": null,
+      "duration_seconds": 0.181
+    },
+    {
+      "id": "simulator-boot",
+      "status": "passed",
+      "required": true,
+      "blocking": false,
+      "reason": null,
+      "duration_seconds": 0.605
+    },
+    {
+      "id": "simulator-bootstatus",
+      "status": "passed",
+      "required": true,
+      "blocking": false,
+      "reason": null,
+      "duration_seconds": 4.197
+    },
+    {
+      "id": "ios-simulator-tests",
+      "status": "passed",
+      "required": true,
+      "blocking": false,
+      "reason": null,
+      "duration_seconds": null,
+      "reused_from_identical_inputs": true,
+      "tests": {
+        "totalTestCount": 58,
+        "passedTests": 58,
+        "failedTests": 0,
+        "skippedTests": 0
+      }
+    },
+    {
+      "id": "ios-simulator-test-results",
+      "status": "passed",
+      "required": true,
+      "blocking": false,
+      "reason": null,
+      "duration_seconds": null,
+      "reused_from_identical_inputs": true,
+      "tests": {
+        "totalTestCount": 58,
+        "passedTests": 58,
+        "failedTests": 0,
+        "skippedTests": 0
+      }
+    },
+    {
+      "id": "physical-iphone-interaction",
+      "status": "not_automatable",
+      "required": true,
+      "blocking": false,
+      "reason": "requires a human session on a connected iPhone; automation cannot establish usability",
+      "duration_seconds": null
+    },
+    {
+      "id": "physical-iphone-accessibility",
+      "status": "not_automatable",
+      "required": true,
+      "blocking": false,
+      "reason": "requires human VoiceOver and accessibility-size judgment on a connected iPhone",
+      "duration_seconds": null
+    },
+    {
+      "id": "physical-iphone-lifecycle",
+      "status": "not_automatable",
+      "required": true,
+      "blocking": false,
+      "reason": "requires a human to exercise keyboard, interruption, relaunch, and safe-area behavior on a connected iPhone",
+      "duration_seconds": null
+    },
+    {
+      "id": "limerick-core-mobile-tests",
+      "status": "passed",
+      "required": true,
+      "blocking": false,
+      "reason": null,
+      "duration_seconds": null,
+      "reused_from_identical_inputs": true
+    },
+    {
+      "id": "limerick-persistence-tests",
+      "status": "passed",
+      "required": true,
+      "blocking": false,
+      "reason": null,
+      "duration_seconds": null,
+      "reused_from_identical_inputs": true
+    },
+    {
+      "id": "limerick-mobile-ffi-tests",
+      "status": "passed",
+      "required": true,
+      "blocking": false,
+      "reason": null,
+      "duration_seconds": null,
+      "reused_from_identical_inputs": true
+    },
+    {
+      "id": "mobile-dependency-graph",
+      "status": "passed",
+      "required": true,
+      "blocking": false,
+      "reason": null,
+      "duration_seconds": 0.376
+    },
+    {
+      "id": "swift-bridge-tests",
+      "status": "passed",
+      "required": true,
+      "blocking": false,
+      "reason": null,
+      "duration_seconds": null,
+      "reused_from_identical_inputs": true
+    },
+    {
+      "id": "swift-bridge-tests-coverage",
+      "status": "passed",
+      "required": true,
+      "blocking": false,
+      "reason": null,
+      "duration_seconds": null,
+      "coverage": {
+        "count": 435,
+        "covered": 165,
+        "percent": 37.93,
+        "report": "mobile/.verification/swift-scratch/20261004T173842781051Z/RundaleBridge/arm64-apple-macosx/debug/codecov/RundaleBridge.json"
+      }
+    },
+    {
+      "id": "swift-endpoint-kit-tests",
+      "status": "passed",
+      "required": true,
+      "blocking": false,
+      "reason": null,
+      "duration_seconds": null,
+      "reused_from_identical_inputs": true
+    },
+    {
+      "id": "swift-endpoint-kit-tests-coverage",
+      "status": "passed",
+      "required": true,
+      "blocking": false,
+      "reason": null,
+      "duration_seconds": null,
+      "coverage": {
+        "count": 932,
+        "covered": 705,
+        "percent": 75.64,
+        "report": "mobile/.verification/swift-scratch/20261004T173842781051Z/LimerickEndpointKit/arm64-apple-macosx/debug/codecov/LimerickEndpointKit.json"
+      }
+    },
+    {
+      "id": "phase2-ios-simulator-tests",
+      "status": "passed",
+      "required": true,
+      "blocking": false,
+      "reason": null,
+      "duration_seconds": 177.24,
+      "tests": {
+        "totalTestCount": 21,
+        "passedTests": 21,
+        "failedTests": 0,
+        "skippedTests": 0
+      }
+    },
+    {
+      "id": "phase2-ios-simulator-test-results",
+      "status": "passed",
+      "required": true,
+      "blocking": false,
+      "reason": null,
+      "duration_seconds": 0.198,
+      "tests": {
+        "totalTestCount": 21,
+        "passedTests": 21,
+        "failedTests": 0,
+        "skippedTests": 0
+      }
+    },
+    {
+      "id": "live-endpoint-integration",
+      "status": "unavailable",
+      "required": false,
+      "blocking": false,
+      "reason": "opt-in live Endpoint verification is not configured in this checkout",
+      "duration_seconds": null
+    },
+    {
+      "id": "physical-iphone-phase2-runtime",
+      "status": "not_automatable",
+      "required": true,
+      "blocking": false,
+      "reason": "requires a human Phase 2 session on a connected iPhone",
+      "duration_seconds": null
+    },
+    {
+      "id": "physical-iphone-phase2-streaming",
+      "status": "not_automatable",
+      "required": true,
+      "blocking": false,
+      "reason": "requires a human session with the deployed Limerick Endpoint on a connected iPhone",
+      "duration_seconds": null
+    },
+    {
+      "id": "limerick-world-sheet-tests",
+      "status": "passed",
+      "required": true,
+      "blocking": false,
+      "reason": null,
+      "duration_seconds": null,
+      "reused_from_identical_inputs": true
+    },
+    {
+      "id": "phase3-ios-simulator-tests",
+      "status": "passed",
+      "required": true,
+      "blocking": false,
+      "reason": null,
+      "duration_seconds": null,
+      "reused_from_identical_inputs": true,
+      "tests": {
+        "totalTestCount": 6,
+        "passedTests": 6,
+        "failedTests": 0,
+        "skippedTests": 0
+      }
+    },
+    {
+      "id": "phase3-ios-simulator-test-results",
+      "status": "passed",
+      "required": true,
+      "blocking": false,
+      "reason": null,
+      "duration_seconds": null,
+      "reused_from_identical_inputs": true,
+      "tests": {
+        "totalTestCount": 6,
+        "passedTests": 6,
+        "failedTests": 0,
+        "skippedTests": 0
+      }
+    },
+    {
+      "id": "physical-iphone-phase3-world",
+      "status": "not_automatable",
+      "required": true,
+      "blocking": false,
+      "reason": "requires a human to visit all three canonical locations on a connected iPhone",
+      "duration_seconds": null
+    },
+    {
+      "id": "physical-iphone-phase3-presence",
+      "status": "not_automatable",
+      "required": true,
+      "blocking": false,
+      "reason": "requires human observation of schedule movement, availability, and ambiguity on a connected iPhone",
+      "duration_seconds": null
+    },
+    {
+      "id": "physical-iphone-phase3-resume",
+      "status": "not_automatable",
+      "required": true,
+      "blocking": false,
+      "reason": "requires a human relaunch check on a connected iPhone",
+      "duration_seconds": null
+    },
+    {
+      "id": "phase4-ios-simulator-tests",
+      "status": "passed",
+      "required": true,
+      "blocking": false,
+      "reason": null,
+      "duration_seconds": null,
+      "reused_from_identical_inputs": true,
+      "tests": {
+        "totalTestCount": 8,
+        "passedTests": 8,
+        "failedTests": 0,
+        "skippedTests": 0
+      }
+    },
+    {
+      "id": "phase4-ios-simulator-tests-results",
+      "status": "passed",
+      "required": true,
+      "blocking": false,
+      "reason": null,
+      "duration_seconds": null,
+      "reused_from_identical_inputs": true,
+      "tests": {
+        "totalTestCount": 8,
+        "passedTests": 8,
+        "failedTests": 0,
+        "skippedTests": 0
+      }
+    },
+    {
+      "id": "phase4-ios-controller-tests",
+      "status": "passed",
+      "required": true,
+      "blocking": false,
+      "reason": null,
+      "duration_seconds": null,
+      "reused_from_identical_inputs": true,
+      "tests": {
+        "totalTestCount": 38,
+        "passedTests": 38,
+        "failedTests": 0,
+        "skippedTests": 0
+      }
+    },
+    {
+      "id": "phase4-ios-controller-tests-results",
+      "status": "passed",
+      "required": true,
+      "blocking": false,
+      "reason": null,
+      "duration_seconds": null,
+      "reused_from_identical_inputs": true,
+      "tests": {
+        "totalTestCount": 38,
+        "passedTests": 38,
+        "failedTests": 0,
+        "skippedTests": 0
+      }
+    },
+    {
+      "id": "physical-iphone-phase4-session",
+      "status": "not_automatable",
+      "required": true,
+      "blocking": false,
+      "reason": "requires recorded sessions on the primary and small-screen supported iPhones, including lifecycle, connectivity, and save recovery",
+      "duration_seconds": null
+    },
+    {
+      "id": "physical-iphone-phase4-accessibility",
+      "status": "not_automatable",
+      "required": true,
+      "blocking": false,
+      "reason": "requires human judgment of the core loop, focus, announcements, text entry, and accessibility Dynamic Type",
+      "duration_seconds": null
+    },
+    {
+      "id": "physical-iphone-phase4-performance",
+      "status": "not_automatable",
+      "required": true,
+      "blocking": false,
+      "reason": "requires device-calibrated latency and memory measurements, scroll stability, and storage/file-protection checks",
+      "duration_seconds": null
+    },
+    {
+      "id": "phase-5-verification",
+      "status": "unavailable",
+      "required": false,
+      "blocking": false,
+      "reason": "Phase 5 verification is not implemented in this checkout",
+      "duration_seconds": null
+    },
+    {
+      "id": "phase-6-verification",
+      "status": "unavailable",
+      "required": false,
+      "blocking": false,
+      "reason": "Phase 6 verification is not implemented in this checkout",
+      "duration_seconds": null
+    }
+  ]
+}

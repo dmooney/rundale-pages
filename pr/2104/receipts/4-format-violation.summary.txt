@@ -1,0 +1,6 @@
+Rundale mobile verification (phase fast)
+FAIL automated gate: 8 passed, 1 failed, 0 skipped, 0 unavailable, 0 not automatable
+- FAILED: SwiftFormat check — Running SwiftFormat... | (lint mode - no files will be changed.) | mobile/RundaleKit/Sources/RundaleKit/Identity.swift:187:1: error: (consecutiveSpaces) Replace consecutive spaces with a single space. | SwiftFormat completed in 0.07s. | Source input did not pass lint check. | 1/47 files require formatting, 8 files skipped.
+
+JSON: 4-format-violation/verify.json
+JUnit: 4-format-violation/verify.junit.xml
