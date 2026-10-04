@@ -13,8 +13,8 @@ p,li{color:var(--fg)} small{color:var(--muted)}
 (<code>RundaleCommandsUITests.testCompletionOffersEachNextWordAndRunsDebugMemory</code>, recorded with demo holds).</p>
 <video src="slash-completion.mp4" controls autoplay muted loop playsinline></video>
 <ol>
-<li>Typing <code>/</code> lists every command the phone runs, including <code>/wait</code>, <code>/pause</code>, and <code>/debug</code>. Typing <code>de</code> narrows to <code>/debug</code>.</li>
-<li>Tapping <code>/debug</code> inserts it with a space; the strip offers the debug views from the engine's registry, each with its summary.</li>
+<li>Typing <code>/</code> lists every command the phone runs, including <code>/wait</code>, <code>/pause</code>, and <code>/debug</code>. Swiping the strip left reaches the commands past the screen edge (<code>/resume</code>, <code>/debug</code>, <code>/flags</code>); swiping right returns. Typing <code>de</code> narrows to <code>/debug</code>.</li>
+<li>Tapping <code>/debug</code> inserts it with a space; the strip offers the debug views from the engine's registry, each with its summary. Swiping left runs through <code>clock</code>, <code>npcs</code>, <code>language</code>, <code>reactions</code> to <code>help</code>; swiping right comes back to <code>memory</code>.</li>
 <li>Tapping <code>memory</code> offers every NPC in the world, though the player stands on the village road.</li>
 <li>Typing <code>mi</code> narrows to Mícheál Connolly; tapping inserts the full name with fadas.</li>
 <li>Sending answers locally: <code>[DEBUG MEMORY: Mícheál Connolly]</code>, no Endpoint call.</li>
