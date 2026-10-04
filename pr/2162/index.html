@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PR 2162: local play with every Endpoint request failing</title>
+<style>
+  :root { color-scheme: light dark; --bg: #faf7f0; --fg: #222; --muted: #666; }
+  @media (prefers-color-scheme: dark) { :root { --bg: #161513; --fg: #eee; --muted: #aaa; } }
+  body { background: var(--bg); color: var(--fg); font: 16px/1.5 -apple-system, system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px 16px; }
+  video { width: 100%; max-width: 375px; display: block; margin: 16px 0; border-radius: 12px; }
+  .muted { color: var(--muted); }
+  code { font-size: 0.92em; }
+</style>
+</head>
+<body>
+<h1>Local play with every Endpoint request failing</h1>
+<p><a href="https://github.com/dmooney/Rundale/pull/2162">PR #2162</a>, part of
+<a href="https://github.com/dmooney/Rundale/issues/2047">#2047</a> (re-accepting spec Milestones 1–3 on the shared-engine line).</p>
+<p class="muted">iPhone SE (3rd generation) <strong>simulator</strong>, iOS 26.5. Not a physical-device result.
+UI test <code>RundalePhase3UITests.testLocalCommandsAndTravelWorkWhenEveryEndpointRequestFails</code>,
+recorded with <code>record-ui-test.py</code> and <code>RUNDALE_DEMO_HOLD=3</code>; trimmed to the app, final state held 5 s.</p>
+<video controls muted playsinline loop src="offline-local-play.mp4"></video>
+<h2>What it shows</h2>
+<ol>
+  <li>The app runs the shared engine with the real Endpoint client, pointed at <code>https://endpoints.invalid</code>, which never resolves.</li>
+  <li><code>/look</code>, <code>/exits</code>, travel to Connolly Cottage, and <code>/people</code> all answer locally. No Retry appears.</li>
+  <li>"ask Mícheál about the cattle" needs the dialogue Endpoint, so it shows the mod's offline line,
+      "The road out of the parish is washed away…", and offers Retry.</li>
+  <li>Travel back to Kilteevan Village and <code>/exits</code> still work after the failure.</li>
+</ol>
+<h2>Verification</h2>
+<ul>
+  <li><code>just mobile-verify --phase 3</code> passed on the iPhone SE (3rd generation) and iPhone 17 Pro simulators.</li>
+  <li><code>just mobile-verify --fast</code> passed.</li>
+</ul>
+<p>Still open: physical network loss on a device (owner check).</p>
+</body>
+</html>
