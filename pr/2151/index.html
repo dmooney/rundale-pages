@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Slash Argument Completion</title>
+<style>
+:root{--bg:#faf7f0;--fg:#222;--muted:#666}
+@media (prefers-color-scheme: dark){:root{--bg:#1b1a17;--fg:#eee;--muted:#aaa}}
+body{background:var(--bg);color:var(--fg);font:16px/1.5 -apple-system,system-ui,sans-serif;margin:0 auto;max-width:760px;padding:16px}
+video{max-width:100%;height:auto;max-height:80vh;display:block;margin:16px auto}
+p,li{color:var(--fg)} small{color:var(--muted)}
+</style></head><body>
+<h1>Step-by-step slash command completion</h1>
+<p>Issue 2146. iPhone 17 Pro <strong>simulator</strong> (not a physical iPhone), running the shared engine with no Endpoint configured
+(<code>RundaleCommandsUITests.testCompletionOffersEachNextWordAndRunsDebugMemory</code>, recorded with demo holds).</p>
+<video src="slash-completion.mp4" controls autoplay muted loop playsinline></video>
+<ol>
+<li>Typing <code>/</code> lists every command the phone runs, including <code>/wait</code>, <code>/pause</code>, and <code>/debug</code>. Typing <code>de</code> narrows to <code>/debug</code>.</li>
+<li>Tapping <code>/debug</code> inserts it with a space; the strip offers the debug views from the engine's registry, each with its summary.</li>
+<li>Tapping <code>memory</code> offers every NPC in the world, though the player stands on the village road.</li>
+<li>Typing <code>mi</code> narrows to Mícheál Connolly; tapping inserts the full name with fadas.</li>
+<li>Sending answers locally: <code>[DEBUG MEMORY: Mícheál Connolly]</code>, no Endpoint call.</li>
+<li><code>/debug schedule roisin</code>, typed by hand without fadas, resolves Róisín Connolly in the engine.</li>
+</ol>
+<small>The test then checks the Commands button still lists only the advertised four.</small>
+</body></html>
