@@ -53,7 +53,8 @@ FAIL automated gate: 8 passed, 1 failed, 0 skipped, 0 unavailable, 0 not automat
 JSON: 6-coverage-drop/verify.json
 JUnit: 6-coverage-drop/verify.junit.xml
 </pre><p class="links"><a href="receipts/6-coverage-drop.summary.txt">6-coverage-drop.summary.txt</a> · <a href="receipts/6-coverage-drop.verify.json">6-coverage-drop.verify.json</a></p></section><section><h2>7. Final full gate on the PR head</h2><p>just mobile-verify --phase all on commit da2767355 (rebased on main), clean tree, iPhone 17 simulator (iOS 26.5). Phase 2 ran fresh (21/21); the other 16 suites were reused from an earlier full run of this same commit.</p><pre>Rundale mobile verification (phase all)
-PASS automated gate: 28 passed, 0 failed, 1 skipped, 3 unavailable, 11 not automatable
+PASS automated gate: 30 passed, 0 failed, 0 skipped, 3 unavailable, 11 not automatable
+16 passed suite(s) reused from earlier runs with identical inputs (details.cache in the JSON report; --no-cache reruns them)
 
 JSON: mobile/.verification/verify.json
 JUnit: mobile/.verification/verify.junit.xml
