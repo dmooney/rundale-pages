@@ -1,0 +1,22 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Debug Help Registry</title>
+<style>:root{--bg:#faf7f0;--fg:#222;--code:#efe9dc}@media (prefers-color-scheme: dark){:root{--bg:#1b1a17;--fg:#eee;--code:#2a2823}}
+body{background:var(--bg);color:var(--fg);font:16px/1.5 -apple-system,system-ui,sans-serif;max-width:760px;margin:0 auto;padding:16px}pre{background:var(--code);padding:12px;overflow-x:auto;white-space:pre-wrap}</style></head><body>
+<h1>/debug help from the subcommand table</h1>
+<p>Gameplay transcript: the headless engine (<code>cargo run -p limerick-engine -- --script</code>) on the canonical world, running on this branch. <code>/debug help</code> is now generated from <code>debug_view::SUBCOMMANDS</code>; <code>/debug memory micheal</code> still resolves Mícheál Connolly, and <code>/debug gossip</code> works without a name.</p>
+<h2><code>/debug help</code></h2><pre>[DEBUG COMMANDS]
+  /debug — Overview (clock, tiers, NPCs here)
+  /debug memory &lt;name&gt; — An NPC&#x27;s recent memories
+  /debug schedule &lt;name&gt; — An NPC&#x27;s daily schedule
+  /debug relationships &lt;name&gt; — An NPC&#x27;s relationships
+  /debug gossip [name] — Gossip network, or an NPC&#x27;s gossip
+  /debug clock — Game time details
+  /debug here — Current location details
+  /debug npcs — All NPCs with location, tier, mood
+  /debug tiers — Tier assignment summary
+  /debug language — Language settings from the loaded mod
+  /debug reactions — NPC reaction buffer and monoculture sensor</pre><h2><code>/debug memory micheal</code></h2><pre>[DEBUG MEMORY: Mícheál Connolly]
+  Short-term (0/20):
+    (no short-term memories)
+  Long-term (0 entries):
+    (no long-term memories)</pre><h2><code>/debug gossip</code></h2><pre>[DEBUG GOSSIP NETWORK: 0 items]
+  (no gossip circulating)</pre></body></html>
