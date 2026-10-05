@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PR 2182: one-step bug reports</title>
+<style>
+  :root { color-scheme: light dark; --bg: #faf7f0; --fg: #222; --muted: #666; }
+  @media (prefers-color-scheme: dark) { :root { --bg: #161513; --fg: #eee; --muted: #aaa; } }
+  body { background: var(--bg); color: var(--fg); font: 16px/1.5 -apple-system, system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px 16px; }
+  video, img.shot { width: 100%; max-width: 320px; display: block; margin: 16px 0; border-radius: 12px; }
+  pre { overflow-x: auto; font-size: 13px; white-space: pre-wrap; }
+  .muted { color: var(--muted); }
+</style>
+</head>
+<body>
+<h1>Bug reports in one step: /bug and shake</h1>
+<p><a href="https://github.com/dmooney/Rundale/pull/2182">PR #2182</a>, part of
+<a href="https://github.com/dmooney/Rundale/issues/2022">issue #2022</a>. A tester types <code>/bug</code> or shakes the phone; the app sends the report and a screenshot to the new <code>limerick-bug-report</code> service, which keeps them in a private inbox for the <code>bug-triage</code> skill.</p>
+<p class="muted">iPhone 17 <strong>simulator</strong>, iOS 26.4, Debug build of this branch on the shared engine. Not a physical-device result.</p>
+
+<h2>1. /bug</h2>
+<p class="muted">UI test <code>RundaleCommandsUITests.testBugCommandSendsAReportWithoutATurn</code>, recorded with <code>record-ui-test.py</code> and <code>RUNDALE_DEMO_HOLD=3</code>. UI tests send into memory instead of the live service.</p>
+<video controls muted playsinline loop src="bug-command.mp4"></video>
+<p>The player walks to Connolly Cottage, types <code>/bu</code>, picks <code>/bug</code> from the suggestions, and adds a description. Send shows "Sending the bug report…", then "Bug report sent. Thank you." The draft clears, and nothing is added to the transcript.</p>
+
+<h2>2. Shake, sent to the live service</h2>
+<p class="muted">The app launched normally (not a UI test) with a temporary App Check debug token, deleted afterwards. The Simulator's <em>Device &gt; Shake</em> sends the report through the real Firebase sign-in and App Check path to <code>limerick-bug-report</code> in limerick-prod.</p>
+<video controls muted playsinline loop src="live-shake.mp4"></video>
+<p>The notice ends at "Bug report sent. Thank you." and the draft stays. It still holds text typed in an earlier smoke test, because drafts survive relaunch.</p>
+<p>Afterwards, <code>bug-report/deploy/limerick-prod.sh list</code> showed the report waiting, and <code>pull</code> downloaded it and emptied the inbox. What arrived, without the reporter's Firebase UID:</p>
+<pre>{
+  &quot;reportId&quot;: &quot;562CFF7F-645E-46D3-8D1D-124FEF392162&quot;,
+  &quot;receivedAt&quot;: &quot;2026-10-05T18:20:33.738Z&quot;,
+  &quot;description&quot;: &quot;&quot;,
+  &quot;report&quot;: &quot;Rundale bug report\n(no description)\n\nBuild: 0.1.0 (8) · engine contract 1.0\nScene: Kilteevan Village · Morning · Clear\nPresent: no one\n\nTranscript (newest last):\n* A muddy road runs between low stone walls and a handful of whitewashed cottages. Smoke lifts from the clustered roofs. A lane leads east to the Letter Office and a rutted boreen runs west to Connolly Cottage.\n\nEndpoint calls since launch: none\n&quot;,
+  &quot;build&quot;: &quot;0.1.0 (8)&quot;,
+  &quot;device&quot;: &quot;arm64 iOS Version 26.4.1 (Build 23E254a)&quot;,
+  &quot;screenshot&quot;: true
+}
+</pre>
+<p>The screenshot that arrived with it, which normally stays private:</p>
+<img class="shot" src="pulled-screenshot.png" alt="The pulled screenshot: Kilteevan Village with the draft in the composer">
+</body>
+</html>
