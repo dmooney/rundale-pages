@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PR 2165: someone elsewhere is "not here"</title>
+<style>
+  :root { color-scheme: light dark; --bg: #faf7f0; --fg: #222; --muted: #666; }
+  @media (prefers-color-scheme: dark) { :root { --bg: #161513; --fg: #eee; --muted: #aaa; } }
+  body { background: var(--bg); color: var(--fg); font: 16px/1.5 -apple-system, system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px 16px; }
+  video { width: 100%; max-width: 375px; display: block; margin: 16px 0; border-radius: 12px; }
+  .muted { color: var(--muted); }
+  code { font-size: 0.92em; }
+  td, th { padding: 4px 8px; text-align: left; vertical-align: top; }
+</style>
+</head>
+<body>
+<h1>Asking for someone elsewhere answers "not here"</h1>
+<p><a href="https://github.com/dmooney/Rundale/pull/2165">PR #2165</a>, part of
+<a href="https://github.com/dmooney/Rundale/issues/2047">#2047</a> (spec Milestone 3: the player cannot converse normally with someone who is not available).</p>
+<p class="muted">iPhone SE (3rd generation) <strong>simulator</strong>, iOS 26.5, running the shared engine from this branch. Not a physical-device result.
+UI test <code>RundalePhase3ClarificationUITests.testAskingForSomeoneElsewhereSaysTheyAreNotHere</code>, recorded with <code>record-ui-test.py</code> and <code>RUNDALE_DEMO_HOLD=3</code>; trimmed to the app, final state held 5 s.</p>
+<video controls muted playsinline loop src="absent-addressee.mp4"></video>
+<h2>What it shows</h2>
+<ol>
+  <li>A new game in Kilteevan Village. <code>/wait 60</code> brings the clock to 08:00, and <code>/people</code> shows Peig, the letter-office keeper, waiting on the road. Mícheál is at Connolly Cottage.</li>
+  <li>"ask Mícheál about the cattle" gets <em>Mícheál is not here.</em></li>
+  <li>"Mícheál, how are the cattle?" also gets <em>Mícheál is not here.</em> Peig does not answer for him, and no dialogue call is made.</li>
+</ol>
+<h2>Before this change</h2>
+<table>
+  <tr><th>Situation</th><th>Before</th><th>After</th></tr>
+  <tr><td>No one present (07:00)</td><td>"Only the sound of a distant crow."</td><td>"Mícheál is not here."</td></tr>
+  <tr><td>Peig present (08:00)</td><td>Dialogue call; Peig answers a question put to Mícheál</td><td>"Mícheál is not here." and no Endpoint call</td></tr>
+</table>
+<p>The "before" rows come from the FFI test run against <code>main</code> before the fix
+(<code>a_person_named_who_is_elsewhere_is_reported_absent_without_an_endpoint_call</code> failed with
+<code>["Only the sound of a distant crow."]</code>), and from a probe that saw the dialogue call for Peig.</p>
+<h2>Verification</h2>
+<ul>
+  <li><code>just verify</code> (engine checks, tests, harness walkthrough, tiny-world script) passed.</li>
+  <li><code>just mobile-verify --phase 2</code> (SE) and <code>--phase 3</code> (SE and iPhone 17 Pro) passed. The new UI test passed on both simulators.</li>
+  <li><code>cargo test</code> for <code>limerick-mobile-ffi</code> (28), <code>limerick-npc</code> (853), <code>limerick-core</code> (728), and <code>limerick-engine</code> (398) passed.</li>
+</ul>
+</body>
+</html>
