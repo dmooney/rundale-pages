@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PR 2181: /bug and shake-to-report</title>
+<style>
+  :root { color-scheme: light dark; --bg: #faf7f0; --fg: #222; --muted: #666; }
+  @media (prefers-color-scheme: dark) { :root { --bg: #161513; --fg: #eee; --muted: #aaa; } }
+  body { background: var(--bg); color: var(--fg); font: 16px/1.5 -apple-system, system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px 16px; }
+  video { width: 100%; max-width: 320px; display: block; margin: 16px 0; border-radius: 12px; }
+  pre { overflow-x: auto; font-size: 13px; white-space: pre-wrap; }
+  .muted { color: var(--muted); }
+</style>
+</head>
+<body>
+<h1>Bug reports for TestFlight feedback: /bug and shake</h1>
+<p><a href="https://github.com/dmooney/Rundale/pull/2181">PR #2181</a>, closing
+<a href="https://github.com/dmooney/Rundale/issues/2022">issue #2022</a> (Mobile Phase 7). Plan:
+<a href="https://github.com/dmooney/Rundale/blob/main/docs/plans/mobile-bug-report.md">docs/plans/mobile-bug-report.md</a>.</p>
+<p class="muted">iPhone 17 <strong>simulator</strong>, iOS 26.4, Debug build of this branch running the shared engine (beta reporting on). Not a physical-device result. The simulator has no TestFlight, so the feedback sheet itself is not shown.</p>
+
+<h2>1. /bug</h2>
+<p class="muted">UI test <code>RundaleCommandsUITests.testBugCommandCopiesAReportWithoutATurn</code>, recorded with <code>record-ui-test.py</code> and <code>RUNDALE_DEMO_HOLD=3</code>.</p>
+<video controls muted playsinline loop src="bug-command.mp4"></video>
+<ol>
+  <li>A new game. The player walks to Connolly Cottage.</li>
+  <li>Typing <code>/bu</code> offers <code>/bug</code>. The player picks it and adds "Mícheál never looked up".</li>
+  <li>Send copies the report and shows: "Bug report copied. Take a screenshot, send it as TestFlight feedback, and paste the report into the comment." The draft clears, and nothing is added to the transcript.</li>
+</ol>
+
+<h2>2. Shake</h2>
+<p class="muted">The running app, launched normally. The Simulator's <em>Device &gt; Shake</em> is triggered while a draft is typed. The clipboard was then read with <code>xcrun simctl pbpaste</code>.</p>
+<video controls muted playsinline loop src="shake.mp4"></video>
+<p>The draft "The miller ignored me" stays put, the notice appears, and no undo-typing prompt appears. The clipboard after the shake:</p>
+<pre>Rundale bug report
+(no description)
+
+Build: 0.1.0 (8) · engine contract 1.0
+Scene: Kilteevan Village · Morning · Clear
+Present: no one
+
+Transcript (newest last):
+* A muddy road runs between low stone walls and a handful of whitewashed cottages. Smoke lifts from the clustered roofs. A lane leads east to the Letter Office and a rutted boreen runs west to Connolly Cottage.
+
+Endpoint calls since launch: none
+</pre>
+<p class="muted">With no Endpoint configured in this Debug build, no calls were made. The FFI tests cover calls appearing in the report.</p>
+</body>
+</html>
