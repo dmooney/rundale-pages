@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PR 2214: interrupted new game</title>
+<style>body{font-family:-apple-system,system-ui,sans-serif;max-width:760px;margin:2rem auto;padding:0 16px;line-height:1.5;background:#fff;color:#222}video,img{max-width:100%;border:1px solid #ccc}</style></head>
+<body>
+<h1>PR #2214: creating a new game survives being killed</h1>
+<p>Fixes issue #2210. <strong>Simulator</strong> recording (iPhone 17 Pro, iOS 26.5), production launch route with the embedded engine. Not physical-iPhone validation.</p>
+<ol>
+<li>The save holds a main branch and no snapshot, which is what the old build left when killed mid-creation. The app opens a new game on the opening scene and keeps the unfinished file as <code>phase2.unfinished-&lt;seconds&gt;.sqlite</code>. Before this change, every launch failed with "try again".</li>
+<li>The transcript is emptied, as when the app is killed before the opening scene was journaled. On relaunch the opening scene is journaled again. Before, the transcript stayed empty.</li>
+</ol>
+<video src="interrupted-new-game.mp4" controls muted playsinline></video>
+<h2>Final states</h2>
+<p><img src="1-no-snapshot.png" width="300" alt="Launch 1: opening scene"> <img src="2-no-opening.png" width="300" alt="Launch 2: opening scene"></p>
+</body></html>
