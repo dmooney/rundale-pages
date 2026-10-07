@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PR 2216: portrait only</title>
+<style>body{font-family:-apple-system,system-ui,sans-serif;max-width:760px;margin:2rem auto;padding:0 16px;line-height:1.5;background:#fff;color:#222}video,img{max-width:100%;border:1px solid #ccc}</style></head>
+<body>
+<h1>PR #2216: the iPhone app stays in portrait</h1>
+<p>Fixes issue #2211. <strong>Simulator</strong> recordings on the Rundale Phase 1 Small iPhone (iPhone SE 3rd generation, iOS 26.5), running the new UI test <code>testTurningThePhoneKeepsThePortraitComposerAndDraft</code> on the embedded engine with the mock Endpoint. Not physical-iPhone validation.</p>
+<p>The test types a draft with the keyboard up, turns the phone to landscape left, then landscape right, finishes the draft, sends <code>go to the Letter Office</code>, and turns the phone back.</p>
+<h2>After: portrait only</h2>
+<p>The phone is turned during the middle of the recording. The layout, the draft and the controls do not move, and travel succeeds once.</p>
+<video src="portrait-after.mp4" controls muted playsinline></video>
+<h2>Before: the app turned to landscape</h2>
+<p>The same test on the old build fails its first check (window 667 wide by 375 tall). The simulator records its screen in portrait, so the landscape layout appears sideways: the transcript is a strip beside the keyboard.</p>
+<video src="portrait-before.mp4" controls muted playsinline></video>
+<h2>Phone turned, before and after</h2>
+<p><img src="before-landscape.png" width="300" alt="Before: landscape layout, transcript squeezed beside the keyboard"> <img src="after-turned.png" width="300" alt="After: portrait layout unchanged with the phone turned"></p>
+</body></html>
