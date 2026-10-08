@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PR 2218: Milestone 4 exit</title>
+<style>body{font-family:-apple-system,system-ui,sans-serif;max-width:760px;margin:2rem auto;padding:0 16px;line-height:1.5;background:#fff;color:#222}video,img{max-width:100%;border:1px solid #ccc}</style></head>
+<body>
+<h1>PR #2218: spec Milestone 4 exit demonstration</h1>
+<p>Issue #2193 (Stability). <strong>Simulator demonstration</strong> on the iPhone 17 Pro simulator, iOS 26.5, built from <code>main</code> at <code>219971a54</code> (including the #2217 fix) with this PR's test changes. This is not a physical-iPhone session: physical-iPhone gates were waived on 2026-10-04. Part 4 runs against live <code>limerick-prod</code> Endpoints. The other parts use the embedded engine on the canonical world, with the scripted Endpoint transport.</p>
+<h2>Demonstration (7 minutes)</h2>
+<p>Each part is an XCUITest run paced with <code>TEST_RUNNER_RUNDALE_DEMO_HOLD=3</code>, with a title card before it. The launch home screen is trimmed. Home screens in the middle of a part are the app being switched away or relaunched.</p>
+<ol>
+<li>A draft and a completed trip survive switching apps and a relaunch (P4-01).</li>
+<li>Backgrounding during Mícheál's reply interrupts it. Retry completes it once and keeps the newer draft (P4-02).</li>
+<li>A force-quit at Send leaves one command and a Retry, with no leftover activity (new test).</li>
+<li>Real connection loss against live Endpoints, through a local proxy: every connection dropped, then the reply cut mid-stream and marked "Not applied". Retry commits once, and relaunch keeps only committed replies.</li>
+<li>75 seconds of the soak: travel, dialogue, reading history, returning to the newest text, and backgrounding.</li>
+<li>Accessibility M to XXXL in dark appearance (P4-07).</li>
+</ol>
+<video src="milestone-4-demo.mp4" controls muted playsinline></video>
+<h2>Live connection loss</h2>
+<img src="live-connection-loss.gif" alt="Live reply cut mid-stream, marked Not applied, then Retry">
+<h2>Simulator session results</h2>
+<ul>
+<li>20-minute soak: iPhone 17 Pro 1214 s, iPhone SE (3rd generation) 1205 s. Each ran 50 travel, 50 dialogue and 17 background/foreground cycles with no failure.</li>
+<li>Force-quit before acceptance, during streaming, at the last chunk and after commit: one command each time, no duplicate reply, and Retry only when nothing committed. Both sizes.</li>
+<li>Reduce Motion: two knot captures 1.1 s apart are identical with it on and different with it off.</li>
+<li>Not run (simulator cannot): VoiceOver, dictation, airplane mode, lock-screen data protection, App Attest, Instruments budgets.</li>
+</ul>
+<p>The full record is in <code>docs/test-plans/results/2026-10-07-milestone-4-exit.md</code>.</p>
+</body></html>
