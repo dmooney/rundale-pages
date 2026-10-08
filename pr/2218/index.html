@@ -10,7 +10,7 @@
 <ol>
 <li>A draft and a completed trip survive switching apps and a relaunch (P4-01).</li>
 <li>Backgrounding during Mícheál's reply interrupts it. Retry completes it once and keeps the newer draft (P4-02).</li>
-<li>A force-quit at Send leaves one command and a Retry, with no leftover activity (new test).</li>
+<li>A force-quit at Send, which lands after the command is accepted and saved, leaves one command and a Retry, with no leftover activity (new test).</li>
 <li>Real connection loss against live Endpoints, through a local proxy: every connection dropped, then the reply cut mid-stream and marked "Not applied". Retry commits once, and relaunch keeps only committed replies.</li>
 <li>75 seconds of the soak: travel, dialogue, reading history, returning to the newest text, and backgrounding.</li>
 <li>Accessibility M to XXXL in dark appearance (P4-07).</li>
@@ -21,7 +21,7 @@
 <h2>Simulator session results</h2>
 <ul>
 <li>20-minute soak: iPhone 17 Pro 1214 s, iPhone SE (3rd generation) 1205 s. Each ran 50 travel, 50 dialogue and 17 background/foreground cycles with no failure.</li>
-<li>Force-quit before acceptance, during streaming, at the last chunk and after commit: one command each time, no duplicate reply, and Retry only when nothing committed. Both sizes.</li>
+<li>Force-quit at Send (after acceptance), during streaming, at the last chunk and after commit: one command each time, no duplicate reply, and Retry only when nothing committed. Both sizes. An unsent draft survives termination (P4-01); a kill between Send and acceptance was not run.</li>
 <li>Reduce Motion: two knot captures 1.1 s apart are identical with it on and different with it off.</li>
 <li>Not run (simulator cannot): VoiceOver, dictation, airplane mode, lock-screen data protection, App Attest, Instruments budgets.</li>
 </ul>
