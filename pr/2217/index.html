@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PR 2217: not applied replies</title>
+<style>body{font-family:-apple-system,system-ui,sans-serif;max-width:760px;margin:2rem auto;padding:0 16px;line-height:1.5;background:#fff;color:#222}video,img{max-width:100%;border:1px solid #ccc}</style></head>
+<body>
+<h1>PR #2217: show when a reply was not applied</h1>
+<p>Found in the Milestone 4 exit session (issue #2193). <strong>Simulator</strong> runs on iOS 26.5, not physical-iPhone validation (physical gates waived 2026-10-04).</p>
+<h2>After: the cut reply is marked "Not applied"</h2>
+<p>Test case P4-05 (<code>testConnectionLossDuringStreamCanRetryWithoutDuplicatingDialogue</code>) on an iPhone 17 Pro simulator, recorded with demo holds. It runs the embedded engine with the scripted Endpoint transport, which drops the connection after the first words of Mícheál's reply. The partial reply stays on screen, dimmed, with "Not applied" under it. Retry commits one reply. After a relaunch, only the committed reply and the error line remain.</p>
+<video src="not-applied.mp4" controls muted playsinline></video>
+<p><img src="after.png" width="320" alt="After: partial reply dimmed with a Not applied note above the error line and Retry"></p>
+<h2>Before: it looked like a real reply</h2>
+<p>The old build against live <code>limerick-prod</code> Endpoints, through a local proxy that cut the streamed reply after its first frames. The unapplied reply ("I do not spend my days in the village...") is drawn exactly like a committed one, above the error line.</p>
+<p><img src="before.png" width="320" alt="Before: unapplied reply styled like a committed reply"></p>
+</body></html>
