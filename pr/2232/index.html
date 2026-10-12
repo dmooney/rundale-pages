@@ -59,6 +59,9 @@
 
 <h2>Live Endpoint suite</h2>
 <blockquote>test01 streamed dialogue · test02 Stop · test03 free-form movement · test04 "Which Connolly do you mean?" · test05 location probe: all passed</blockquote>
+<p>After review round 1 the location probe was made stricter: it rejects a reply naming the Letter Office, the village or the road, and requires a word that puts Mícheál in the cottage. Rerun at head <code>15c235af9</code>, same simulator, against <code>limerick-prod</code>: all five tests passed. Accepted reply:</p>
+<blockquote>"We are at Connolly Cottage."</blockquote>
+<p>The recording above is the first run; both live replies pass the stricter checks.</p>
 </main>
 </body>
 </html>
