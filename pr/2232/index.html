@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PR 2232: dialogue snapshot</title>
+<style>
+  :root { --bg: #fbfaf7; --fg: #1d1b18; --muted: #6b665e; --line: #e2ddd3; --code: #f2efe8; }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #161513; --fg: #ece8e1; --muted: #a59f95; --line: #34312c; --code: #22201d; }
+  }
+  body { margin: 0; background: var(--bg); color: var(--fg); font: 16px/1.55 -apple-system, system-ui, sans-serif; }
+  main { max-width: 760px; margin: 0 auto; padding: 24px 16px 48px; }
+  h1 { font-size: 1.5rem; margin: 0 0 4px; }
+  h2 { font-size: 1.1rem; margin: 32px 0 8px; border-top: 1px solid var(--line); padding-top: 20px; }
+  p.sub { color: var(--muted); margin: 0 0 20px; }
+  video, img { max-width: 100%; border-radius: 10px; border: 1px solid var(--line); }
+  .media { display: flex; gap: 16px; flex-wrap: wrap; align-items: flex-start; }
+  .media figure { margin: 0; flex: 1 1 300px; }
+  figcaption { color: var(--muted); font-size: 0.9rem; margin-top: 6px; }
+  blockquote { margin: 8px 0; padding: 8px 14px; border-left: 3px solid var(--muted); background: var(--code); border-radius: 4px; }
+  table { border-collapse: collapse; width: 100%; font-size: 0.93rem; }
+  th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  code { background: var(--code); padding: 1px 4px; border-radius: 3px; font-size: 0.9em; }
+  .pass { font-weight: 600; }
+</style>
+</head>
+<body>
+<main>
+<h1>Each speaker is told only what they could know</h1>
+<p class="sub">PR 2232 · issue 2222 · iPhone 17 Pro simulator against <code>limerick-prod</code>, 2026-10-11. Simulator run, not physical-iPhone validation.</p>
+
+<div class="media">
+  <figure>
+    <img src="location-probe.gif" alt="At Connolly Cottage the player asks Mícheál where they are standing; he answers 'This is Connolly Cottage.'">
+    <figcaption>Row 25, the #1901 probe: at the cottage, "Mícheál, where are we standing just now?" The accepted live reply: "This is Connolly Cottage."</figcaption>
+  </figure>
+  <figure>
+    <video src="live-endpoint-suite.mp4" controls playsinline muted></video>
+    <figcaption>The whole live Endpoint suite (five tests) on the replaced <code>rundale-dialogue</code> v1. The first minute is the app building and launching.</figcaption>
+  </figure>
+</div>
+
+<h2>What changed</h2>
+<p>The <code>rundale-dialogue</code> v1 input is replaced in place with the dynamic NPC context snapshot (§6, §7). Each speaker now gets their authored mood, the game date, clock time and part of day, the weather, today's festival, the people in the room, whether they know the player's name, and how they came to answer. Known people no longer carry live locations, other places are described without their occupants, and recent conversation holds only exchanges the speaker witnessed. Each committed exchange records the NPCs present; exchanges in older saves count as witnessed only by their speaker.</p>
+<p>Peig's snapshot as the engine builds it on the canonical world is <a href="peig-snapshot.json">peig-snapshot.json</a> (the checked-in fixture the Endpoints suite validates).</p>
+
+<h2>Acceptance</h2>
+<table>
+<tr><th>Criterion</th><th>Shown by</th><th>Result</th></tr>
+<tr><td>Row 23: Peig's snapshot has no live locations for others; <code>present</code>, mood, time, weather and <code>player</code> correct</td><td><code>a_speakers_snapshot_holds_only_what_the_speaker_could_know</code> (production turn path)</td><td class="pass">pass</td></tr>
+<tr><td>Row 24: an exchange with Peig in the village at 08:00 is absent from Mícheál's snapshot there at 15:00</td><td><code>a_speaker_is_sent_only_the_exchanges_they_witnessed</code> (production turn path)</td><td class="pass">pass</td></tr>
+<tr><td>Later speakers see replies already committed in the same line</td><td><code>a_later_speaker_in_a_line_sees_the_replies_already_given</code></td><td class="pass">pass</td></tr>
+<tr><td>Row 34: 1 May names Bealtaine; null on other days</td><td><code>the_snapshot_names_todays_festival</code></td><td class="pass">pass</td></tr>
+<tr><td>Row 25: accepted dialogue agrees with the current location</td><td><code>test05LiveDialogueAgreesWithTheCurrentLocation</code>, live, simulator</td><td class="pass">pass</td></tr>
+<tr><td>Older saves load; their exchanges count as witnessed only by their speaker</td><td><code>exchanges_from_saves_without_witnesses_count_only_their_speaker</code> (persistence) and two <code>limerick-types</code> tests</td><td class="pass">pass</td></tr>
+<tr><td><code>rundale-dialogue</code> v1 replaced in <code>limerick-prod</code>; <code>definitions verify</code> exits 0</td><td><code>replace rundale-dialogue@1 sha256:4b21a524…</code>, then "published copies match the files"</td><td class="pass">done</td></tr>
+</table>
+
+<h2>Live Endpoint suite</h2>
+<blockquote>test01 streamed dialogue · test02 Stop · test03 free-form movement · test04 "Which Connolly do you mean?" · test05 location probe: all passed</blockquote>
+</main>
+</body>
+</html>
