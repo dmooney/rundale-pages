@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>UI tests that hold up on a slow machine</title>
+<style>
+  body { font: 16px/1.5 system-ui, sans-serif; max-width: 40rem; margin: 0 auto; padding: 1rem; }
+  code { font-size: 0.95em; }
+</style>
+</head>
+<body>
+<h1>UI tests that hold up on a slow machine</h1>
+<p>PR <a href="https://github.com/dmooney/Rundale/pull/2292">#2292</a>, part of
+<a href="https://github.com/dmooney/Rundale/issues/2287">#2287</a>. This changes test timing only, so there is
+nothing visible to record. The evidence is the hosted CI runs below. They are <strong>iOS simulator runs using the
+Endpoint mock transport</strong>: not live gameplay, and not a physical iPhone.</p>
+<h2>The problem</h2>
+<p>Thirteen UI tests that pass on the owner's Mac failed on GitHub's hosted <code>macos-26</code> runner (#2276's run
+39900058884), where UI tests averaged 54 seconds each. Several of them must act while a streamed reply is still
+arriving. The Endpoint mock's "slow" stream paused 3 seconds between chunks, so a test had about 6 seconds to act.</p>
+<h2>The first change</h2>
+<p>The mock's slow stream pauses 6 seconds between chunks, giving about 12 seconds to act. Two waits that a slow reply
+must finish within were raised to keep their headroom. No assertion changes.</p>
+<h2>Runs</h2>
+<ul>
+  <li>The smoke gate on the first push. It does not exercise the changed tests.</li>
+  <li>The full gate on the next push, with the <code>mobile-verify-full</code> label. Its results and each failure's
+      assertion message will be added here.</li>
+</ul>
+</body>
+</html>
