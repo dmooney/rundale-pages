@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PR 2302: intent failures</title>
+<style>
+:root { --bg: #f8f4ea; --fg: #2a2520; --muted: #6b6258; }
+@media (prefers-color-scheme: dark) { :root { --bg: #1d1a17; --fg: #ece6dc; --muted: #a59c90; } }
+body { background: var(--bg); color: var(--fg); font: 16px/1.5 Georgia, serif; margin: 0 auto; max-width: 720px; padding: 24px 16px; }
+video { width: 100%; max-width: 390px; display: block; margin: 16px 0; border-radius: 12px; }
+p.meta { color: var(--muted); font-size: 14px; }
+</style>
+</head>
+<body>
+<h1>An intent call with no answer fails visibly, and Retry recovers</h1>
+<p class="meta">PR 2302 (issue 1825) at commit 2b3d4b0fc. iOS Simulator (iPhone 17 Pro) with the mock Endpoint; not a physical iPhone (waived) and not live inference.</p>
+<p>The player types <em>ask Mícheál busy once</em>. The mock Endpoint rate-limits the intent call on the first attempt only. Before this change the game guessed the line was speech and Mícheál answered; now the request fails with the mod's busy line and a Retry button, and no one answers a line the game could not read. After Retry, the intent call succeeds and Mícheál answers.</p>
+<video src="intent-busy-retry.mp4" controls playsinline muted></video>
+<p>Driven by an uncommitted XCUITest driver with demo holds (<code>TEST_RUNNER_RUNDALE_DEMO_HOLD=3</code>); the committed change includes only the mock Endpoint's <code>busy once</code> trigger. The rule itself is checked for every no-answer reason in <code>limerick-core/tests/turn_lifecycle.rs</code>, and the app's error mapping in <code>EndpointFailureClassificationTests</code>.</p>
+</body>
+</html>
