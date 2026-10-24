@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Xcode build cache</title>
+<style>
+  body { font: 16px/1.5 system-ui, sans-serif; max-width: 40rem; margin: 0 auto; padding: 1rem; }
+  code { font-size: 0.95em; }
+</style>
+</head>
+<body>
+<h1>Xcode build cache</h1>
+<p>PR <a href="https://github.com/dmooney/Rundale/pull/2307">#2307</a>, part of
+<a href="https://github.com/dmooney/Rundale/issues/2287">#2287</a>. A CI change: nothing in the app looks or behaves
+differently, so there is nothing to record on screen.</p>
+<p>The only app source change in this branch is
+<a href="https://github.com/dmooney/Rundale/pull/2306">#2306</a>'s removal of an unused UI-test checkpoint, carried
+so this PR's hosted mobile-verify gate runs and can be measured (a change to CI alone runs no gate). Once #2306 merges,
+this PR's own diff is CI and verification scripts only.</p>
+<p>The measured device-build and simulator-run times, without and with the cache, are in the PR description.</p>
+</body>
+</html>
