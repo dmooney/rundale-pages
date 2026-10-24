@@ -5,15 +5,15 @@
 <h1>Live Stop records a cancelled dialogue invocation (issue 2171)</h1>
 <p>Evidence type: screen recording of a live test run on the iOS Simulator (iPhone 17 Pro; not a physical iPhone) against limerick-prod, current shared-engine line. Change: an opt-in live UI test, <code>RundaleLiveEndpointUITests/test09</code>. No app code changed.</p>
 <video controls src="stop.mp4" poster="stop.gif"></video>
-<p>The recording is the whole test (50 s): four turns, each sent and then stopped with the Stop button at a longer delay.</p>
+<p>The recording is the whole test (about 60 s): four turns, each sent and then stopped with the Stop button at a longer delay.</p>
 <h2>Method</h2>
-<p>A dialogue reply streams for under a second and a Stop tap takes about a second to land, so the test sends the same line four times and taps Stop at stepped delays (0.2, 0.35, 0.5, 0.65 s plus tap latency). The app's cancel path sends <code>DELETE</code> on the Endpoint route for the active stream. The test requires at least one turn stopped with no new committed dialogue row (compared by the transcript trace's row id).</p>
-<h2>Run: simulator, 2026-10-24 01:53 UTC (test passed)</h2>
-<p>Receipts: <a href="rundale-live-stop-attempts.json">attempt times (test attachment)</a> and <a href="invocations-rows.txt">invocations rows</a> from <code>endpoints/deploy/limerick-prod.sh sql</code>, joined to <code>endpoint_versions</code> and <code>endpoints</code> for the slug.</p>
+<p>A dialogue reply streams for under a second and a Stop tap takes about a second to land, so the test sends the same line four times and taps Stop at stepped delays (0.2, 0.35, 0.5, 0.65 s plus tap latency). The app's cancel path sends <code>DELETE</code> on the Endpoint route for the active stream. An attempt counts only if the app offers Retry for the stopped request, the readable transcript trace shows that turn's accepted command and no failed row, and no dialogue row committed; the test fails if no attempt counts. Whether the server recorded a cancellation is checked separately, below.</p>
+<h2>Run: simulator, 2026-10-24 02:22 UTC (test passed)</h2>
+<p>Receipts: <a href="rundale-live-stop-attempts.json">attempt times and per-attempt app outcome (test attachment)</a> and <a href="invocations-rows.txt">invocations rows</a> from <code>endpoints/deploy/limerick-prod.sh sql</code>, joined to <code>endpoint_versions</code> and <code>endpoints</code> for the slug.</p>
 <table><tr><th>attempt</th><th>sent_at</th><th>stopped_at</th><th>dialogue invocation (rundale-dialogue v1)</th></tr>
-<tr><td>1 (0.2 s)</td><td>01:53:25.021</td><td>01:53:25.916</td><td>none: Stop landed during the non-cancellable intent call</td></tr>
-<tr><td>2 (0.35 s)</td><td>01:53:35.015</td><td>01:53:36.078</td><td>eb3abedd-e7eb-4ece-9927-f69200196379:5d3e8c97-4683-474d-a803-13f32926e858.2, failed, REQUEST_CANCELLED, cancellation_requested true, 01:53:35.761 to 01:53:36.065</td></tr>
-<tr><td>3 (0.5 s)</td><td>01:53:45.215</td><td>01:53:46.435</td><td>18d9578c-8935-40f2-adb4-842a62f6a236:6e5684a6-5f41-47b8-8b5d-8267a8053cca.2, failed, REQUEST_CANCELLED, cancellation_requested true, 01:53:46.146 to 01:53:46.393</td></tr>
-<tr><td>4 (0.65 s)</td><td>01:53:55.519</td><td>01:53:56.886</td><td>e388828e-3862-4f5c-9dc4-0bbf30c025f4:e6db17a5-6fad-434a-91b4-27df412e9349.2, failed, REQUEST_CANCELLED, cancellation_requested true, 01:53:56.679 to 01:53:57.000</td></tr></table>
-<p>No reply was committed after any Stop. Earlier runs at 01:13 and 01:26 UTC gave four and three such rows.</p>
+<tr><td>1 (0.2 s)</td><td>02:21:57.666</td><td>02:21:58.562</td><td>none: Stop landed during the non-cancellable intent call</td></tr>
+<tr><td>2 (0.35 s)</td><td>02:22:10.107</td><td>02:22:11.184</td><td>a2bdc039-3044-4555-aff6-264f568d54ed:51313329-ee40-4017-a0ea-76a1c86d0cbf.2, failed, REQUEST_CANCELLED, cancellation_requested true, 02:22:11.020 to 02:22:11.247</td></tr>
+<tr><td>3 (0.5 s)</td><td>02:22:22.639</td><td>02:22:23.866</td><td>49178385-d5e7-430f-b041-6dd327ae0cee:9a2f2521-f9e3-49b3-a0e6-b39262fa748c.2, failed, REQUEST_CANCELLED, cancellation_requested true, 02:22:23.418 to 02:22:23.930</td></tr>
+<tr><td>4 (0.65 s)</td><td>02:22:35.263</td><td>02:22:36.649</td><td>560c21ee-e092-4646-b0d7-337e4dc2678c:8cc2015d-f3b6-44ad-b2ee-3957eaeb3cf7.2, failed, REQUEST_CANCELLED, cancellation_requested true, 02:22:36.272 to 02:22:36.628</td></tr></table>
+<p>The app side counted all four attempts as stopped without a committed reply. Earlier runs at 01:13, 01:26 and 01:53 UTC gave four, three and three such server rows.</p>
 </body></html>
