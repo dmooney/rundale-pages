@@ -1,0 +1,30 @@
+[
+  {
+    "delay" : 0.20000000000000001,
+    "interrupted_row_shown" : false,
+    "reply_committed" : false,
+    "sent_at" : "2026-10-24T01:53:25.021Z",
+    "stopped_at" : "2026-10-24T01:53:25.916Z"
+  },
+  {
+    "delay" : 0.34999999999999998,
+    "interrupted_row_shown" : false,
+    "reply_committed" : false,
+    "sent_at" : "2026-10-24T01:53:35.015Z",
+    "stopped_at" : "2026-10-24T01:53:36.078Z"
+  },
+  {
+    "delay" : 0.5,
+    "interrupted_row_shown" : false,
+    "reply_committed" : false,
+    "sent_at" : "2026-10-24T01:53:45.215Z",
+    "stopped_at" : "2026-10-24T01:53:46.435Z"
+  },
+  {
+    "delay" : 0.64999999999999991,
+    "interrupted_row_shown" : false,
+    "reply_committed" : false,
+    "sent_at" : "2026-10-24T01:53:55.519Z",
+    "stopped_at" : "2026-10-24T01:53:56.886Z"
+  }
+]

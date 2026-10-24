@@ -1,21 +1,19 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Live Stop records a cancelled dialogue invocation (#2171)</title>
-<style>body{font:16px/1.5 system-ui;max-width:60rem;margin:2rem auto;padding:0 1rem}table{border-collapse:collapse;width:100%;font-size:13px}td,th{border:1px solid #8886;padding:4px 6px;text-align:left}code{font-size:12px}</style></head><body>
+<style>body{font:16px/1.5 system-ui;max-width:60rem;margin:2rem auto;padding:0 1rem}table{border-collapse:collapse;width:100%;font-size:13px}td,th{border:1px solid #8886;padding:4px 6px;text-align:left}code{font-size:12px}video{max-width:100%;max-height:70vh}</style></head><body>
 <h1>Live Stop records a cancelled dialogue invocation (issue 2171)</h1>
-<p>Evidence type: test run (simulator, iPhone 17 Pro, not a physical iPhone) against limerick-prod, current shared-engine line. Change: a new opt-in live UI test, <code>RundaleLiveEndpointUITests/test09</code>. No app code changed.</p>
+<p>Evidence type: screen recording of a live test run on the iOS Simulator (iPhone 17 Pro; not a physical iPhone) against limerick-prod, current shared-engine line. Change: an opt-in live UI test, <code>RundaleLiveEndpointUITests/test09</code>. No app code changed.</p>
+<video controls src="stop.mp4" poster="stop.gif"></video>
+<p>The recording is the whole test (50 s): four turns, each sent and then stopped with the Stop button at a longer delay.</p>
 <h2>Method</h2>
-<p>Dialogue replies stream for under a second and the Stop tap takes about a second to land, so the test sends the same line four times and taps Stop at stepped delays (0.2, 0.35, 0.5, 0.65 s plus tap latency), attaching each attempt's wall-clock times. The app's cancel path (<code>RundaleEngineController.stop</code>) sends <code>DELETE</code> on the Endpoint route for the active stream.</p>
-<h2>Run: simulator, 2026-10-24 01:26 UTC</h2>
-<p>Test result: passed, 50 s. Attempts (UTC): sent 01:26:14.629 / stopped 01:26:15.536; sent 01:26:24.618 / stopped 01:26:25.663; sent 01:26:34.735 / stopped 01:26:35.945; sent 01:26:45.050 / stopped 01:26:46.417. No reply was committed after any Stop.</p>
-<h2>limerick-prod <code>invocations</code> rows</h2>
-<table><tr><th>request_id</th><th>endpoint</th><th>status</th><th>error_code</th><th>cancellation_requested</th><th>started_at</th><th>completed_at</th></tr>
-<tr><td>2e3f076e-4109-4da4-9561-b4348cfd69fe</td><td>rundale-intent</td><td>succeeded</td><td>-</td><td>false</td><td>01:26:15.042</td><td>01:26:15.283</td></tr>
-<tr><td>4976d2f1-dd6c-47da-a655-f7a05b9a1c85</td><td>rundale-intent</td><td>succeeded</td><td>-</td><td>false</td><td>01:26:24.945</td><td>01:26:25.179</td></tr>
-<tr><td>4976d2f1-dd6c-47da-a655-f7a05b9a1c85:958aef23-9d52-4be6-80c4-ccdefbb28273.2</td><td>rundale-dialogue v1</td><td>failed</td><td>REQUEST_CANCELLED</td><td>true</td><td>01:26:25.423</td><td>01:26:25.608</td></tr>
-<tr><td>bb381da5-a004-489f-a98f-1a7df7f1c70c</td><td>rundale-intent</td><td>succeeded</td><td>-</td><td>false</td><td>01:26:35.119</td><td>01:26:35.366</td></tr>
-<tr><td>bb381da5-a004-489f-a98f-1a7df7f1c70c:a0c8d2d8-10c6-407d-925b-d2fb404c0591.2</td><td>rundale-dialogue v1</td><td>failed</td><td>REQUEST_CANCELLED</td><td>true</td><td>01:26:35.562</td><td>01:26:35.889</td></tr>
-<tr><td>604446f4-d7c9-448f-b589-810eaf0ba7c0</td><td>rundale-intent</td><td>succeeded</td><td>-</td><td>false</td><td>01:26:45.367</td><td>01:26:45.547</td></tr>
-<tr><td>604446f4-d7c9-448f-b589-810eaf0ba7c0:2d42511b-d89c-42f4-8cb8-3c4aab570e2a.2</td><td>rundale-dialogue v1</td><td>failed</td><td>REQUEST_CANCELLED</td><td>true</td><td>01:26:45.725</td><td>01:26:46.363</td></tr></table>
-<p>Attempt 1 stopped during the non-cancellable intent call, as the issue describes; attempts 2 to 4 stopped the dialogue stream and the server recorded the cancellation. An earlier run (01:13 UTC) produced four such rows from four attempts.</p>
+<p>A dialogue reply streams for under a second and a Stop tap takes about a second to land, so the test sends the same line four times and taps Stop at stepped delays (0.2, 0.35, 0.5, 0.65 s plus tap latency). The app's cancel path sends <code>DELETE</code> on the Endpoint route for the active stream. The test requires at least one turn stopped with no new committed dialogue row (compared by the transcript trace's row id).</p>
+<h2>Run: simulator, 2026-10-24 01:53 UTC (test passed)</h2>
+<p>Receipts: <a href="rundale-live-stop-attempts.json">attempt times (test attachment)</a> and <a href="invocations-rows.txt">invocations rows</a> from <code>endpoints/deploy/limerick-prod.sh sql</code>, joined to <code>endpoint_versions</code> and <code>endpoints</code> for the slug.</p>
+<table><tr><th>attempt</th><th>sent_at</th><th>stopped_at</th><th>dialogue invocation (rundale-dialogue v1)</th></tr>
+<tr><td>1 (0.2 s)</td><td>01:53:25.021</td><td>01:53:25.916</td><td>none: Stop landed during the non-cancellable intent call</td></tr>
+<tr><td>2 (0.35 s)</td><td>01:53:35.015</td><td>01:53:36.078</td><td>eb3abedd-e7eb-4ece-9927-f69200196379:5d3e8c97-4683-474d-a803-13f32926e858.2, failed, REQUEST_CANCELLED, cancellation_requested true, 01:53:35.761 to 01:53:36.065</td></tr>
+<tr><td>3 (0.5 s)</td><td>01:53:45.215</td><td>01:53:46.435</td><td>18d9578c-8935-40f2-adb4-842a62f6a236:6e5684a6-5f41-47b8-8b5d-8267a8053cca.2, failed, REQUEST_CANCELLED, cancellation_requested true, 01:53:46.146 to 01:53:46.393</td></tr>
+<tr><td>4 (0.65 s)</td><td>01:53:55.519</td><td>01:53:56.886</td><td>e388828e-3862-4f5c-9dc4-0bbf30c025f4:e6db17a5-6fad-434a-91b4-27df412e9349.2, failed, REQUEST_CANCELLED, cancellation_requested true, 01:53:56.679 to 01:53:57.000</td></tr></table>
+<p>No reply was committed after any Stop. Earlier runs at 01:13 and 01:26 UTC gave four and three such rows.</p>
 </body></html>
