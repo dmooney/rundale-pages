@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Swift checks on Linux</title>
+<style>
+  body { font: 16px/1.5 system-ui, sans-serif; max-width: 40rem; margin: 0 auto; padding: 1rem; }
+  code { font-size: 0.95em; }
+  table { border-collapse: collapse; } td, th { border: 1px solid #ccc; padding: 0.25rem 0.5rem; text-align: left; }
+</style>
+</head>
+<body>
+<h1>Swift checks on Linux</h1>
+<p>PR <a href="https://github.com/dmooney/Rundale/pull/2300">#2300</a>, part of
+<a href="https://github.com/dmooney/Rundale/issues/2287">#2287</a>. This moves CI checks; nothing in the app looks or
+behaves differently, so there is nothing to record on screen.</p>
+<h2>The one app source change</h2>
+<p><code>LimerickEndpointKit</code> did not compile on Linux: swift-corelibs-foundation does not bridge
+<code>NSNumber</code> to <code>CFNumber</code>. On Apple platforms the code is the same
+<code>CFNumberIsFloatType(value)</code> call as before, inside <code>#if canImport(Darwin)</code>; only Linux takes the
+new branch, which reads the number's type encoding. The iOS app's behaviour is unchanged. The Mac full gate (nightly,
+<code>testflight-update</code>) still runs the package suites against Apple's Foundation, and this PR's hosted smoke
+gate builds the app with the change.</p>
+<h2>Linux results (cloud session, Swift 6.3.3)</h2>
+<table>
+<tr><th>Package</th><th>Tests (Linux)</th><th>Tests (Mac, run 40034231681)</th><th>Line coverage (Linux)</th><th>Baseline (macOS)</th></tr>
+<tr><td>RundaleKit</td><td>29</td><td>29</td><td>87.25%</td><td>86.72%</td></tr>
+<tr><td>RundaleBridge</td><td>5</td><td>5</td><td>37.5%</td><td>37.93%</td></tr>
+<tr><td>LimerickEndpointKit</td><td>17</td><td>17</td><td>75.8%</td><td>75.64%</td></tr>
+</table>
+<p>SwiftLint 0.65.1 and SwiftFormat 0.63.1 (Linux builds) pass the tree, and both fail a probe file with known
+violations (exit 2 and 1). The PR's <em>Swift quality</em> CI job runs the same <code>verify.py --fast</code> in the
+<code>swift:6.3.3-noble</code> container.</p>
+</body>
+</html>
