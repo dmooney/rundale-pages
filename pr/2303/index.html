@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>UI tests removed: Linux covers them</title>
+<style>
+  body { font: 16px/1.5 system-ui, sans-serif; max-width: 52rem; margin: 0 auto; padding: 1rem; }
+  code { font-size: 0.9em; }
+  table { border-collapse: collapse; width: 100%; } td, th { border: 1px solid #ccc; padding: 0.3rem 0.5rem; text-align: left; vertical-align: top; }
+</style>
+</head>
+<body>
+<h1>UI tests removed: Linux already covers them</h1>
+<p>PR <a href="https://github.com/dmooney/Rundale/pull/2303">#2303</a>, part of
+<a href="https://github.com/dmooney/Rundale/issues/2287">#2287</a>. The audit is comment 6384241953. The owner's approval
+is recorded in comment 6386178358. That comment and comments 6386250804 and 6386302307 record the five exceptions below. The PR deletes 12 simulator UI tests
+(about 555 s of the full gate) and changes nothing the app does, so there is nothing to record on screen.</p>
+<p>The evidence is that the Linux tests the removed tests rely on catch the behaviour breaking.</p>
+<h2>Method</h2>
+<p>This ran in a Linux cloud session. For each rule:</p>
+<ol>
+<li>Change the engine, mod data or RundaleKit source so that the rule breaks.</li>
+<li>Run the named Linux test and confirm it fails.</li>
+<li>Revert the change with <code>git checkout</code>.</li>
+</ol>
+<p>The tree was clean afterwards. The last column quotes where each test failed.</p>
+<table>
+<tr><th>Removed UI test(s)</th><th>Change that broke the rule</th><th>Linux test that failed (where)</th></tr>
+<tr><td>Phase3Arrivals: repeat visits are brief</td><td><code>turn/engine.rs</code>: always render the full scene, ignoring <code>visited_before</code></td><td>ffi <code>returning_somewhere_lists_who_is_there_without_repeating_the_description</code> (tests.rs:385)</td></tr>
+<tr><td>Phase3: canonical world visit and presence</td><td><code>mods/rundale/npcs.json</code>: Peig's 09:00–18:00 location set to the village road</td><td><code>world_sheet</code>: <code>presence_over_the_first_day_matches_the_sheet</code> (world_sheet.rs:273) and <code>headless_script_plays_the_tiny_world</code> (:334)</td></tr>
+<tr><td>Phase4: talking about absent Mícheál</td><td><code>game_loop/recipients.rs</code>: "everyone present" reaches only the first person</td><td>ffi <code>a_decision_for_someone_not_present_reaches_everyone_present</code> (tests.rs:1002)</td></tr>
+<tr><td>Phase3Clarification: naming someone elsewhere</td><td><code>recipients.rs</code>: with one person present, answer with a "gone" system line</td><td>ffi <code>a_person_named_who_is_elsewhere_gets_no_system_line</code> (tests.rs:1192)</td></tr>
+<tr><td>Phase3Clarification: @-tag skips the question</td><td><code>recipients.rs</code>: ignore an explicit @-tag selection</td><td>ffi <code>an_at_tag_picks_the_recipient_without_an_intent_call</code> (tests.rs:1141)</td></tr>
+<tr><td rowspan="3">Commands: advertised and answered locally</td><td><code>limerick-world/description.rs</code>: drop "(N min on foot)" from exits</td><td><code>limerick-world</code> <code>description::tests::test_format_exits</code> (description.rs:294)</td></tr>
+<tr><td><code>ipc/commands/info.rs</code>: change "No one else is here."</td><td>core <code>npcs_here_empty</code> (commands/tests.rs:175), <code>npcs_here_lists_present_npcs</code> (:1416)</td></tr>
+<tr><td><code>turn/commands.rs</code>: advertise <code>/wait</code></td><td>ffi <code>the_phone_slash_commands_answer_locally_as_turns</code> (tests.rs:1667)</td></tr>
+<tr><td>FailureLines: unavailable storyteller</td><td><code>turn/engine.rs</code>: never look up the mod's failure line</td><td>ffi <code>a_failed_call_shows_the_mods_line_for_its_reason</code> (tests.rs:606). The app's mapping from error code to reason stays tested by the kept <code>testPhase2EndpointErrorNamesTheFailureCategory</code>.</td></tr>
+<tr><td>FailureLines: lost connection, then retry</td><td><code>turn/engine.rs</code>: <code>retry</code> always refuses</td><td>ffi <code>an_endpoint_failure_ends_the_attempt_failed_and_a_retry_can_commit</code> (fails in its op helper, tests.rs:146). The same offline path through Apple networking stays in the kept Phase4Network tests.</td></tr>
+<tr><td>Phase3Arrivals: travel restored after relaunch</td><td><strong>No change was run for this row.</strong></td><td>Two tests check that the location survives a relaunch:
+<ul>
+<li>the kept smoke UI test <code>testDraftAndCommittedTravelSurviveBackgroundAndTermination</code>, which checks the header after relaunch;</li>
+<li>ffi <code>unaddressed_speech_asks_and_the_choice_becomes_the_partner</code>, which needs the player still at the cottage after relaunch.</li>
+</ul>
+The returning test above does not check this.</td></tr>
+<tr><td>RundaleUITests: failed fixture, then retry</td><td>RundaleKit <code>FixtureAdapter.swift</code>: the retry is not marked as a retry</td><td><code>testFixtureAdapterManualStreamingStopAndRetry</code> (RundaleKitTests.swift:653)</td></tr>
+<tr><td>RundaleUITests: stream interrupted on relaunch</td><td><code>FixtureAdapter.swift</code>: change the interruption notice</td><td><code>testRestoredAdapterSuppressesOpeningReplayAndInterruptsActiveAttempt</code> (:839). This covers restoring an interrupted attempt. Nothing now checks that the fixture controller saves a retry before a relaunch; that is fixture-only app code, and the kept Phase 4 termination test covers the real-engine path.</td></tr>
+<tr><td>RundaleUITests: fixture session restore</td><td><code>Persistence.swift</code>: the draft store restores nothing</td><td><code>testFixturePersistenceRestoresDraftAndLeavesUnsupportedSaveUntouched</code> (:880)</td></tr>
+</table>
+<h2>Audited tests that stay</h2>
+<p>These five check code in the iOS app target, which no Linux test reaches:</p>
+<ul>
+<li><code>testReturningShowsWhoIsThereWithoutRepeatingTheDescription</code>: how the title-only scene card renders.</li>
+<li><code>testUnadvertisedCommandsWorkAndOthersAreRefused</code>: a refused command keeps the draft.</li>
+<li><code>testPhase2EndpointErrorNamesTheFailureCategory</code>: <code>RundaleEngineController</code> maps an Endpoint error code to its failure reason.</li>
+<li><code>testUnaddressedSpeechAsksWhoAndTheChoiceBecomesThePartner</code>: the "Everyone here" VoiceOver label on the All choice.</li>
+<li><code>testClarificationOptionIsTemporaryAndActionable</code>: the "Directed to …" row the app renders for a chosen person.</li>
+</ul>
+<p>Also kept: every layout, keyboard, accessibility, lifecycle and networking test, and one end-to-end test per wiring
+path.</p>
+</body>
+</html>
