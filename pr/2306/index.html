@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Remove retry checkpoint</title>
+<style>
+  body { font: 16px/1.5 system-ui, sans-serif; max-width: 40rem; margin: 0 auto; padding: 1rem; }
+  code { font-size: 0.95em; }
+</style>
+</head>
+<body>
+<h1>Remove retry checkpoint</h1>
+<p>PR <a href="https://github.com/dmooney/Rundale/pull/2306">#2306</a>, part of
+<a href="https://github.com/dmooney/Rundale/issues/2287">#2287</a>. This deletes UI-test-only code; nothing a player
+sees or does changes, so there is nothing to record on screen.</p>
+<h2>What goes</h2>
+<p><code>RundalePresentationModel.uiTestCheckpoint</code> was set to "Retry accepted and persisted" in UI-test launches
+only, after a Retry was accepted, and exposed as the accessibility value of the fixture's Next button
+(<code>fixture.step</code>). The only test that read it was deleted in
+<a href="https://github.com/dmooney/Rundale/pull/2303">#2303</a>; no test, script or document refers to it now
+(<code>grep -rn uiTestCheckpoint mobile docs</code> finds nothing). Retry itself is unchanged.</p>
+<h2>Checks</h2>
+<ul>
+<li><code>verify.py --fast</code> (SwiftLint, SwiftFormat, the three Swift packages) passes on Linux.</li>
+<li>This PR's hosted smoke gate builds the app and runs the unit and core-loop UI tests on the simulator.</li>
+</ul>
+</body>
+</html>
