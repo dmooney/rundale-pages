@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>PR 2312: TestFlight distribution signing</title>
+<style>body{font:15px/1.5 -apple-system,system-ui,sans-serif;max-width:860px;margin:2em auto;padding:0 1em}pre{background:#f4f4f4;padding:.8em;overflow-x:auto;font-size:13px}</style></head>
+<body>
+<h1>PR 2312: archive TestFlight uploads with a stored distribution certificate</h1>
+<p>This change has no visible effect in the app, so there is no recording. It changes how the GitHub TestFlight workflow signs the archive. The evidence below comes from hosted-runner runs and App Store Connect API listings.</p>
+
+<h2>Before: uploads failed at the archive</h2>
+<p>Runs <a href="https://github.com/dmooney/Rundale/actions/runs/40128822327">40128822327</a> (0fdadf058), <a href="https://github.com/dmooney/Rundale/actions/runs/40133737977">40133737977</a> (f34cb95e0) and <a href="https://github.com/dmooney/Rundale/actions/runs/40213669511">40213669511</a> (50a3ef4dd), from release.log:</p>
+<pre>error: Choose a certificate to revoke. Your account has reached the maximum number of certificates.
+error: No profiles for 'com.rundale.mobile' were found: Xcode couldn't find any iOS App Development provisioning profiles
+** ARCHIVE FAILED **</pre>
+<p>App Store Connect held 11 development certificates. One was the owner's Mac certificate, <code>39H29AG3QK</code>, whose serial 65335E65…2152 matches the Mac's keychain identity. The other ten were "Apple Development: Created via API", one per hosted upload since 2026-10-17. With the owner's approval, the ten were revoked.</p>
+
+<h2>Hosted-runner rehearsal of the new signing path</h2>
+<p>Run <a href="https://github.com/dmooney/Rundale/actions/runs/40217293387">40217293387</a> used this branch's import step and release.py on macos-26, with the real secrets. It ran the archive and the app-store-connect distribution export, with no upload, since only main uploads.</p>
+<pre>Distribution profile: Rundale GitHub TestFlight App Store (b1736dd6-a977-4437-9fba-6727710e087e)
+distribution signing chain: Apple Distribution: DAVID ANDERSON MOONEY (MBPRPZ283R); Apple Worldwide Developer Relations Certification Authority; Apple Root CA
+REHEARSAL OK: manual distribution archive and app-store-connect export validated
+Authority=Apple Distribution: DAVID ANDERSON MOONEY (MBPRPZ283R)
+TeamIdentifier=MBPRPZ283R</pre>
+<p>Afterwards App Store Connect still listed four certificates, so the run created none:</p>
+<pre>39H29AG3QK  DEVELOPMENT       Apple Development: David Mooney        (owner's Mac)
+675SF3DKS4  DISTRIBUTION      Apple Distribution: DAVID ANDERSON MOONEY (CI, this PR)
+J5ASCF9U58  IOS_DISTRIBUTION  iOS Distribution (Expo apps)
+7K284M2596  IOS_DISTRIBUTION  iOS Distribution (Expo apps)</pre>
+
+<h2>Local checks on the owner's Mac</h2>
+<pre>manual archive (temporary keychain, RUNDALE_DISTRIBUTION_PROFILE set):
+  Authority=Apple Distribution: DAVID ANDERSON MOONEY (MBPRPZ283R)
+  entitlements: appattest-environment production, get-task-allow false, beta-reports-active true
+automatic archive (no variable; the owner's path):
+  Authority=Apple Development: apple@dmooney.org (BU89V2HVH4); no new keychain identity
+just mobile-verify --phase all (clean checkout of a7f01eecc):
+  PASS automated gate: 23 passed, 0 failed, 1 skipped, 4 unavailable, 11 not automatable</pre>
+<p>The first attempt set PROVISIONING_PROFILE_SPECIFIER on the command line. The Firebase and GoogleUtilities Swift package resource bundles rejected it ("does not support provisioning profiles"), so project.yml now gives the profile to the app target only.</p>
+</body></html>
