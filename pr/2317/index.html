@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>PR 2317: session orchestration in RundaleSession</title>
+<style>body{font:15px/1.5 -apple-system,system-ui,sans-serif;max-width:860px;margin:2em auto;padding:0 1em}pre{background:#f4f4f4;padding:.8em;overflow-x:auto;font-size:13px}</style></head>
+<body>
+<h1>PR 2317: move session orchestration into the RundaleSession package</h1>
+<p>This is a behaviour-preserving refactor (issue <a href="https://github.com/dmooney/Rundale/issues/2272">#2272</a>). It changes nothing the player sees, so there is no recording. The evidence below comes from a Linux cloud session. It is not simulator or physical-iPhone evidence. The hosted macOS gates for this PR are linked from the PR's checks.</p>
+
+<h2>Linux Swift lane: <code>python3 mobile/scripts/verify.py --fast</code></h2>
+<p>Run on Linux with Swift 6.3.3 on 2026-10-25, on commit c45d898.</p>
+<pre>PASS automated gate: 11 passed, 0 failed, 0 skipped, 0 unavailable, 0 not automatable
+swiftlint            passed
+swiftformat          passed
+RundaleKit           29 tests passed, line coverage 87.25%
+RundaleBridge         5 tests passed, line coverage 39.02%
+LimerickEndpointKit  17 tests passed, line coverage 75.80%
+RundaleSession       17 tests passed, line coverage 63.66% (new floor)</pre>
+
+<h2>RundaleSession tests (Linux)</h2>
+<p>The package suite passed in 10 runs out of 10, at about 4.5 s per run. The inference tests run the real controller against a scripted engine and the mock Endpoint the UI suites use.</p>
+<pre>EngineControllerInferenceTests
+  testATurnDecidesOnTheJSONRouteThenStreamsTheReplyFrameByFrame
+  testAnEndpointErrorEndsTheCallWithItsReason
+  testARateLimitedDecisionFailsAsBusy
+  testALostConnectionFailsAsOffline
+  testStopCancelsTheOpenStreamOnTheServerAndStopsTheEngine
+  testTheMockLaunchMakesNoCredentialsAndCallsTheLoopbackMock
+  testTheOpenPayloadNamesTheSaveBesideTheProjectionAndTheMod
+  testAnEngineThatCannotOpenSaysWhyWithoutAStateChange
+PresenterComposerTests
+  testSendStopAndRetryFollowTheRequest
+EndpointFailureClassificationTests (6, moved from RundaleTests)
+FixtureEndpointTests (1, moved)
+UnappliedReplyTests (1, moved)</pre>
+
+<h2>The new tests fail when the code is broken</h2>
+<p>Each change below was made by hand, the test was run, and the source was then restored.</p>
+<ul>
+<li>Sending the call id unchanged as <code>X-Attempt-Id</code>, instead of with "#" made ".", fails <code>testATurnDecides…</code>. The recorded attempt ids were <code>attempt-1#1</code> and <code>attempt-1#2</code>, where <code>attempt-1.1</code> and <code>attempt-1.2</code> were expected.</li>
+<li>Dropping the server-side cancel on Stop fails <code>testStopCancels…</code>. The last request was the stream <code>POST</code>, where a <code>DELETE</code> carrying attempt id <code>attempt-1.2</code> was expected.</li>
+</ul>
+
+<h2>Other checks run</h2>
+<ul>
+<li><code>python3 -m unittest mobile.scripts.test_verify mobile.scripts.test_verify_record</code>: all 94 tests pass.</li>
+<li><code>just check</code>, <code>just docs-check</code>, <code>bash limerick/scripts/check-doc-paths.sh</code> and <code>just agent-check</code> (local mode): all pass.</li>
+<li>The app wrapper (<code>RundalePresentationModel</code>, <code>RundaleSessionWiring</code>) and the app unit tests <code>RundalePhase4Tests</code>, <code>RundaleBugReportTests</code>, <code>LaunchConfigurationTests</code>, <code>RundaleEngineLifecycleTests</code> and <code>RundalePhase4HistoryTests</code> were typechecked on Linux against the package, with stand-ins for UIKit, Combine, OSLog and Firebase. This is not an Xcode build. The hosted macOS gate builds the app.</li>
+</ul>
+</body></html>
