@@ -1,0 +1,10 @@
+<!doctype html>
+<meta charset="utf-8"><title>PR 2318: settle the transcript scroll before hit-testing history rows</title>
+<h1>PR 2318: settle the transcript scroll before hit-testing history rows</h1>
+<p>Test-only change (issue 2314). Simulator run (iPhone 17 Pro, not a physical iPhone, fixture
+<code>restoration-long-history</code>, not live gameplay) of
+<code>RundaleUITests/testReadingAnchorRestoresTheVisibleHistoricalRow</code> after the fix: the test swipes
+the transcript, waits for the visible historical rows to stop moving, records one row and its viewport offset,
+relaunches, and checks the same row is restored at the same offset. The test passed.</p>
+<video src="run.mp4" controls width="360"></video>
+<p><img src="test.gif" alt="test run"></p>
