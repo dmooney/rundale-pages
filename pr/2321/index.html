@@ -1,0 +1,82 @@
+<!doctype html><meta charset=utf-8><title>mobile-verify failure evidence</title>
+<h1>mobile-verify keeps the diagnosis of a failed simulator test</h1>
+<p>A deliberate failing UI test (not committed) run through the real <code>verify.py --smoke</code> path. The recording below is the screen recording the gate extracted from the .xcresult.</p>
+<video src=evidence.mp4 controls height=500></video> <img src=Failure_screenshot.png height=500>
+<h2>summary.txt (evidence lines)</h2><pre>Rundale mobile verification (phase smoke)
+FAIL automated gate: 8 passed, 9 failed, 5 skipped, 4 unavailable, 11 not automatable
+
+FAILURE EVIDENCE: failures/20261025T234211067716Z/index.md under the report directory (mobile/.verification/failures/20261025T234211067716Z).
+Read each failure.md, its screenshot and UI hierarchy, and the .xcresult, and diagnose the failure before re-running or calling a test flaky.
+
+- FAILED: Combined iOS simulator test run — …re.StoreError error 0.) | 2026-10-25 19:45:54.251 xcodebuild[22065:115461004] [MT] IDELaunchParametersSnapshot: no debugger version | 2026-10-25 19:46:12.888 xcodebuild[22065:115461004] [MT] IDETestOperationsObserverDebug: 85.341 elapsed -- Testing starte
+- FAILED: iOS simulator XCTest/XCUITest suite (unit test classes; --smoke) — the combined run failed: …re.StoreError error 0.) | 2026-10-25 19:45:54.251 xcodebuild[22065:115461004] [MT] IDELaunchParametersSnapshot: no debugger version | 2026-10-25 19:46:12.888 xcodebuild[22065:115461004] [MT] IDETes
+- FAILED: iOS simulator test-result validation — the combined run failed: …re.StoreError error 0.) | 2026-10-25 19:45:54.251 xcodebuild[22065:115461004] [MT] IDELaunchParametersSnapshot: no debugger version | 2026-10-25 19:46:12.888 xcodebuild[22065:115461004] [MT] IDETestOperationsObserverDebug: 85
+- FAILED: Phase 2 iOS simulator XCTest/XCUITest suite (unit test classes; --smoke) — the combined run failed: …re.StoreError error 0.) | 2026-10-25 19:45:54.251 xcodebuild[22065:115461004] [MT] IDELaunchParametersSnapshot: no debugger version | 2026-10-25 19:46:12.888 xcodebuild[22065:115461004] [MT
+- FAILED: iOS simulator test-result validation — the combined run failed: …re.StoreError error 0.) | 2026-10-25 19:45:54.251 xcodebuild[22065:115461004] [MT] IDELaunchParametersSnapshot: no debugger version | 2026-10-25 19:46:12.888 xcodebuild[22065:115461004] [MT] IDETestOperationsObserverDebug: 85
+- FAILED: Native controller and launch contracts — the combined run failed: …re.StoreError error 0.) | 2026-10-25 19:45:54.251 xcodebuild[22065:115461004] [MT] IDELaunchParametersSnapshot: no debugger version | 2026-10-25 19:46:12.888 xcodebuild[22065:115461004] [MT] IDETestOperationsObserverDebug: 
+- FAILED: iOS simulator test-result validation — the combined run failed: …re.StoreError error 0.) | 2026-10-25 19:45:54.251 xcodebuild[22065:115461004] [MT] IDELaunchParametersSnapshot: no debugger version | 2026-10-25 19:46:12.888 xcodebuild[22065:115461004] [MT] IDETestOperationsObserverDebug: 85
+- FAILED: Core-loop UI smoke tests (--smoke) — xcresult reports 1 failed test(s)
+    evidence: mobile/.verification/failures/20261025T234211067716Z/ZZThrowawayFailUITests.testDeliberateFailure/failure.md (Screen_Recording_2026-10-25_at_07.45.31_PM.mp4, Debug_description_for_does.not.exist_Button.txt, App_UI_hierarchy_for_com.rundale.txt, UI_Snapshot_2026-10-25_at_07.45.bin, Fail
+    ZZThrowawayFailUITests.testDeliberateFailure(): ZZThrowawayFailUITests.swift:9: XCTAssertTrue failed - deliberate failure
+- FAILED: iOS simulator test-result validation — xcresult reports 1 failed test(s)
+
+JSON: mobile/.verification/verify.json
+JUnit: mobile/.verification/verify.junit.xml</pre>
+<h2>failure.md</h2><pre># Failed: RundaleUITests/ZZThrowawayFailUITests/testDeliberateFailure()
+
+- Result bundle: `mobile/.verification/xcresults/simulator-combined-20261025T234211067716Z.xcresult` (open with Xcode, or `xcrun xcresulttool`)
+- Device: Goblin2-QA-Expo-20260912-171339 (iOS Simulator 26.5)
+- Duration: 4.6s
+
+## Failure messages
+
+- ZZThrowawayFailUITests.swift:9: XCTAssertTrue failed - deliberate failure
+
+## Timeline before the failure
+
+```
++   0.00s Start Test at 2026-10-25 19:45:31.687
++   0.01s   kXCTAttachmentScreenRecording
++   0.01s Set Up
++   0.01s Open com.rundale.mobile
++   0.01s   Launch com.rundale.mobile
++   0.22s     Setting up automation session
++   0.63s     Wait for com.rundale.mobile to idle
++   1.89s Waiting 3.0s for &quot;status.header&quot; Other to exist
++   2.93s   Checking `Expect predicate `existsNoRetry == 1` for object &quot;status.header&quot; Other`
++   2.93s     Checking existence of `&quot;status.header&quot; Other`
++   2.96s Waiting 1.0s for &quot;does.not.exist&quot; Button to exist
++   3.97s   Checking `Expect predicate `existsNoRetry == 1` for object &quot;does.not.exist&quot; Button`
++   3.97s     Checking existence of `&quot;does.not.exist&quot; Button`
++   3.98s     Debug description for `&quot;does.not.exist&quot; Button`
++   3.98s     Capturing element debug description
++   3.98s   Checking existence of `&quot;does.not.exist&quot; Button`
++   4.00s Collecting debug information to assist test failure triage
++   4.00s   Requesting snapshot of accessibility hierarchy for app with pid 24050
++   4.02s   App UI hierarchy for com.rundale.mobile
++   4.02s   kXCTAttachmentLegacySnapshot
++   4.02s XCTAssertTrue failed - deliberate failure  &lt;-- FAILURE
+            ZZThrowawayFailUITests.testDeliberateFailure()
++   4.02s Requesting snapshot of accessibility hierarchy for app with pid 24050
++   4.09s Requesting snapshot of accessibility hierarchy for app with pid 24050
++   4.11s Added attachment named &#x27;Failure: UI hierarchy&#x27;
++   4.11s   Failure: UI hierarchy
++   4.11s Find the Target Application &#x27;com.rundale.mobile&#x27;
++   4.18s Added attachment named &#x27;Failure: screenshot&#x27;
++   4.18s   Failure: screenshot
++   4.40s Tear Down
+```
+
+## Attachments
+
+- `Screen_Recording_2026-10-25_at_07.45.31_PM.mp4`
+- `Debug_description_for_does.not.exist_Button.txt`
+- `App_UI_hierarchy_for_com.rundale.txt`
+- `UI_Snapshot_2026-10-25_at_07.45.bin`
+- `Failure_UI_hierarchy.txt`
+- `Failure_screenshot.png`
+
+## Runner and crash logs
+
+- `mobile/.verification/failures/20261025T234211067716Z/diagnostics`
+</pre>
