@@ -1,0 +1,22 @@
+<!doctype html><meta charset="utf-8"><title>PR 2325: commit model dialogue as written</title>
+<h1>PR 2325: model dialogue is committed as written</h1>
+<p>Issue 2295. No visible UI change, so there is no recording. Evidence is the production-path test output below, run in the PR worktree.</p>
+<p>The reply names <code>Tadhg Mulvihill</code>, who does not exist in the parish. It is committed unchanged through the desktop host (<code>drive_in_process</code>) and the phone host (<code>TurnEngine::resume</code>): transcript event, conversation log, stream events and accepted action. Structurally incomplete or oversized replies still commit nothing.</p>
+<pre>running 3 tests
+test phone_path_commits_a_reply_naming_a_nonexistent_person_unchanged ... ok
+test desktop_path_commits_a_reply_naming_a_nonexistent_person_unchanged ... ok
+test an_incomplete_reply_still_commits_nothing ... ok
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+test parity_comparison_catches_a_dropped_dialogue_event ... ok
+test potato_patch_action_progresses_identically_in_legacy_and_real_loops ... ok
+test incomplete_candidate_has_zero_effects_across_modes ... ok
+test dialogue_turn_publishes_identical_event_across_legacy_and_real_loop ... ok
+test reply_naming_a_nonexistent_person_commits_identically_across_modes ... ok
+test grounded_task_assignment_is_identical_in_legacy_and_real_loops ... ok
+test unique_first_name_and_occupation_reveals_identity_across_turn_modes ... ok
+test parity_harness_keeps_game_time_frozen_under_host_delay ... ok
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.09s
+test tests::a_reply_naming_a_person_who_does_not_exist_commits_unchanged ... ok
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 40 filtered out; finished in 0.03s
+</pre>
+<p>Tests: <code>limerick-core/tests/dialogue_commits_unchanged.rs</code>, <code>limerick-engine/tests/mode_parity.rs</code>, <code>limerick-mobile-ffi</code> <code>a_reply_naming_a_person_who_does_not_exist_commits_unchanged</code>.</p>
