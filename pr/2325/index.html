@@ -20,6 +20,7 @@ test tests::a_reply_naming_a_person_who_does_not_exist_commits_unchanged ... ok
 test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 40 filtered out; finished in 0.03s
 </pre>
 <h2>Live engine run</h2>
+<p><img src="dialogue-unchanged.gif" alt="engine run" width="640"> <a href="dialogue-unchanged.mp4">video (mp4)</a></p>
 <p>The real <code>limerick-engine --script</code> process (not a unit test) is given this script. The stubbed reply names a person the world does not have and ends in a bare capitalised word that an old parse step would have trimmed. The last JSON line is the engine's result: the reply reaches the player exactly as written. This is a terminal transcript of the engine process, not a physical-iPhone run and not a live model.</p>
 <pre># A reply naming a person who does not exist is committed as written.
 /wait 30
