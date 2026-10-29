@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PR 2331: /new starts a fresh game</title>
+<style>
+body { font-family: -apple-system, system-ui, sans-serif; max-width: 720px; margin: 2rem auto; padding: 0 1rem; line-height: 1.5; color: #222; }
+video { width: 100%; max-width: 420px; display: block; margin: 1rem 0; border: 1px solid #ccc; }
+</style>
+</head>
+<body>
+<h1>PR 2331: <code>/new</code> starts a fresh game</h1>
+<p><a href="https://github.com/dmooney/Rundale/pull/2331">dmooney/Rundale#2331</a></p>
+<p><strong>What this is:</strong> a recording of the <code>testNewGameStartsFreshOfflineAndResumesAfterRelaunch</code> UI test. It runs the real Rundale app on the Limerick engine in the <strong>iOS simulator</strong>, offline. It is not physical-iPhone validation.</p>
+<video controls playsinline muted src="new-game.mp4"></video>
+<ol>
+<li><code>/wait 60</code> runs in the opening scene.</li>
+<li><code>/new</code>, picked from completion, replaces it with a fresh opening scene.</li>
+<li><code>/wait 7</code> runs; the app is relaunched and resumes that new game.</li>
+<li><code>/NEW-GAME</code> (the alias, in upper case) starts another fresh game.</li>
+<li><code>/help</code> lists <code>/new: Start a new game</code>.</li>
+</ol>
+<p>The holds at the start and end are frozen frames added so each state can be read.</p>
+</body>
+</html>
