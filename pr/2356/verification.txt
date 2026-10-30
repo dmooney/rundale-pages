@@ -10,4 +10,5 @@ Unavailable: native opt-in live Endpoint UI suite unconfigured; verification pha
 Human-only: physical-iPhone interaction, accessibility, lifecycle and phase2/3/4 checks.
 PASS mock and live MCP captures, including streamed provisional output and committed transcript continuity across fresh processes.
 Live temporary App Check debug token deleted. Capture files scanned for private key and JWT patterns.
-Linux CI is pending PR publication; no observed Linux cloud run or physical-iPhone validation is claimed.
+PASS Linux CI host build, golden frames, MCP tests and real MCP-to-Swift integration: https://github.com/dmooney/Rundale/actions/runs/41136323419/job/124339646903
+No observed Linux live-cloud run or physical-iPhone validation is claimed.
