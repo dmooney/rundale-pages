@@ -1,0 +1,11 @@
+
+[1m[33mFrame 1 · new game · macOS terminal host[0m
+[1mThe crossroads[0m · Late evening · Rain easing
+[2m————————————————————————————————————————[0m
+[1mThe crossroads[0m [3mThe crossroads[0m
+Rain darkens the road while the village settles into evening.
+[2m————————————————————————————————————————[0m
+[1mComposer:[0m [3mempty[0m · [Send]
+
+[2m│ [0m[1mInput:[0m [36m:quit[0m
+
