@@ -1,0 +1,12 @@
+Timer audit verification
+
+The original full run exposed a stale streaming-label query in the test helper. The fix reuses the captured row ID and reads its bounds from one snapshot. No chunk text, identity, visibility tolerance, minimum timing, control assertion, or timeout was removed or relaxed.
+
+Focused xcodebuild run: -only-testing:RundaleUITests/RundalePhase1TimerAuditUITests/testAutomaticChunksStayVisibleAndCompleteWithoutNext -test-iterations 3
+
+Test Case '-[RundaleUITests.RundalePhase1TimerAuditUITests testAutomaticChunksStayVisibleAndCompleteWithoutNext]' started (Iteration 1 of 3).
+Test Case '-[RundaleUITests.RundalePhase1TimerAuditUITests testAutomaticChunksStayVisibleAndCompleteWithoutNext]' passed (20.763 seconds).
+Test Case '-[RundaleUITests.RundalePhase1TimerAuditUITests testAutomaticChunksStayVisibleAndCompleteWithoutNext]' started (Iteration 2 of 3).
+Test Case '-[RundaleUITests.RundalePhase1TimerAuditUITests testAutomaticChunksStayVisibleAndCompleteWithoutNext]' passed (21.007 seconds).
+Test Case '-[RundaleUITests.RundalePhase1TimerAuditUITests testAutomaticChunksStayVisibleAndCompleteWithoutNext]' started (Iteration 3 of 3).
+Test Case '-[RundaleUITests.RundalePhase1TimerAuditUITests testAutomaticChunksStayVisibleAndCompleteWithoutNext]' passed (19.842 seconds).

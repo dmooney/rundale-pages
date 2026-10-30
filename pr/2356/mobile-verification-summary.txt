@@ -1,0 +1,5 @@
+Rundale mobile verification (phase all)
+PASS automated gate: 27 passed, 0 failed, 0 skipped, 4 unavailable, 11 not automatable
+
+JSON: mobile/.verification/verify.json
+JUnit: mobile/.verification/verify.junit.xml
