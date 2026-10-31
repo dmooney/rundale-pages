@@ -1,4 +1,6 @@
-Current commit b56f1294; full mobile gate pending.
-Repository just verify, 24 shared-session tests, three focused history UI tests, Swift style and independent local review passed.
-180-row diagnostic probe: one successful snapshot write.
-See index.html for evidence and limitations.
+Commit b56f12944cb4c2e3d566941dbcf92dd559cd9d58
+Full mobile gate: 27 passed, 0 failed, 0 skipped, 4 unavailable, 11 human-only, 0 blocking.
+Recorded input tree: 828fd26e3b9ce7d9487c3378dd0bbe7fe8599b8d
+Repository just verify, 24 shared-session tests with warnings as errors, focused history UI tests, Swift style and independent local Claude review passed.
+180-row diagnostic probe: one successful snapshot write; instrumentation removed.
+Final PR review pending Claude five-hour limit. No physical-iPhone validation claimed.
