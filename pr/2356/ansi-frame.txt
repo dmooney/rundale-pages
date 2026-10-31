@@ -1,5 +1,5 @@
 
-[1m[33mFrame 1 · new game · macOS terminal host[0m
+[1m[33mFrame 1 · new game · Rundale CLI on macOS[0m
 [1mThe crossroads[0m · Late evening · Rain easing
 [2m————————————————————————————————————————[0m
 [1mThe crossroads[0m [3mThe crossroads[0m
