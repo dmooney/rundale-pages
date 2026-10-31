@@ -1,0 +1,13 @@
+Simulator fixture UI tests, commit b8d6cb925
+Test Case '-[RundaleUITests.RundalePhase1TimerAuditUITests testAutomaticChunksStayVisibleAndCompleteWithoutNext]' passed (21.115 seconds).
+Test Case '-[RundaleUITests.RundalePhase1TimerAuditUITests testAutomaticChunksStayVisibleAndCompleteWithoutNext]' passed (20.330 seconds).
+Test Case '-[RundaleUITests.RundalePhase1TimerAuditUITests testAutomaticChunksStayVisibleAndCompleteWithoutNext]' passed (21.285 seconds).
+Test Case '-[RundaleUITests.RundalePhase1TimerAuditUITests testAutomaticChunksWorkWithNativeMultilineComposer]' passed (26.175 seconds).
+Test Case '-[RundaleUITests.RundalePhase1TimerAuditUITests testAutomaticChunksWorkWithNativeMultilineComposer]' passed (26.249 seconds).
+Test Case '-[RundaleUITests.RundalePhase1TimerAuditUITests testAutomaticChunksWorkWithNativeMultilineComposer]' passed (26.024 seconds).
+Test Case '-[RundaleUITests.RundaleUITests testReadingAnchorRestoresTheVisibleHistoricalRow]' passed (12.156 seconds).
+Test Case '-[RundaleUITests.RundaleUITests testReadingAnchorRestoresTheVisibleHistoricalRow]' passed (12.001 seconds).
+Test Case '-[RundaleUITests.RundaleUITests testReadingAnchorRestoresTheVisibleHistoricalRow]' passed (12.091 seconds).
+	 Executed 9 tests, with 0 failures (0 unexpected) in 177.427 (177.435) seconds
+	 Executed 9 tests, with 0 failures (0 unexpected) in 177.427 (177.436) seconds
+** TEST SUCCEEDED **
