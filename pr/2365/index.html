@@ -1,0 +1,10 @@
+<!doctype html><meta charset="utf-8"><title>PR 2365: Retry only for the newest uncommitted failure</title>
+<style>body{font-family:system-ui;max-width:760px;margin:2em auto;padding:0 1em}video{max-width:100%;max-height:640px}</style>
+<h1>Retry only for the newest uncommitted failure</h1>
+<p>Fixes issue 2329. These are <b>iOS simulator recordings</b> (stub Endpoint, no live inference), not physical-iPhone validation.</p>
+<h2>After the fix</h2>
+<p>Stop an in-flight reply, tap Retry, the reply completes and Retry is gone. A stopped question replaced by a newer one that succeeds also leaves no Retry.</p>
+<video src="after.mp4" controls></video>
+<h2>Before the fix (same test, pre-fix source)</h2>
+<p>The test fails at its last assertion: Retry stays visible after the newer question succeeds.</p>
+<video src="before.mp4" controls></video>
