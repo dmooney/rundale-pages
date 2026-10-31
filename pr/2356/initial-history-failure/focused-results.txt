@@ -1,0 +1,10 @@
+Test Case '-[RundaleUITests.RundaleUITests testFollowingNewestStartsAtLatestAndTracksComposerResize]' started (Iteration 1 of 3).
+Test Case '-[RundaleUITests.RundaleUITests testFollowingNewestStartsAtLatestAndTracksComposerResize]' passed (21.744 seconds).
+Test Case '-[RundaleUITests.RundaleUITests testFollowingNewestStartsAtLatestAndTracksComposerResize]' started (Iteration 2 of 3).
+Test Case '-[RundaleUITests.RundaleUITests testFollowingNewestStartsAtLatestAndTracksComposerResize]' passed (18.675 seconds).
+Test Case '-[RundaleUITests.RundaleUITests testFollowingNewestStartsAtLatestAndTracksComposerResize]' started (Iteration 3 of 3).
+Test Case '-[RundaleUITests.RundaleUITests testFollowingNewestStartsAtLatestAndTracksComposerResize]' passed (19.246 seconds).
+	 Executed 3 tests, with 0 failures (0 unexpected) in 59.665 (59.670) seconds
+	 Executed 3 tests, with 0 failures (0 unexpected) in 59.665 (59.671) seconds
+	 Executed 3 tests, with 0 failures (0 unexpected) in 59.665 (59.672) seconds
+** TEST SUCCEEDED **
