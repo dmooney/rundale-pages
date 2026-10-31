@@ -1,0 +1,7 @@
+Dedicated iPhone17Pro simulator, fixture history tests.
+Test Case '-[RundaleUITests.RundalePhase1AuditUITests testPagedHistoryRestoresOlderAnchorAndReturnsToNewestCompletedReply]' passed (90.803 seconds).
+Test Case '-[RundaleUITests.RundalePhase1TimerAuditUITests testLongFixtureTraversesOldestAndNewestWithinInteractionBudget]' passed (47.960 seconds).
+Test Case '-[RundaleUITests.RundaleUITests testReadingAnchorRestoresTheVisibleHistoricalRow]' passed (11.941 seconds).
+	 Executed 3 tests, with 0 failures (0 unexpected) in 150.703 (150.707) seconds
+	 Executed 3 tests, with 0 failures (0 unexpected) in 150.703 (150.708) seconds
+** TEST SUCCEEDED **

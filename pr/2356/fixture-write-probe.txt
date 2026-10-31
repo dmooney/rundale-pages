@@ -1,0 +1,3 @@
+Temporary diagnostic instrumentation, 180-row fixture; removed before commit.
+Test Case '-[RundaleSessionTests.FixtureStartupTests testPagedOpeningHistoryPublishesCompleteInitialJournalOnce]' passed (0.051 seconds).
+STARTUP_WRITE_PROBE count=1 rows=180

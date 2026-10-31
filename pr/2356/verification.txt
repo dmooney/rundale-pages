@@ -1,14 +1,4 @@
-Final head: 59c6bd286
-PASS just check and just verify.
-PASS shared-session Swift package tests with warnings as errors.
-PASS terminal host: 23 tests, including existing golden frames.
-PASS MCP crate: 66 tests.
-PASS mobile FFI: 54 tests, 1 existing opt-in ignored.
-PASS timer UI audit: 3 focused repetitions, with assertions and timeouts retained.
-PASS final mobile-verify --phase all --parallel-workers 4: 27 passed, 0 failed, 0 skipped, 4 unavailable, 11 human-only, 0 blocking.
-Unavailable: native opt-in live Endpoint UI suite unconfigured; verification phases 5/6/7 not implemented by existing runner.
-Human-only: physical-iPhone interaction, accessibility, lifecycle and phase2/3/4 checks.
-PASS mock and live MCP captures, including streamed provisional output and committed transcript continuity across fresh processes.
-Live temporary App Check debug token deleted. Capture files scanned for private key and JWT patterns.
-PASS Linux CI host build, golden frames, MCP tests and real MCP-to-Swift integration: https://github.com/dmooney/Rundale/actions/runs/41136323419/job/124339646903
-No observed Linux live-cloud run or physical-iPhone validation is claimed.
+Current commit b56f1294; full mobile gate pending.
+Repository just verify, 24 shared-session tests, three focused history UI tests, Swift style and independent local review passed.
+180-row diagnostic probe: one successful snapshot write.
+See index.html for evidence and limitations.
