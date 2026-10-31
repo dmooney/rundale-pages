@@ -3,7 +3,7 @@
 python3 play_mcp.py --inference mock --out /tmp/rundale-mcp-mock
 python3 play_mcp.py --inference live --out /tmp/rundale-mcp-live</pre><h2>Timer audit stability</h2><p>The final gate exposed a pre-existing UI-test query race against a changing streaming label. A test-only correction reuses the captured ID and one row snapshot, retaining the same assertions and timeouts. <a href="timer-audit.txt">All three focused repetitions passed.</a></p><h2>Accessibility snapshot corrections</h2><p>The next full run exposed live accessibility queries failing on visible noninteractive or streaming text. The corrections read immutable app snapshots while retaining viewport geometry assertions and their deadlines. All three affected tests passed three repetitions each. <a href="snapshot-regressions.txt">Focused test receipt</a>.</p><h2>Verification</h2><pre>App-input commit with full mobile verification: 59c6bd286
 Current implementation: b8d6cb925
-Fresh full app verification on this clean commit is running.
+PASS full app verification on this clean commit: 25 passed, 0 failed, 1 skipped (simulator already booted), 4 unavailable, 11 human-only, 0 blocking.
 The prior fresh runs failed UI-test accessibility queries; corrected tests passed all nine focused runs.
 PASS follow-up just check, just verify, 24 host tests, 5 real-pipe/PTY tests, MCP integration, Swift lint/format and Ruff.
 PASS fresh live MCP capture after structured credential URL changes; temporary debug token deleted.

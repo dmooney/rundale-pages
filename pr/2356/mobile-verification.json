@@ -8,10 +8,10 @@
     3,
     4
   ],
-  "started_at": "2026-10-30T21:58:01.734091+00:00",
-  "finished_at": "2026-10-30T22:09:41.790395+00:00",
+  "started_at": "2026-10-31T12:20:48.431819+00:00",
+  "finished_at": "2026-10-31T12:33:08.109543+00:00",
   "build_identity": {
-    "git_head": "59c6bd2869b44d07807a098cf74fcd2fafcac22b",
+    "git_head": "b8d6cb9250fad7bceec02327888c8ca6046a3e7c",
     "git_dirty": false,
     "source_fingerprint": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
     "scheme": "Rundale",
@@ -21,9 +21,9 @@
   "status": "passed",
   "exit_code": 0,
   "summary": {
-    "passed": 27,
+    "passed": 25,
     "failed": 0,
-    "skipped": 0,
+    "skipped": 1,
     "unavailable": 4,
     "not_automatable": 11,
     "reused": 0,
@@ -36,7 +36,7 @@
   },
   "cache": {
     "enabled": true,
-    "content_key": "9a8da4db54b1bb257f89af8c830a3729d7b3d2d32a78039ad63e5705b6480d04"
+    "content_key": "33521d203f5f3131b18e7dc6f1f649d1f5866166689e2de9e4e80c398812776a"
   },
   "suites": [
     {
@@ -56,7 +56,7 @@
       "command_text": "bash mobile/scripts/build-rust-mobile.sh all",
       "cwd": ".",
       "returncode": 0,
-      "duration_seconds": 1.176,
+      "duration_seconds": 1.669,
       "details": {
         "toolchain": "1.99.1",
         "architectures": [
@@ -83,7 +83,7 @@
         "--cache-path",
         "mobile/.verification/tool-cache/swiftpm",
         "--scratch-path",
-        "mobile/.verification/swift-scratch/20261030T215801734248Z/RundaleKit",
+        "mobile/.verification/swift-scratch/20261031T122048432009Z/RundaleKit",
         "--manifest-cache",
         "local",
         "--disable-dependency-cache",
@@ -93,20 +93,20 @@
         "-Xswiftc",
         "-warnings-as-errors"
       ],
-      "command_text": "swift test --package-path mobile/RundaleKit --cache-path mobile/.verification/tool-cache/swiftpm --scratch-path mobile/.verification/swift-scratch/20261030T215801734248Z/RundaleKit --manifest-cache local --disable-dependency-cache --skip-update --no-parallel --enable-code-coverage -Xswiftc -warnings-as-errors",
+      "command_text": "swift test --package-path mobile/RundaleKit --cache-path mobile/.verification/tool-cache/swiftpm --scratch-path mobile/.verification/swift-scratch/20261031T122048432009Z/RundaleKit --manifest-cache local --disable-dependency-cache --skip-update --no-parallel --enable-code-coverage -Xswiftc -warnings-as-errors",
       "cwd": ".",
       "returncode": 0,
-      "duration_seconds": 11.314,
+      "duration_seconds": 14.52,
       "details": {
         "package_path": "mobile/RundaleKit",
-        "cache_key": "cb3f1163853734ea24197f6842628db0754e00081ce2b8f72a1cad5680d9e98f",
+        "cache_key": "dda37aa63af670472ce7bb962b0441403a3c3d323e9a702347c035cd1484a865",
         "executed_tests": 29,
         "failed_tests": 0,
         "line_coverage": {
           "covered": 1479,
           "count": 1694,
           "percent": 87.31,
-          "report": "mobile/.verification/swift-scratch/20261030T215801734248Z/RundaleKit/arm64-apple-macosx/debug/codecov/RundaleKit.json"
+          "report": "mobile/.verification/swift-scratch/20261031T122048432009Z/RundaleKit/arm64-apple-macosx/debug/codecov/RundaleKit.json"
         }
       },
       "log": "mobile/.verification/logs/swift-package-tests.log"
@@ -125,7 +125,7 @@
           "covered": 1479,
           "count": 1694,
           "percent": 87.31,
-          "report": "mobile/.verification/swift-scratch/20261030T215801734248Z/RundaleKit/arm64-apple-macosx/debug/codecov/RundaleKit.json"
+          "report": "mobile/.verification/swift-scratch/20261031T122048432009Z/RundaleKit/arm64-apple-macosx/debug/codecov/RundaleKit.json"
         },
         "baseline": 86.72,
         "tolerance": 1.0
@@ -149,7 +149,7 @@
       "command_text": "xcodegen generate --spec mobile/project.yml",
       "cwd": ".",
       "returncode": 0,
-      "duration_seconds": 0.044,
+      "duration_seconds": 0.056,
       "details": {
         "spec": "mobile/project.yml",
         "project": "mobile/Rundale.xcodeproj"
@@ -176,28 +176,28 @@
         "-sdk",
         "iphoneos",
         "-derivedDataPath",
-        "mobile/.verification/DerivedData/iphoneos-20261030T215801734248Z",
+        "mobile/.verification/DerivedData/iphoneos-20261031T122048432009Z",
         "-resultBundlePath",
-        "mobile/.verification/xcresults/device-20261030T215801734248Z.xcresult",
+        "mobile/.verification/xcresults/device-20261031T122048432009Z.xcresult",
         "CODE_SIGNING_ALLOWED=NO",
         "CODE_SIGNING_REQUIRED=NO",
         "build"
       ],
-      "command_text": "xcodebuild -project mobile/Rundale.xcodeproj -scheme Rundale -configuration Debug -sdk iphoneos -derivedDataPath mobile/.verification/DerivedData/iphoneos-20261030T215801734248Z -resultBundlePath mobile/.verification/xcresults/device-20261030T215801734248Z.xcresult CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO build",
+      "command_text": "xcodebuild -project mobile/Rundale.xcodeproj -scheme Rundale -configuration Debug -sdk iphoneos -derivedDataPath mobile/.verification/DerivedData/iphoneos-20261031T122048432009Z -resultBundlePath mobile/.verification/xcresults/device-20261031T122048432009Z.xcresult CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO build",
       "cwd": ".",
       "returncode": 0,
-      "duration_seconds": 34.128,
+      "duration_seconds": 48.243,
       "details": {
         "scheme": "Rundale",
-        "derived_data": "mobile/.verification/DerivedData/iphoneos-20261030T215801734248Z",
-        "result_bundle": "mobile/.verification/xcresults/device-20261030T215801734248Z.xcresult",
+        "derived_data": "mobile/.verification/DerivedData/iphoneos-20261031T122048432009Z",
+        "result_bundle": "mobile/.verification/xcresults/device-20261031T122048432009Z.xcresult",
         "sdk": "iphoneos",
-        "cache_key": "a3326e7a66b58057b5dffbde79c44f80275d2816b1bdcfdf49bed3907ad155a2",
+        "cache_key": "a215b8708972019a072bdceee367709f4787dabcdcbe1d3687697cda79e3b1a0",
         "app_identity": {
           "CFBundleShortVersionString": "0.1.0",
           "CFBundleVersion": "8"
         },
-        "app_info_plist": "mobile/.verification/DerivedData/iphoneos-20261030T215801734248Z/Build/Products/Debug-iphoneos/Rundale.app/Info.plist"
+        "app_info_plist": "mobile/.verification/DerivedData/iphoneos-20261031T122048432009Z/Build/Products/Debug-iphoneos/Rundale.app/Info.plist"
       },
       "log": "mobile/.verification/logs/ios-device-build.log"
     },
@@ -221,12 +221,12 @@
       "command_text": "xcrun simctl list devices available -j",
       "cwd": ".",
       "returncode": 0,
-      "duration_seconds": 0.093,
+      "duration_seconds": 0.153,
       "details": {
-        "name": "Goblin2-QA-Expo-20260912-171339",
-        "udid": "65CE6092-5515-4B1A-AE64-E9D345B8016A",
-        "runtime": "com.apple.CoreSimulator.SimRuntime.iOS-26-5",
-        "state": "Shutdown",
+        "name": "iPhone 17 Pro",
+        "udid": "576FB3C7-2446-42B7-8D9C-EB9CD4FB0B24",
+        "runtime": "com.apple.CoreSimulator.SimRuntime.iOS-26-4",
+        "state": "Booted",
         "source": "automatic"
       },
       "log": "mobile/.verification/logs/simulator-selection.log"
@@ -236,51 +236,12 @@
       "name": "iPhone simulator boot",
       "phase": 1,
       "kind": "infrastructure",
-      "status": "passed",
-      "required": true,
+      "status": "skipped",
+      "required": false,
       "automatable": true,
       "blocking": false,
-      "command": [
-        "xcrun",
-        "simctl",
-        "boot",
-        "65CE6092-5515-4B1A-AE64-E9D345B8016A"
-      ],
-      "command_text": "xcrun simctl boot 65CE6092-5515-4B1A-AE64-E9D345B8016A",
-      "cwd": ".",
-      "returncode": 0,
-      "duration_seconds": 0.334,
-      "details": {
-        "name": "Goblin2-QA-Expo-20260912-171339",
-        "udid": "65CE6092-5515-4B1A-AE64-E9D345B8016A"
-      },
+      "reason": "simulator iPhone 17 Pro is already booted",
       "log": "mobile/.verification/logs/simulator-boot.log"
-    },
-    {
-      "id": "simulator-bootstatus",
-      "name": "iPhone simulator boot readiness",
-      "phase": 1,
-      "kind": "infrastructure",
-      "status": "passed",
-      "required": true,
-      "automatable": true,
-      "blocking": false,
-      "command": [
-        "xcrun",
-        "simctl",
-        "bootstatus",
-        "65CE6092-5515-4B1A-AE64-E9D345B8016A",
-        "-b"
-      ],
-      "command_text": "xcrun simctl bootstatus 65CE6092-5515-4B1A-AE64-E9D345B8016A -b",
-      "cwd": ".",
-      "returncode": 0,
-      "duration_seconds": 3.331,
-      "details": {
-        "name": "Goblin2-QA-Expo-20260912-171339",
-        "udid": "65CE6092-5515-4B1A-AE64-E9D345B8016A"
-      },
-      "log": "mobile/.verification/logs/simulator-bootstatus.log"
     },
     {
       "id": "physical-iphone-interaction",
@@ -341,11 +302,11 @@
       "command_text": "rustup run 1.99.1 cargo test --manifest-path limerick/Cargo.toml -p limerick-persistence",
       "cwd": ".",
       "returncode": 0,
-      "duration_seconds": 1.336,
+      "duration_seconds": 1.088,
       "details": {
         "package": "limerick-persistence",
         "toolchain": "1.99.1",
-        "cache_key": "40f4b00bb3a9fc3d95bd5247ba9ba21f55c3fb8819883ff3b6594c613d1b26a2",
+        "cache_key": "1ca9e96bc2db87191c2adf30b4cc6829f618e8049b1f0eed91904fb0babb2fde",
         "executed_tests": 177,
         "passed_tests": 177,
         "failed_tests": 0,
@@ -379,7 +340,7 @@
       "command_text": "rustup run 1.99.1 cargo tree --manifest-path limerick/Cargo.toml -p limerick-mobile-ffi --edges normal,features",
       "cwd": ".",
       "returncode": 0,
-      "duration_seconds": 0.213,
+      "duration_seconds": 0.174,
       "details": {
         "forbidden_dependencies": [
           "limerick-engine",
@@ -417,7 +378,7 @@
         "--cache-path",
         "mobile/.verification/tool-cache/swiftpm",
         "--scratch-path",
-        "mobile/.verification/swift-scratch/20261030T215801734248Z/RundaleBridge",
+        "mobile/.verification/swift-scratch/20261031T122048432009Z/RundaleBridge",
         "--manifest-cache",
         "local",
         "--disable-dependency-cache",
@@ -427,20 +388,20 @@
         "-Xswiftc",
         "-warnings-as-errors"
       ],
-      "command_text": "swift test --package-path mobile/RundaleBridge --cache-path mobile/.verification/tool-cache/swiftpm --scratch-path mobile/.verification/swift-scratch/20261030T215801734248Z/RundaleBridge --manifest-cache local --disable-dependency-cache --skip-update --no-parallel --enable-code-coverage -Xswiftc -warnings-as-errors",
+      "command_text": "swift test --package-path mobile/RundaleBridge --cache-path mobile/.verification/tool-cache/swiftpm --scratch-path mobile/.verification/swift-scratch/20261031T122048432009Z/RundaleBridge --manifest-cache local --disable-dependency-cache --skip-update --no-parallel --enable-code-coverage -Xswiftc -warnings-as-errors",
       "cwd": ".",
       "returncode": 0,
-      "duration_seconds": 10.523,
+      "duration_seconds": 13.971,
       "details": {
         "package_path": "mobile/RundaleBridge",
-        "cache_key": "db7b94cd6595ba3a664f716ab681d62ce47985ee74da66ec659c3e3a44f7de25",
+        "cache_key": "b0df2f10296b1e4ef18082b9d7789079cfc69e444c341ecb95c837af82912888",
         "executed_tests": 6,
         "failed_tests": 0,
         "line_coverage": {
           "covered": 181,
           "count": 456,
           "percent": 39.69,
-          "report": "mobile/.verification/swift-scratch/20261030T215801734248Z/RundaleBridge/arm64-apple-macosx/debug/codecov/RundaleBridge.json"
+          "report": "mobile/.verification/swift-scratch/20261031T122048432009Z/RundaleBridge/arm64-apple-macosx/debug/codecov/RundaleBridge.json"
         }
       },
       "log": "mobile/.verification/logs/swift-bridge-tests.log"
@@ -459,7 +420,7 @@
           "covered": 181,
           "count": 456,
           "percent": 39.69,
-          "report": "mobile/.verification/swift-scratch/20261030T215801734248Z/RundaleBridge/arm64-apple-macosx/debug/codecov/RundaleBridge.json"
+          "report": "mobile/.verification/swift-scratch/20261031T122048432009Z/RundaleBridge/arm64-apple-macosx/debug/codecov/RundaleBridge.json"
         },
         "baseline": 37.93,
         "tolerance": 1.0
@@ -482,7 +443,7 @@
         "--cache-path",
         "mobile/.verification/tool-cache/swiftpm",
         "--scratch-path",
-        "mobile/.verification/swift-scratch/20261030T215801734248Z/LimerickEndpointKit",
+        "mobile/.verification/swift-scratch/20261031T122048432009Z/LimerickEndpointKit",
         "--manifest-cache",
         "local",
         "--disable-dependency-cache",
@@ -492,20 +453,20 @@
         "-Xswiftc",
         "-warnings-as-errors"
       ],
-      "command_text": "swift test --package-path mobile/LimerickEndpointKit --cache-path mobile/.verification/tool-cache/swiftpm --scratch-path mobile/.verification/swift-scratch/20261030T215801734248Z/LimerickEndpointKit --manifest-cache local --disable-dependency-cache --skip-update --no-parallel --enable-code-coverage -Xswiftc -warnings-as-errors",
+      "command_text": "swift test --package-path mobile/LimerickEndpointKit --cache-path mobile/.verification/tool-cache/swiftpm --scratch-path mobile/.verification/swift-scratch/20261031T122048432009Z/LimerickEndpointKit --manifest-cache local --disable-dependency-cache --skip-update --no-parallel --enable-code-coverage -Xswiftc -warnings-as-errors",
       "cwd": ".",
       "returncode": 0,
-      "duration_seconds": 9.608,
+      "duration_seconds": 12.024,
       "details": {
         "package_path": "mobile/LimerickEndpointKit",
-        "cache_key": "da4a462de946f8ec5a00f95cf90d75659dc86a1ab7cf3efebfdf48f714e8d3ad",
+        "cache_key": "157e3bca182628f0505c816035eebe9255a9cfc16ea7145c92a0218e3b8a1808",
         "executed_tests": 19,
         "failed_tests": 0,
         "line_coverage": {
           "covered": 826,
           "count": 934,
           "percent": 88.44,
-          "report": "mobile/.verification/swift-scratch/20261030T215801734248Z/LimerickEndpointKit/arm64-apple-macosx/debug/codecov/LimerickEndpointKit.json"
+          "report": "mobile/.verification/swift-scratch/20261031T122048432009Z/LimerickEndpointKit/arm64-apple-macosx/debug/codecov/LimerickEndpointKit.json"
         }
       },
       "log": "mobile/.verification/logs/swift-endpoint-kit-tests.log"
@@ -524,7 +485,7 @@
           "covered": 826,
           "count": 934,
           "percent": 88.44,
-          "report": "mobile/.verification/swift-scratch/20261030T215801734248Z/LimerickEndpointKit/arm64-apple-macosx/debug/codecov/LimerickEndpointKit.json"
+          "report": "mobile/.verification/swift-scratch/20261031T122048432009Z/LimerickEndpointKit/arm64-apple-macosx/debug/codecov/LimerickEndpointKit.json"
         },
         "baseline": 88.49,
         "tolerance": 1.0
@@ -547,7 +508,7 @@
         "--cache-path",
         "mobile/.verification/tool-cache/swiftpm",
         "--scratch-path",
-        "mobile/.verification/swift-scratch/20261030T215801734248Z/RundaleSession",
+        "mobile/.verification/swift-scratch/20261031T122048432009Z/RundaleSession",
         "--manifest-cache",
         "local",
         "--disable-dependency-cache",
@@ -557,20 +518,20 @@
         "-Xswiftc",
         "-warnings-as-errors"
       ],
-      "command_text": "swift test --package-path mobile/RundaleSession --cache-path mobile/.verification/tool-cache/swiftpm --scratch-path mobile/.verification/swift-scratch/20261030T215801734248Z/RundaleSession --manifest-cache local --disable-dependency-cache --skip-update --no-parallel --enable-code-coverage -Xswiftc -warnings-as-errors",
+      "command_text": "swift test --package-path mobile/RundaleSession --cache-path mobile/.verification/tool-cache/swiftpm --scratch-path mobile/.verification/swift-scratch/20261031T122048432009Z/RundaleSession --manifest-cache local --disable-dependency-cache --skip-update --no-parallel --enable-code-coverage -Xswiftc -warnings-as-errors",
       "cwd": ".",
       "returncode": 0,
-      "duration_seconds": 16.479,
+      "duration_seconds": 20.049,
       "details": {
         "package_path": "mobile/RundaleSession",
-        "cache_key": "615631650213e98de5397cfdabb40688d1253d2b749f7192af3d7205c022e9aa",
+        "cache_key": "73bd42944aed1c2a1b04cd0ac06a7c15c8a2ff508e8234eca84397dd6da3fd4d",
         "executed_tests": 20,
         "failed_tests": 0,
         "line_coverage": {
           "covered": 2074,
           "count": 3207,
           "percent": 64.67,
-          "report": "mobile/.verification/swift-scratch/20261030T215801734248Z/RundaleSession/arm64-apple-macosx/debug/codecov/RundaleSession.json"
+          "report": "mobile/.verification/swift-scratch/20261031T122048432009Z/RundaleSession/arm64-apple-macosx/debug/codecov/RundaleSession.json"
         }
       },
       "log": "mobile/.verification/logs/swift-session-tests.log"
@@ -589,7 +550,7 @@
           "covered": 2074,
           "count": 3207,
           "percent": 64.67,
-          "report": "mobile/.verification/swift-scratch/20261030T215801734248Z/RundaleSession/arm64-apple-macosx/debug/codecov/RundaleSession.json"
+          "report": "mobile/.verification/swift-scratch/20261031T122048432009Z/RundaleSession/arm64-apple-macosx/debug/codecov/RundaleSession.json"
         },
         "baseline": 63.66,
         "tolerance": 1.0
@@ -721,7 +682,7 @@
         "-configuration",
         "Debug",
         "-destination",
-        "platform=iOS Simulator,id=65CE6092-5515-4B1A-AE64-E9D345B8016A",
+        "platform=iOS Simulator,id=576FB3C7-2446-42B7-8D9C-EB9CD4FB0B24",
         "-parallel-testing-enabled",
         "YES",
         "-parallel-testing-worker-count",
@@ -748,17 +709,17 @@
         "-only-testing:RundaleUITests/RundalePhase4AccessibilityUITests",
         "-only-testing:RundaleTests",
         "-derivedDataPath",
-        "mobile/.verification/DerivedData/simulator-20261030T215801734248Z",
+        "mobile/.verification/DerivedData/simulator-20261031T122048432009Z",
         "-resultBundlePath",
-        "mobile/.verification/xcresults/simulator-combined-20261030T215801734248Z.xcresult",
+        "mobile/.verification/xcresults/simulator-combined-20261031T122048432009Z.xcresult",
         "ENABLE_TESTABILITY=YES",
         "ONLY_ACTIVE_ARCH=YES",
         "test"
       ],
-      "command_text": "xcodebuild -project mobile/Rundale.xcodeproj -scheme Rundale -configuration Debug -destination 'platform=iOS Simulator,id=65CE6092-5515-4B1A-AE64-E9D345B8016A' -parallel-testing-enabled YES -parallel-testing-worker-count 4 -only-testing:RundaleUITests/RundaleUITests -only-testing:RundaleUITests/RundalePhase1AuditUITests -only-testing:RundaleUITests/RundalePhase1TimerAuditUITests -only-testing:RundaleTests/Phase1AuditVolumeTests -only-testing:RundaleTests/LaunchConfigurationTests -only-testing:RundaleTests/TranscriptScrollingTests -only-testing:RundaleTests/HeaderWeatherTests -only-testing:RundaleUITests/RundalePhase2UITests -only-testing:RundaleUITests/RundalePhase2DialogueUITests -only-testing:RundaleUITests/RundalePhase2RecoveryUITests -only-testing:RundaleUITests/RundaleSceneUITests -only-testing:RundaleUITests/RundaleCommandsUITests -only-testing:RundaleTests/RundaleEngineLifecycleTests -only-testing:RundaleTests/RundaleBugReportTests -only-testing:RundaleUITests/RundalePhase3UITests -only-testing:RundaleUITests/RundalePhase3ClarificationUITests -only-testing:RundaleUITests/RundalePhase4UITests -only-testing:RundaleUITests/RundalePhase4RecoveryUITests -only-testing:RundaleUITests/RundalePhase4NetworkUITests -only-testing:RundaleUITests/RundalePhase4AccessibilityUITests -only-testing:RundaleTests -derivedDataPath mobile/.verification/DerivedData/simulator-20261030T215801734248Z -resultBundlePath mobile/.verification/xcresults/simulator-combined-20261030T215801734248Z.xcresult ENABLE_TESTABILITY=YES ONLY_ACTIVE_ARCH=YES test",
+      "command_text": "xcodebuild -project mobile/Rundale.xcodeproj -scheme Rundale -configuration Debug -destination 'platform=iOS Simulator,id=576FB3C7-2446-42B7-8D9C-EB9CD4FB0B24' -parallel-testing-enabled YES -parallel-testing-worker-count 4 -only-testing:RundaleUITests/RundaleUITests -only-testing:RundaleUITests/RundalePhase1AuditUITests -only-testing:RundaleUITests/RundalePhase1TimerAuditUITests -only-testing:RundaleTests/Phase1AuditVolumeTests -only-testing:RundaleTests/LaunchConfigurationTests -only-testing:RundaleTests/TranscriptScrollingTests -only-testing:RundaleTests/HeaderWeatherTests -only-testing:RundaleUITests/RundalePhase2UITests -only-testing:RundaleUITests/RundalePhase2DialogueUITests -only-testing:RundaleUITests/RundalePhase2RecoveryUITests -only-testing:RundaleUITests/RundaleSceneUITests -only-testing:RundaleUITests/RundaleCommandsUITests -only-testing:RundaleTests/RundaleEngineLifecycleTests -only-testing:RundaleTests/RundaleBugReportTests -only-testing:RundaleUITests/RundalePhase3UITests -only-testing:RundaleUITests/RundalePhase3ClarificationUITests -only-testing:RundaleUITests/RundalePhase4UITests -only-testing:RundaleUITests/RundalePhase4RecoveryUITests -only-testing:RundaleUITests/RundalePhase4NetworkUITests -only-testing:RundaleUITests/RundalePhase4AccessibilityUITests -only-testing:RundaleTests -derivedDataPath mobile/.verification/DerivedData/simulator-20261031T122048432009Z -resultBundlePath mobile/.verification/xcresults/simulator-combined-20261031T122048432009Z.xcresult ENABLE_TESTABILITY=YES ONLY_ACTIVE_ARCH=YES test",
       "cwd": ".",
       "returncode": 0,
-      "duration_seconds": 545.347,
+      "duration_seconds": 619.168,
       "details": {
         "suites": [
           "ios-simulator-tests",
@@ -767,9 +728,9 @@
           "phase4-ios-simulator-tests",
           "phase4-ios-controller-tests"
         ],
-        "destination": "platform=iOS Simulator,id=65CE6092-5515-4B1A-AE64-E9D345B8016A",
-        "derived_data": "mobile/.verification/DerivedData/simulator-20261030T215801734248Z",
-        "result_bundle": "mobile/.verification/xcresults/simulator-combined-20261030T215801734248Z.xcresult"
+        "destination": "platform=iOS Simulator,id=576FB3C7-2446-42B7-8D9C-EB9CD4FB0B24",
+        "derived_data": "mobile/.verification/DerivedData/simulator-20261031T122048432009Z",
+        "result_bundle": "mobile/.verification/xcresults/simulator-combined-20261031T122048432009Z.xcresult"
       },
       "log": "mobile/.verification/logs/ios-simulator-combined-run.log"
     },
@@ -784,22 +745,22 @@
       "blocking": false,
       "details": {
         "scheme": "Rundale",
-        "destination": "platform=iOS Simulator,id=65CE6092-5515-4B1A-AE64-E9D345B8016A",
+        "destination": "platform=iOS Simulator,id=576FB3C7-2446-42B7-8D9C-EB9CD4FB0B24",
         "target": "simulator",
-        "derived_data": "mobile/.verification/DerivedData/simulator-20261030T215801734248Z",
-        "result_bundle": "mobile/.verification/xcresults/simulator-combined-20261030T215801734248Z.xcresult",
+        "derived_data": "mobile/.verification/DerivedData/simulator-20261031T122048432009Z",
+        "result_bundle": "mobile/.verification/xcresults/simulator-combined-20261031T122048432009Z.xcresult",
         "combined_run": "ios-simulator-combined-run",
         "totalTestCount": 56,
         "passedTests": 56,
         "failedTests": 0,
         "skippedTests": 0,
         "expectedFailures": 0,
-        "cache_key": "eb7458fb4af3be45c4edb99d2438a032dc211ea98737afbc24b5d6d9d1aee3f2",
+        "cache_key": "7277281148efb75e21c56298418cd99fd080069edf3c63b4ffa661ebbbc7cc74",
         "app_identity": {
           "CFBundleShortVersionString": "0.1.0",
           "CFBundleVersion": "8"
         },
-        "app_info_plist": "mobile/.verification/DerivedData/simulator-20261030T215801734248Z/Build/Products/Debug-iphonesimulator/Rundale.app/Info.plist"
+        "app_info_plist": "mobile/.verification/DerivedData/simulator-20261031T122048432009Z/Build/Products/Debug-iphonesimulator/Rundale.app/Info.plist"
       }
     },
     {
@@ -812,7 +773,7 @@
       "automatable": true,
       "blocking": false,
       "details": {
-        "result_bundle": "mobile/.verification/xcresults/simulator-combined-20261030T215801734248Z.xcresult",
+        "result_bundle": "mobile/.verification/xcresults/simulator-combined-20261031T122048432009Z.xcresult",
         "totalTestCount": 56,
         "passedTests": 56,
         "failedTests": 0,
@@ -831,22 +792,22 @@
       "blocking": false,
       "details": {
         "scheme": "Rundale",
-        "destination": "platform=iOS Simulator,id=65CE6092-5515-4B1A-AE64-E9D345B8016A",
+        "destination": "platform=iOS Simulator,id=576FB3C7-2446-42B7-8D9C-EB9CD4FB0B24",
         "target": "simulator",
-        "derived_data": "mobile/.verification/DerivedData/simulator-20261030T215801734248Z",
-        "result_bundle": "mobile/.verification/xcresults/simulator-combined-20261030T215801734248Z.xcresult",
+        "derived_data": "mobile/.verification/DerivedData/simulator-20261031T122048432009Z",
+        "result_bundle": "mobile/.verification/xcresults/simulator-combined-20261031T122048432009Z.xcresult",
         "combined_run": "ios-simulator-combined-run",
         "totalTestCount": 37,
         "passedTests": 37,
         "failedTests": 0,
         "skippedTests": 0,
         "expectedFailures": 0,
-        "cache_key": "c9c4e6471a9605be7e5fa462c51afb8184d6f3ef60e8fa9c2f8d4bbc7d344d03",
+        "cache_key": "edecfa0f8779e5498c29ccbe546f5a2d38ad96f41a7d3c87a20f538793b793a3",
         "app_identity": {
           "CFBundleShortVersionString": "0.1.0",
           "CFBundleVersion": "8"
         },
-        "app_info_plist": "mobile/.verification/DerivedData/simulator-20261030T215801734248Z/Build/Products/Debug-iphonesimulator/Rundale.app/Info.plist"
+        "app_info_plist": "mobile/.verification/DerivedData/simulator-20261031T122048432009Z/Build/Products/Debug-iphonesimulator/Rundale.app/Info.plist"
       }
     },
     {
@@ -859,7 +820,7 @@
       "automatable": true,
       "blocking": false,
       "details": {
-        "result_bundle": "mobile/.verification/xcresults/simulator-combined-20261030T215801734248Z.xcresult",
+        "result_bundle": "mobile/.verification/xcresults/simulator-combined-20261031T122048432009Z.xcresult",
         "totalTestCount": 37,
         "passedTests": 37,
         "failedTests": 0,
@@ -878,22 +839,22 @@
       "blocking": false,
       "details": {
         "scheme": "Rundale",
-        "destination": "platform=iOS Simulator,id=65CE6092-5515-4B1A-AE64-E9D345B8016A",
+        "destination": "platform=iOS Simulator,id=576FB3C7-2446-42B7-8D9C-EB9CD4FB0B24",
         "target": "simulator",
-        "derived_data": "mobile/.verification/DerivedData/simulator-20261030T215801734248Z",
-        "result_bundle": "mobile/.verification/xcresults/simulator-combined-20261030T215801734248Z.xcresult",
+        "derived_data": "mobile/.verification/DerivedData/simulator-20261031T122048432009Z",
+        "result_bundle": "mobile/.verification/xcresults/simulator-combined-20261031T122048432009Z.xcresult",
         "combined_run": "ios-simulator-combined-run",
         "totalTestCount": 5,
         "passedTests": 5,
         "failedTests": 0,
         "skippedTests": 0,
         "expectedFailures": 0,
-        "cache_key": "9075e5038dbfec07326c3774b70792c0ca3ba32d6d5dae484558527bf4397ac8",
+        "cache_key": "fb55992d5daa729d8cbdf9468b69f15f1991e74b7966080f292c09ab1d3c2b3b",
         "app_identity": {
           "CFBundleShortVersionString": "0.1.0",
           "CFBundleVersion": "8"
         },
-        "app_info_plist": "mobile/.verification/DerivedData/simulator-20261030T215801734248Z/Build/Products/Debug-iphonesimulator/Rundale.app/Info.plist"
+        "app_info_plist": "mobile/.verification/DerivedData/simulator-20261031T122048432009Z/Build/Products/Debug-iphonesimulator/Rundale.app/Info.plist"
       }
     },
     {
@@ -906,7 +867,7 @@
       "automatable": true,
       "blocking": false,
       "details": {
-        "result_bundle": "mobile/.verification/xcresults/simulator-combined-20261030T215801734248Z.xcresult",
+        "result_bundle": "mobile/.verification/xcresults/simulator-combined-20261031T122048432009Z.xcresult",
         "totalTestCount": 5,
         "passedTests": 5,
         "failedTests": 0,
@@ -925,22 +886,22 @@
       "blocking": false,
       "details": {
         "scheme": "Rundale",
-        "destination": "platform=iOS Simulator,id=65CE6092-5515-4B1A-AE64-E9D345B8016A",
+        "destination": "platform=iOS Simulator,id=576FB3C7-2446-42B7-8D9C-EB9CD4FB0B24",
         "target": "simulator",
-        "derived_data": "mobile/.verification/DerivedData/simulator-20261030T215801734248Z",
-        "result_bundle": "mobile/.verification/xcresults/simulator-combined-20261030T215801734248Z.xcresult",
+        "derived_data": "mobile/.verification/DerivedData/simulator-20261031T122048432009Z",
+        "result_bundle": "mobile/.verification/xcresults/simulator-combined-20261031T122048432009Z.xcresult",
         "combined_run": "ios-simulator-combined-run",
         "totalTestCount": 10,
         "passedTests": 10,
         "failedTests": 0,
         "skippedTests": 0,
         "expectedFailures": 0,
-        "cache_key": "afe4a5fa17549623cc5757be3e2d1c595cbc796fe34b41a1adc7ff970f5a5b29",
+        "cache_key": "17ba26e926d0ac1ed4c75fa1000d9be9adb54b0a5db662757d9057b31b577f1d",
         "app_identity": {
           "CFBundleShortVersionString": "0.1.0",
           "CFBundleVersion": "8"
         },
-        "app_info_plist": "mobile/.verification/DerivedData/simulator-20261030T215801734248Z/Build/Products/Debug-iphonesimulator/Rundale.app/Info.plist"
+        "app_info_plist": "mobile/.verification/DerivedData/simulator-20261031T122048432009Z/Build/Products/Debug-iphonesimulator/Rundale.app/Info.plist"
       }
     },
     {
@@ -953,7 +914,7 @@
       "automatable": true,
       "blocking": false,
       "details": {
-        "result_bundle": "mobile/.verification/xcresults/simulator-combined-20261030T215801734248Z.xcresult",
+        "result_bundle": "mobile/.verification/xcresults/simulator-combined-20261031T122048432009Z.xcresult",
         "totalTestCount": 10,
         "passedTests": 10,
         "failedTests": 0,
@@ -972,22 +933,22 @@
       "blocking": false,
       "details": {
         "scheme": "Rundale",
-        "destination": "platform=iOS Simulator,id=65CE6092-5515-4B1A-AE64-E9D345B8016A",
+        "destination": "platform=iOS Simulator,id=576FB3C7-2446-42B7-8D9C-EB9CD4FB0B24",
         "target": "simulator",
-        "derived_data": "mobile/.verification/DerivedData/simulator-20261030T215801734248Z",
-        "result_bundle": "mobile/.verification/xcresults/simulator-combined-20261030T215801734248Z.xcresult",
+        "derived_data": "mobile/.verification/DerivedData/simulator-20261031T122048432009Z",
+        "result_bundle": "mobile/.verification/xcresults/simulator-combined-20261031T122048432009Z.xcresult",
         "combined_run": "ios-simulator-combined-run",
         "totalTestCount": 43,
         "passedTests": 43,
         "failedTests": 0,
         "skippedTests": 0,
         "expectedFailures": 0,
-        "cache_key": "51a8462c2bb793e5c63786d13a9163fe2555a8c1b610f5839bd9df42464c9d68",
+        "cache_key": "dc9573646bc23bcee846eab54fb7a0dd3a8a56eb0348e28cdc79cfe74617f237",
         "app_identity": {
           "CFBundleShortVersionString": "0.1.0",
           "CFBundleVersion": "8"
         },
-        "app_info_plist": "mobile/.verification/DerivedData/simulator-20261030T215801734248Z/Build/Products/Debug-iphonesimulator/Rundale.app/Info.plist"
+        "app_info_plist": "mobile/.verification/DerivedData/simulator-20261031T122048432009Z/Build/Products/Debug-iphonesimulator/Rundale.app/Info.plist"
       }
     },
     {
@@ -1000,7 +961,7 @@
       "automatable": true,
       "blocking": false,
       "details": {
-        "result_bundle": "mobile/.verification/xcresults/simulator-combined-20261030T215801734248Z.xcresult",
+        "result_bundle": "mobile/.verification/xcresults/simulator-combined-20261031T122048432009Z.xcresult",
         "totalTestCount": 43,
         "passedTests": 43,
         "failedTests": 0,
