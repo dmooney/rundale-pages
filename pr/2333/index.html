@@ -3,64 +3,41 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Short clarification labels</title>
+<title>PR 2333: short clarification labels</title>
 <style>
-  :root { --bg: #fbfaf7; --fg: #1d1b18; --muted: #6b655c; --code: #f0ede6; --old: #a33a2a; --new: #2d6a3e; --rule: #ddd6ca; }
-  @media (prefers-color-scheme: dark) { :root { --bg: #17161a; --fg: #ece8e1; --muted: #a39d93; --code: #24222a; --old: #e88a7a; --new: #8fd3a1; --rule: #3a3740; } }
-  body { background: var(--bg); color: var(--fg); font: 16px/1.55 -apple-system, system-ui, sans-serif; margin: 0 auto; max-width: 760px; padding: 24px 16px 48px; }
-  h1 { font-size: 1.5rem; margin-bottom: 0.2rem; }
-  .sub { color: var(--muted); margin-top: 0; }
-  .note { border-left: 4px solid var(--old); padding: 8px 12px; background: var(--code); }
-  pre { background: var(--code); padding: 12px; overflow-x: auto; border-radius: 6px; font-size: 0.85rem; white-space: pre-wrap; }
-  .old { color: var(--old); } .new { color: var(--new); }
-  table { border-collapse: collapse; width: 100%; font-size: 0.92rem; }
-  td, th { border-bottom: 1px solid var(--rule); padding: 6px 8px; text-align: left; vertical-align: top; }
+body{font-family:-apple-system,system-ui,sans-serif;max-width:760px;margin:2rem auto;padding:0 16px;line-height:1.5;color:#222}
+video,img{max-width:100%;height:auto}
+.row{display:flex;gap:16px;flex-wrap:wrap}
+.row>div{flex:1 1 280px}
+code{background:#f0f0f0;padding:0 4px}
 </style>
 </head>
 <body>
-<h1>Short labels for clarification choices</h1>
-<p class="sub">Issue <a href="https://github.com/dmooney/Rundale/issues/2128">#2128</a> · PR <a href="https://github.com/dmooney/Rundale/pull/2333">#2333</a></p>
-
-<p class="note"><strong>These are Linux host frames, not app UI, simulator or device evidence.</strong> The Linux host
-(<code>tools/linux-host</code>) runs the app's <code>RundaleSession</code> package and the Rust engine on the canonical
-world with the scripted mock Endpoint, and prints the screen as Markdown. They show the labels the engine now
-sends to the app. They do not show how the buttons look or fit on an iPhone SE.</p>
-
-<h2>"ask Connolly about the household", before introductions</h2>
-<p>From the golden frame <code>clarification-save-resume.md</code>, frame 5, after the player asks at Connolly Cottage:</p>
-<pre>**Choose:** Which Connolly do you mean?
-
-<span class="old">- 1. a weathered man in a mud-spattered frieze coat</span>
-<span class="old">- 2. a young woman with yarn wound about her wrist</span>
-<span class="new">+ 1. the man</span>
-<span class="new">+ 2. the woman</span></pre>
-<p>Choosing 2 records the selection as:</p>
-<pre><span class="old">- _Directed to a young woman with yarn wound about her wrist._</span>
-<span class="new">+ _Directed to the woman._</span></pre>
-
-<h2>The tie-break, as the Rust tests cover it</h2>
-<table>
-<tr><th>People offered</th><th>Labels</th></tr>
-<tr><td>Mícheál and Róisín, strangers</td><td>the man · the woman</td></tr>
-<tr><td>Mícheál introduced, Róisín not</td><td>Mícheál Connolly · the woman</td></tr>
-<tr><td>Both introduced</td><td>Mícheál Connolly · Róisín Connolly</td></tr>
-<tr><td>Peig (54) and Róisín (31)</td><td>the older woman · the younger woman</td></tr>
-<tr><td>Peig, Mícheál, Róisín</td><td>the older woman · the man · the younger woman</td></tr>
-<tr><td>Two men aged 38: a drover and a farmer</td><td>the drover · the farmer</td></tr>
-<tr><td>Two 38-year-old drovers</td><td>their full descriptions</td></tr>
-<tr><td>Under 16, or neither he nor she</td><td>the boy · the girl · the child · the person</td></tr>
-</table>
-<p>A chosen stranger who has left is reported with a capital letter: "The woman is no longer here."</p>
-
-<h2>Verification run</h2>
-<ul>
-<li><code>cargo test -p limerick-core -p limerick-mobile-ffi -p limerick-engine -p limerick-server</code>, Linux, pass (provider API keys unset; see the PR).</li>
-<li><code>just check</code>, Linux, pass.</li>
-<li><code>just linux-host-test</code>, 9 golden-frame tests, pass.</li>
-<li><code>cargo check -p limerick-core --no-default-features --features mobile</code>, pass.</li>
-<li>SwiftLint <code>--strict</code> and SwiftFormat <code>--lint</code> over <code>mobile/</code>, pass.</li>
-</ul>
-<p><strong>Not run here:</strong> the simulator UI suites, including the new label assertion in
-<code>RundalePhase3ClarificationUITests</code>, and the iPhone SE fit check. They need a Mac.</p>
+<h1>PR 2333: short clarification labels (Refs #2128)</h1>
+<p><strong>Simulator recordings, not a physical iPhone.</strong> Commit
+<code>414532f9b954e50aa025822bef4d68a5a75f1857</code> of branch
+<code>feat/2128-short-clarification-labels</code>.</p>
+<p>Real Rust engine embedded through the FFI, running on the iOS Simulator, with the
+mock Endpoint (<code>--phase3 --phase3-mock</code>). Not live Endpoints and not a physical
+device. The live <code>rundale-intent</code> model did not name "Connolly" as the addressee for
+"ask Connolly about the household" in two attempts (it asked "Who are you speaking to?"
+instead), so the deterministic mock drives this recording.</p>
+<h2>What it shows (iPhone 17 Pro simulator, iOS 26.5)</h2>
+<ol>
+<li>New game, then "go to Connolly Cottage".</li>
+<li>"ask Connolly about the household": "Which Connolly do you mean?" with "the man" and "the woman".</li>
+<li>Choosing "the man": "Directed to the man." and his reply.</li>
+<li>New game, go to the cottage, "Hello": "Who are you speaking to?" with "the man", "the woman" and "All".</li>
+</ol>
+<video controls playsinline muted src="iphone17pro.mp4"></video>
+<p><img src="iphone17pro.gif" alt="iPhone 17 Pro simulator recording"></p>
+<h2>Smallest screen (iPhone SE 3rd generation simulator)</h2>
+<p>Same run on the SE simulator. Both question sheets fit above the keyboard.</p>
+<div class="row">
+<div><img src="se-which-connolly.png" alt="SE: Which Connolly do you mean?"></div>
+<div><img src="se-who-are-you-speaking-to.png" alt="SE: Who are you speaking to?"></div>
+</div>
+<video controls playsinline muted src="iphone-se.mp4"></video>
+<p>Not shown: names replacing labels after an introduction (no introduction flow in the mock).</p>
 </body>
 </html>
