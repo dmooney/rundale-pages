@@ -1,0 +1,52 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Player name per NPC</title>
+<style>
+:root{--bg:#fff;--fg:#1b1b1b;--muted:#5a5a5a;--line:#ddd;--bad:#fde8e8;--badfg:#8a1c1c}
+@media (prefers-color-scheme:dark){:root{--bg:#16181a;--fg:#e8e8e8;--muted:#a0a0a0;--line:#333;--bad:#4a1f1f;--badfg:#ffc9c9}}
+body{background:var(--bg);color:var(--fg);font:15px/1.5 system-ui,sans-serif;max-width:980px;margin:0 auto;padding:16px}
+table{border-collapse:collapse;width:100%}td,th{border:1px solid var(--line);padding:6px 8px;vertical-align:top;text-align:left}
+td.bad{background:var(--bad);color:var(--badfg)}p.note{color:var(--muted)}pre{white-space:pre-wrap;border:1px solid var(--line);padding:8px}.wrap{overflow-x:auto}
+</style></head><body>
+<h1>Each NPC remembers the name the player gave it</h1>
+<p>A scripted session on the production engine path: the <code>limerick-mobile-ffi</code> session API the iPhone app calls, on the canonical Rundale world, with a scripted Endpoint host answering each call. Each row is one player line, sent with an @tag to that NPC. The cells show the <code>thisMoment.theStranger</code> field of the dialogue Endpoint input sent for that line. This is engine output. It is not app UI and not a physical-iPhone run.</p>
+<p>Before: <code>main</code> at 9660d78 (the same engine tree as the #2427 branch head a26f643 it was run from). After: this PR. Highlighted cells differ.</p>
+<div class="wrap"><table><tr><th>Player says</th><th>theStranger before</th><th>theStranger after</th></tr><tr><td>Player to Peig Hannigan: &quot;Good morning. I&#x27;m Seán.&quot;</td><td class="">A stranger you have never seen before. You know nothing of them but what they have said to you here.</td><td>A stranger you have never seen before. You know nothing of them but what they have said to you here.</td></tr><tr><td>Player to Mícheál Connolly: &quot;God bless the work. I&#x27;m Tomás.&quot;</td><td class="">A stranger you have never seen before. You know nothing of them but what they have said to you here.</td><td>A stranger you have never seen before. You know nothing of them but what they have said to you here.</td></tr><tr><td>Player to Mícheál Connolly: &quot;How are the ridges?&quot;</td><td class="bad">Someone you have met before. What you know of them: They told you their name is Se.</td><td>Someone you have met before. What you know of them: They told you their name is Tomás.</td></tr><tr><td>Player to Peig Hannigan: &quot;Any letters today?&quot;</td><td class="bad">Someone you have met before. What you know of them: They told you their name is Se.</td><td>Someone you have met before. What you know of them: They told you their name is Seán.</td></tr><tr><td>Player to Peig Hannigan: &quot;Call me Séamus, so.&quot;</td><td class="bad">Someone you have met before. What you know of them: They told you their name is Se.</td><td>Someone you have met before. What you know of them: They told you their name is Seán.</td></tr><tr><td>Player to Peig Hannigan: &quot;Will the post come Thursday?&quot;</td><td class="bad">Someone you have met before. What you know of them: They told you their name is Se.</td><td>Someone you have met before. What you know of them: They told you their name is Séamus.</td></tr><tr><td>Player to Mícheál Connolly: &quot;Grand weather.&quot;</td><td class="bad">Someone you have met before. What you know of them: They told you their name is Se.</td><td>Someone you have met before. What you know of them: They told you their name is Tomás.</td></tr><tr><td>Player to Peig Hannigan: &quot;I&#x27;m Irish, God help me.&quot;</td><td class="bad">Someone you have met before. What you know of them: They told you their name is Se.</td><td>Someone you have met before. What you know of them: They told you their name is Séamus.</td></tr><tr><td>Player to Peig Hannigan: &quot;Grand day for it.&quot;</td><td class="bad">Someone you have met before. What you know of them: They told you their name is Se.</td><td>Someone you have met before. What you know of them: They told you their name is Séamus.</td></tr></table></div>
+<p class="note">Before, both NPCs were told "Se". The name pattern dropped accented letters, and every NPC that knew any name was given the one global name. After, Peig knows Seán and Mícheál knows Tomás. "Call me Séamus" changes only Peig's name, and "I'm Irish" changes nothing. A name given in a line is known from the next line on, as before. Save and restore of these names, and the loading of a real format 4 save, are covered by tests (see the PR).</p>
+<h2>Raw output</h2><h3>Before</h3><pre>Player to Peig Hannigan: &quot;Good morning. I&#x27;m Seán.&quot;
+  theStranger sent to Peig Hannigan: A stranger you have never seen before. You know nothing of them but what they have said to you here.
+Player to Mícheál Connolly: &quot;God bless the work. I&#x27;m Tomás.&quot;
+  theStranger sent to Mícheál Connolly: A stranger you have never seen before. You know nothing of them but what they have said to you here.
+Player to Mícheál Connolly: &quot;How are the ridges?&quot;
+  theStranger sent to Mícheál Connolly: Someone you have met before. What you know of them: They told you their name is Se.
+Player to Peig Hannigan: &quot;Any letters today?&quot;
+  theStranger sent to Peig Hannigan: Someone you have met before. What you know of them: They told you their name is Se.
+Player to Peig Hannigan: &quot;Call me Séamus, so.&quot;
+  theStranger sent to Peig Hannigan: Someone you have met before. What you know of them: They told you their name is Se.
+Player to Peig Hannigan: &quot;Will the post come Thursday?&quot;
+  theStranger sent to Peig Hannigan: Someone you have met before. What you know of them: They told you their name is Se.
+Player to Mícheál Connolly: &quot;Grand weather.&quot;
+  theStranger sent to Mícheál Connolly: Someone you have met before. What you know of them: They told you their name is Se.
+Player to Peig Hannigan: &quot;I&#x27;m Irish, God help me.&quot;
+  theStranger sent to Peig Hannigan: Someone you have met before. What you know of them: They told you their name is Se.
+Player to Peig Hannigan: &quot;Grand day for it.&quot;
+  theStranger sent to Peig Hannigan: Someone you have met before. What you know of them: They told you their name is Se.
+</pre><h3>After</h3><pre>Player to Peig Hannigan: &quot;Good morning. I&#x27;m Seán.&quot;
+  theStranger sent to Peig Hannigan: A stranger you have never seen before. You know nothing of them but what they have said to you here.
+Player to Mícheál Connolly: &quot;God bless the work. I&#x27;m Tomás.&quot;
+  theStranger sent to Mícheál Connolly: A stranger you have never seen before. You know nothing of them but what they have said to you here.
+Player to Mícheál Connolly: &quot;How are the ridges?&quot;
+  theStranger sent to Mícheál Connolly: Someone you have met before. What you know of them: They told you their name is Tomás.
+Player to Peig Hannigan: &quot;Any letters today?&quot;
+  theStranger sent to Peig Hannigan: Someone you have met before. What you know of them: They told you their name is Seán.
+Player to Peig Hannigan: &quot;Call me Séamus, so.&quot;
+  theStranger sent to Peig Hannigan: Someone you have met before. What you know of them: They told you their name is Seán.
+Player to Peig Hannigan: &quot;Will the post come Thursday?&quot;
+  theStranger sent to Peig Hannigan: Someone you have met before. What you know of them: They told you their name is Séamus.
+Player to Mícheál Connolly: &quot;Grand weather.&quot;
+  theStranger sent to Mícheál Connolly: Someone you have met before. What you know of them: They told you their name is Tomás.
+Player to Peig Hannigan: &quot;I&#x27;m Irish, God help me.&quot;
+  theStranger sent to Peig Hannigan: Someone you have met before. What you know of them: They told you their name is Séamus.
+Player to Peig Hannigan: &quot;Grand day for it.&quot;
+  theStranger sent to Peig Hannigan: Someone you have met before. What you know of them: They told you their name is Séamus.
+</pre>
+</body></html>
