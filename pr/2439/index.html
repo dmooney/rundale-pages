@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PR 2439: playability dialogue prompt, live Endpoint transcript</title>
+<style>
+  body { font: 16px/1.5 -apple-system, system-ui, sans-serif; max-width: 46rem; margin: 0 auto; padding: 1rem 16px 3rem; color: #1b1b1b; background: #fff; }
+  @media (prefers-color-scheme: dark) { body { color: #e6e6e6; background: #151515; } .box { background: #202020 !important; border-color: #3a3a3a !important; } }
+  h1 { font-size: 1.4rem; } h2 { font-size: 1.15rem; margin-top: 2rem; }
+  .box { border: 1px solid #d0d0d0; background: #f6f6f6; border-radius: 8px; padding: .6rem .9rem; margin: .6rem 0; }
+  .who { font-weight: 600; } .meta { font-size: .9rem; opacity: .75; }
+  code { font-size: .9em; }
+</style>
+</head>
+<body>
+<h1>PR 2439: the playability prompt, live on <code>rundale-dialogue</code></h1>
+<p>This is a transcript page, not a recording. The change is the Endpoint's instruction text, so there is nothing new to film in the app; the proof is the deployed Endpoint answering with the new prompt. It is <strong>not</strong> physical-iPhone validation, and the calls were made directly to the Endpoint, not through the app.</p>
+
+<h2>What was deployed</h2>
+<p><code>bash endpoints/deploy/limerick-prod.sh definitions replace</code>: <code>rundale-dialogue@1</code> is now <code>sha256:e13fc8d0c7e4...</code> (was <code>79bd18390...</code>). <code>rundale-intent@1</code> is unchanged. The <code>production</code> alias points at version 1. <code>definitions verify</code> afterwards: published copies match the files.</p>
+
+<h2>Live call 1: Mícheál greeted at the ridges</h2>
+<p class="meta">Prompt-lab case <code>e-h10-micheal-ridges-remark</code>. Request built from the lab's request template and content files, sent to <code>/v1/endpoints/limerick-demo/rundale-dialogue/versions/1</code> with a Firebase anonymous identity and App Check (temporary debug token, deleted afterwards). HTTP 200 in 7.7 s (first call, cold).</p>
+<div class="box"><div class="meta">Connolly Cottage, Monday 27 March 1820, 06:45, light rain. Mícheál (38, smallholder and drover, wary) is working the potato ridges behind the cottage. Nobody else is here. No earlier talk.</div>
+<p><span class="who">Stranger:</span> Hard work, that.</p>
+<p><span class="who">Mícheál:</span> It is that, and the ground's no friend to it this week with the wet. Are you from these parts yourself, or did you come up by the Dublin mail?</p></div>
+<p>He agrees, adds his own grumble about the wet, and hands the stranger a question. One flaw to judge: "the Dublin mail" is a detail the request does not give him. This is the invention risk the PR describes.</p>
+
+<h2>Live call 2: Mícheál, surly, at the ridges</h2>
+<p class="meta">Prompt-lab case <code>e-h13-micheal-surly-ridges</code>. HTTP 200 in 1.5 s.</p>
+<div class="box"><div class="meta">Same place and hour.</div>
+<p><span class="who">Stranger:</span> Any chance of a word, friend? I'd like to hear how the farm is run.</p>
+<p><span class="who">Mícheál:</span> The ground's too heavy this morning for much talk, and the potatoes won't wait on a stranger's curiosity. If you've business in the parish, you'll find Peig Hannigan down the lane at the Letter Office, but if it's farming you're after knowing, you'd better tell me plain what you're at before I take another spadeful.</p></div>
+<p>A busy, wary man who refuses the long talk but gives the stranger something to take up: a grievance, a person to see, and a challenge to say what they want. "Down the lane" is a direction the request may not give; the held-out numbers below count this kind of slip.</p>
+
+<h2>Before, for the same kind of moment</h2>
+<p>The frozen prompt's replies, from the lab's calibration sheet (<code>promptfoo/prompt-lab/calibration-2026-11-24.md</code>), different cases, same character and model:</p>
+<div class="box"><p><span class="who">Stranger:</span> They tell me you drive cattle. Is it hard going, and do you go far with them?</p>
+<p><span class="who">Mícheál (frozen):</span> The ground's soft enough to break a baste's leg, and as far as Athlone if the droving's good.</p></div>
+<div class="box"><p><span class="who">Stranger:</span> There is. Tell me, what kind of a place is Kilteevan to live in?</p>
+<p><span class="who">Mícheál (frozen):</span> It's a place where a man minds his own ditch.</p></div>
+<p>Each is a final answer with no way in for the player. This is the terseness the owner found on the iPhone.</p>
+
+<h2>Held-out result (lab, not this page)</h2>
+<p>37 held-out cases, flash-lite, both judges, run once without tuning: new prompt 63.0 against the frozen prompt's 30.7; 19 against 3 passing at 0.70; invention flagged in 12 of 37 replies (about 10 after 2 false flags on real world facts) against 3. Source: <code>promptfoo/prompt-lab/log.md</code>, "Held-out check (run 3)".</p>
+</body>
+</html>
