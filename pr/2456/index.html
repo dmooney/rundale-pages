@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Living-world proof facts in the tiny world</title>
+<style>
+:root { --bg: #f6f7f4; --fg: #1d2420; --muted: #5d6862; }
+@media (prefers-color-scheme: dark) { :root { --bg: #141815; --fg: #e4e9e4; --muted: #9aa69f; color-scheme: dark; } }
+body { background: var(--bg); color: var(--fg); font: 16px/1.5 system-ui, sans-serif; margin: 0; }
+main { max-width: 860px; margin: 0 auto; padding: 32px 20px; }
+video { width: 100%; border-radius: 6px; }
+p.note { color: var(--muted); }
+</style>
+</head>
+<body>
+<main>
+<h1>Living-world proof facts in the tiny world</h1>
+<p>Issue 2195. The recording is a headless run of the real engine (<code>limerick-engine --script</code>) on the Rundale mod. It is not an iPhone or simulator recording.</p>
+<video src="proof.mp4" controls poster="proof.gif"></video>
+<p><img src="proof.gif" alt="Engine run: gossip starts with Micheal alone; Peig on the road in clear weather; at the Letter Office in heavy rain" width="640"></p>
+<ul>
+<li>A new game holds one gossip fact, known to its source (Micheal) alone.</li>
+<li>In clear weather Peig is on the village road at 08:00; in heavy rain she is at the Letter Office.</li>
+<li>Gossip propagation is checked by <code>world_sheet.rs</code> on the shared world pump, not shown here; the headless script does not run gossip ticks.</li>
+</ul>
+</main>
+</body>
+</html>
