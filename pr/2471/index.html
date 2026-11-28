@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Evidence: Peig's scheduled movement (#2201)</title>
+<style>
+body{font-family:system-ui,sans-serif;max-width:720px;margin:2rem auto;padding:0 1rem;line-height:1.5;color:#222}
+video{width:100%;max-width:360px;display:block;margin:1rem 0;border:1px solid #ccc}
+code{background:#f0ece4;padding:0 .25em}
+</style>
+</head>
+<body>
+<h1>Living-world proof: Peig's scheduled movement</h1>
+<p><strong>iOS Simulator (iPhone 17 Pro), not a physical iPhone.</strong> Real Rundale app and shared Rust engine through the C boundary, debug build of the PR branch. Inference was answered by the app's mock Endpoint transport (<code>--ui-tests --phase3 --phase3-mock</code>), so replies are canned, not live model output; the movement, <code>/people</code>, presence and save/resume are the real engine. The clock was paused with <code>/pause</code> and advanced with <code>/wait</code>. A new game starts at 07:00, so Peig is already on the lane; the app was relaunched (a real process restart) at each marked point.</p>
+<video controls playsinline src="demo.mp4"></video>
+<p><img src="demo.gif" alt="Recording" width="270"></p>
+<h2>What the recording shows (game time)</h2>
+<ol>
+<li>New game, village, <code>/pause</code>, <code>/debug clock</code> reads 07:02. <code>/people</code>: no one here (Peig is walking from the Letter Office, her 07:00 departure).</li>
+<li>Save made mid-transit: app terminated and relaunched. Clock still 07:02, transcript restored, <code>/people</code> still empty.</li>
+<li><code>/wait 58</code> to 08:00. <code>/people</code> lists the sharp-eyed woman with the satchel (Peig). Saying "Good morning to you." gets her reply.</li>
+<li>Relaunch at 08:00, <code>/people</code> still lists her.</li>
+<li><code>/wait 61</code> to 09:01 (mid-walk back, her 09:00 departure). <code>/people</code>: no one here. Speaking draws no reply from anyone.</li>
+<li>Save made mid-walk back: relaunch. Clock 09:01, <code>/people</code> empty.</li>
+<li><code>go to the Letter Office</code> (3 minutes on foot): she is there. <code>/people</code> lists her and she answers.</li>
+</ol>
+<p>The same sequence runs as an automated case against the shipped world in <code>limerick-mobile-ffi</code> (<code>tests::living_world::movement</code>), twice per run on new games.</p>
+</body>
+</html>
