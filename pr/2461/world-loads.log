@@ -1,0 +1,11 @@
+Command line invocation:
+    /Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -project mobile/Rundale.xcodeproj -scheme Rundale -configuration Debug -destination "platform=iOS Simulator,id=D9F2375F-9531-49BA-BB91-280CA2176E3D" -derivedDataPath mobile/.build/record-ui-test/DerivedData build-for-testing
+
+2026-11-27 22:24:47.592 xcodebuild[21585:5687620] Writing error result bundle to /var/folders/qp/f7w39ptn273_y9bdlbxftzhm0000gn/T/ResultBundle_2026-27-11_22-24-0047.xcresult
+xcodebuild: error: Unable to read project 'Rundale.xcodeproj' from folder '/Users/dmooney/Rundale/.claude/worktrees/agent-ac0876f81d4d20a30/mobile'.
+	Reason: The project “Rundale.xcodeproj” does not contain a project definition file.
+
+
+	One of “Rundale.xcodeproj/project.xcproj” or “Rundale.xcodeproj/project.pbxproj” should exist.
+
+If possible, restore one of the files from version control.

@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Rundale PR evidence: invalid /wait is refused</title>
+<style>body{font:16px/1.5 system-ui;max-width:640px;margin:2rem auto;padding:0 16px}video{max-width:100%;height:auto}</style></head>
+<body>
+<h1>Invalid /wait durations are refused (issue 2327)</h1>
+<p>iOS Simulator (iPhone 17 Pro, iOS 26.4.1), Debug build of this branch with the real embedded Rust engine; not a physical iPhone. Simulator recording of a scripted run, with holds for reading.</p>
+<ol>
+<li>/pause, then /debug clock: game time 07:05.</li>
+<li>/wait bananas: refused with "You can't wait: 'bananas' is not a number of minutes...".</li>
+<li>/debug clock: still 07:05, no time passed.</li>
+<li>/wait 30: "You wait for 30 minutes... It is now 07:35"; /debug clock shows 07:35.</li>
+</ol>
+<video controls src="demo.mp4"></video>
+<p><img src="demo.gif" alt="recording" width="270"></p>
+</body></html>
